@@ -9,24 +9,26 @@ export default function Home() {
             Mavarez & Román
           </div>
           <div className="d-flex ml-auto p-20" style={{ gap: "40px", alignItems: "center" }}>
-            <a href="">Conócenos</a>
-            <a href="">Servicios</a>
-            <a href="">Testimonios</a>
-            <a href="">Contacto</a>
-            <button className="bg-black p-2.5" style={{ color: "white", fontSize: "1.1rem", fontWeight: "500", borderRadius: "7px" }}>Agenda tu cita</button>
+            <a href="#conocenos">Conócenos</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#consultorio">Consultorio</a>
+            <a href="#testimonios">Testimonios</a>
+            <a href="#contacto">Contacto</a>
+            <a href="./Agendar" className="bg-black p-2.5" style={{ color: "white", fontSize: "1.1rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
           </div>
         </div> 
         <div className="body d-flex p-20">
             <div className="w-100">
                 <h1 style={{ fontSize: "7.5vh", fontWeight: "bold" }}>Mavarez & Román</h1>
-                <p className="mt-4" style={{ fontSize: "2.5vh", color: "#6b7280" }}>
+                <p className="mt-4 mb-4" style={{ fontSize: "2.5vh", color: "#6b7280" }}>
                   Clínica odontológica con 24 años.
                 </p>
-                <button className="bg-black mt-5 p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", borderRadius: "7px" }}>Agenda tu cita</button>
+                <br/>
+                <a href="./Agendar" className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
                 <div style={{ backgroundColor: "#f3f4f6", marginTop: "10vh", borderRadius: "7px", width: "100%", height: "70vh" }}></div>
             </div>
         </div>
-        <div className="body d-flex p-20">
+        <div className="body d-flex p-20" id="conocenos">
             <div className="w-100">
                 <h2>Conócenos</h2>
                 <div className="custom-grid w-100" style={{ marginTop: "8vh" }}>
@@ -47,7 +49,7 @@ export default function Home() {
                 </div>
             </div>
         </div>
-        <div className="body d-flex p-20">
+        <div className="body d-flex p-20" id="servicios">
             <div className="w-100">
                 <div className="custom-grid w-100" style={{ marginTop: "3vh" }}>
                   <div>
@@ -64,7 +66,7 @@ export default function Home() {
                 </div>
             </div>
         </div>
-        <div className="body d-flex p-20">
+        <div className="body d-flex p-20" id="consultorio">
             <div className="w-100">
                 <h2 className="mb-5">Consultorio</h2>
                 <div className="custom-grid w-100" style={{ marginTop: "8vh" }}>
@@ -77,7 +79,7 @@ export default function Home() {
                 </div>
             </div>
         </div>
-        <div className="body d-flex p-20">
+        <div className="body d-flex p-20" id="testimonios">
             <div className="w-100">
                 <h2 className="mb-5">Testimonios</h2>
                 <div className="custom-grid-3 w-100" style={{ marginTop: "8vh" }}>
@@ -105,7 +107,7 @@ export default function Home() {
             <button className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", width: "15vw", borderRadius: "7px" }}>Agregar comentario</button>
           </div>
         </div>
-        <div className="footer p-20" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div className="footer p-20" id="contacto" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div>
             <div className="mb-5" style={{ fontSize: "1.2rem" }}>
               Mavarez & Román
@@ -129,7 +131,7 @@ export default function Home() {
               <li><a href="#servicios">Servicios</a></li>
               <li><a href="#consultorio">Consultorio</a></li>
               <li><a href="#testimonios">Testimonios</a></li>
-              <li><a href="#testimonios">Agendar cita</a></li>
+              <li><a href="./Agendar">Agendar cita</a></li>
             </ul>
           </div>
         </div>
