@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+div a {
+  font-size: 2.3vh;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.container {
+  height: 20vh;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+}
+
+/* Grid de odontólogos */
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* Tarjetas de odontólogos */
+.odont-card {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.odont-nombre {
+  font-weight: bold;
+  font-size: 1.7rem;
+  margin: 2.5vh 0;
+}
+
+.odont-desc {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
