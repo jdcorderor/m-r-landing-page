@@ -17,6 +17,8 @@
   }
 }
 
+/* Estilos generales */
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -28,6 +30,28 @@ div a {
   text-decoration: none;
 }
 
+h2 {
+  font-size: 6.5vh !important;
+  font-weight: 600 !important;
+}
+
+h4 {
+  font-size: 2.7vh !important;
+  font-weight: 500 !important;
+  margin-top: 5vh !important;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+
+li a {
+  font-size: 1.05rem;
+  color: #6b7280 !important;
+  text-decoration: none;
+}
+
 .container {
   height: 20vh;
   background-color: #ffffff;
@@ -36,10 +60,17 @@ div a {
   padding: 8px;
 }
 
-/* Grid de odontólogos */
+/* Grid de dos columnas */
 .custom-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* Grid de tres columnas */
+.custom-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -62,4 +93,31 @@ div a {
   color: #6b7280;
   font-size: 1.1rem;
   margin-bottom: 16px;
+}
+
+/* Tarjetas de testimonios */
+
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 15px;
+  border: #d5d7da 1px solid;
+  padding: 20px;
+}
+
+.testimonial {
+  font-size: 1.7rem;
+  color: #6b7280;
+}
+
+.testimonial-name {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 3.2vh;
+  margin-bottom: 5px !important;
+}
+
+.testimonial-date {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-top: 0 !important;
 }
