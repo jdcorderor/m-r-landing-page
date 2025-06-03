@@ -4,11 +4,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 export default function Home() {
   return (
     <div>
-        <div className="header d-flex w-100 h-30" style={{ alignItems: "center" }}>
-          <div className="p-20" style={{ fontSize: "1.2rem" }}>
+        <div className="header d-flex w-100 h-30 align-items-center justify-between" >
+          <div className="p-20 custom-font" >
             Mavarez & Román
           </div>
-          <div className="d-flex ml-auto p-20" style={{ gap: "40px", alignItems: "center" }}>
+          <div className="d-flex  p-20 align-items-center custom-gap" >
             <a href="#conocenos">Conócenos</a>
             <a href="#servicios">Servicios</a>
             <a href="#consultorio">Consultorio</a>

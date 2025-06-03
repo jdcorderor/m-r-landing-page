@@ -121,3 +121,10 @@ li a {
   color: #9ca3af;
   margin-top: 0 !important;
 }
+
+.custom-gap {
+  gap: 40px;
+}
+.custom-font{
+  font-size: 1.2rem;
+}
