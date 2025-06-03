@@ -168,7 +168,7 @@ export default function Home() {
                 </div>
               </div>
               <label htmlFor="">Comentario *</label>
-              <textarea className="form-control mb-3" rows={5} placeholder="Escribe tu comentario aquí"></textarea>
+              <input type="text" className="form-control mb-3" placeholder="Escribe tu comentario aquí"></input>
               <button type="submit" className="btn w-100" style={{ fontWeight: "bold", backgroundColor: "#f1f3f4", fontSize: "1.1rem" }}>Enviar</button>
             </form>
           </div>
