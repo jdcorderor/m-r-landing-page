@@ -120,6 +120,13 @@ li a {
   margin-top: 0 !important;
 }
 
+.custom-gap {
+  gap: 40px;
+}
+.custom-font{
+  font-size: 1.2rem;
+}
+
 /* Formulario de agenda*/
 label {
   font-size: 1.1rem;
