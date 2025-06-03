@@ -7,21 +7,26 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
+  const [showServices, setShowServices] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div onClick={() => showForm ? setShowForm(!showForm) : null} className="w-100 h-100" style={{ overflowX: "hidden", overflowY: "auto", position: "relative" }}>
-        <div className="header d-flex w-100 h-30 align-items-center justify-between" >
-          <div className="p-20 custom-font" >
+    <div onClick={() => { if (showForm) setShowForm(!showForm); if (showServices) setShowServices(!showServices) }} className="w-100 h-100" style={{ overflowX: "hidden", overflowY: "auto", position: "relative" }}>
+        <div className="header d-flex w-100 h-30 p-20 align-items-center justify-between" >
+          <div className="custom-font" >
             Mavarez & Román
           </div>
-          <div className="d-flex  p-20 align-items-center custom-gap" >
-            <a href="#conocenos">Conócenos</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#consultorio">Consultorio</a>
-            <a href="#testimonios">Testimonios</a>
-            <a href="#contacto">Contacto</a>
-            <a href="./Agendar" className="bg-black p-2.5" style={{ color: "white", fontSize: "1.1rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
-          </div>
+          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menú">
+          <span className="bi bi-list" style={{ fontSize: "2rem" }}></span>
+        </button>
+        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <a href="#conocenos">Conócenos</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#consultorio">Consultorio</a>
+          <a href="#testimonios">Testimonios</a>
+          <a href="#contacto">Contacto</a>
+          <a href="./agendar" className="bg-black p-2.5" style={{ color: "white", fontSize: "1.1rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
+        </nav>
         </div> 
         <div className="body d-flex p-20">
             <div className="w-100">
@@ -30,8 +35,8 @@ export default function Home() {
                   Clínica odontológica con 24 años.
                 </p>
                 <br/>
-                <a href="./Agendar" className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
-                <div style={{ marginTop: "10vh", width: "100%", height: "70vh" }}>
+                <a href="./agendar" className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
+                <div className="carousel-container">
                   <Carousel>
                     <Carousel.Item>
                       <Image className="d-block w-100" src="/images/carousel1.jpg" width={600} height={400} alt="" style={{ objectFit: "cover", width: "100%", height: "70vh" }} />
@@ -49,17 +54,31 @@ export default function Home() {
         <div className="body d-flex p-20" id="conocenos">
             <div className="w-100">
                 <h2>Conócenos</h2>
-                <div className="custom-grid w-100" style={{ marginTop: "8vh" }}>
+                <div className="custom-grid-4 w-100">
                   <div className="odont-card">
-                    <div style={{ backgroundColor: "#f3f4f6", width: "50%", height: "45vh", borderRadius: "10px" }}></div>
+                    <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "45vh", borderRadius: "10px" }}></div>
                     <h3 className="odont-nombre">Od. Ramón Mavarez</h3>
                     <p className="odont-desc">
                       Descripción
                     </p>
                   </div>
                   <div className="odont-card">
-                    <div style={{ backgroundColor: "#f3f4f6", width: "50%", height: "45vh", borderRadius: "10px" }}></div>
+                    <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "45vh", borderRadius: "10px" }}></div>
                     <h3 className="odont-nombre">Od. Patricia Román</h3>
+                    <p className="odont-desc">
+                      Descripción
+                    </p>
+                  </div>
+                  <div className="odont-card">
+                    <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "45vh", borderRadius: "10px" }}></div>
+                    <h3 className="odont-nombre">Od. Ramón Mavarez</h3>
+                    <p className="odont-desc">
+                      Descripción
+                    </p>
+                  </div>
+                  <div className="odont-card">
+                    <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "45vh", borderRadius: "10px" }}></div>
+                    <h3 className="odont-nombre">Od. Ramón Mavarez</h3>
                     <p className="odont-desc">
                       Descripción
                     </p>
@@ -69,25 +88,61 @@ export default function Home() {
         </div>
         <div className="body d-flex p-20" id="servicios">
             <div className="w-100">
-                <div className="custom-grid w-100" style={{ marginTop: "3vh" }}>
+                <div className="custom-grid w-100">
                   <div>
-                    <h2 className="mb-5">Servicios</h2>
+                    <h2>Servicios</h2>
                     <h4>Servicio 1</h4>
                     <p className="description mb-4">Descripción del servicio 1</p>
                     <h4>Servicio 2</h4>
                     <p className="description mb-4">Descripción del servicio 2</p>
                     <h4>Servicio 3</h4>
                     <p className="description mb-4">Descripción del servicio 3</p>
-                    <button className="bg-black mt-3 p-2.5" style={{ color: "white", fontSize: "1.2rem", fontWeight: "500", borderRadius: "7px" }}>Ver más</button>
+                    <button className="bg-black mt-3 p-2.5" style={{ color: "white", fontSize: "1.2rem", fontWeight: "500", borderRadius: "7px" }} onClick={() => setShowServices(!showServices)}>Ver más</button>
                   </div>
-                  <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "100%", borderRadius: "10px" }}></div>
+                  <div className="image" style={{ backgroundColor: "#f3f4f6", width: "100%", height: "100%", borderRadius: "10px" }}></div>
                 </div>
             </div>
         </div>
+        <div className="body mt-4 mb-5" id="servicios-carousel" style={{ display: showServices ? "block" : "none" }}>
+          <div className="w-100 p-20" style={{ backgroundColor: "#f3f4f6", alignItems: "center" }}>
+            <Carousel>
+              <Carousel.Item>
+                <div className="w-100">
+                  <div className="custom-grid-3 w-100">
+                    <div className="service-card">
+                      
+                    </div>
+                    <div className="service-card">
+
+                    </div>
+                    <div className="service-card">
+
+                    </div>
+                  </div>
+                </div>
+              </Carousel.Item>
+              <Carousel.Item>
+                <div className="w-100">
+                  <div className="custom-grid-3 w-100">
+                    <div className="service-card">
+
+                    </div>
+                    <div className="service-card">
+
+                    </div>
+                    <div className="service-card">
+
+                    </div>
+                  </div>
+                </div>
+              </Carousel.Item>
+            </Carousel>
+          </div>
+        </div>
         <div className="body d-flex p-20" id="consultorio">
             <div className="w-100">
-                <h2 className="mb-5">Consultorio</h2>
-                <div className="custom-grid w-100" style={{ marginTop: "8vh" }}>
+                <h2>Consultorio</h2>
+                <div className="custom-grid w-100">
                   <div>
                     <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "40vh", borderRadius: "10px" }}></div>
                     <h4>C.C. El Parral, Piso 1, Oficina 116</h4>
@@ -101,11 +156,11 @@ export default function Home() {
             </div>
         </div>
         <div className="body p-20" id="testimonios">
-          <h2 className="mb-3">Testimonios</h2>
+          <h2>Testimonios</h2>
           <Carousel>
             <Carousel.Item>
               <div className="w-100">
-                <div className="custom-grid-3 w-100" style={{ marginTop: "8vh" }}>
+                <div className="custom-grid-3 w-100">
                   <div className="testimonial-card">
                     <p className="testimonial">&quot;Excelente servicio&quot;</p>
                     <p className="testimonial-name">Nombre del paciente</p>
@@ -126,7 +181,7 @@ export default function Home() {
             </Carousel.Item>
             <Carousel.Item>
               <div className="w-100">
-                <div className="custom-grid-3 w-100" style={{ marginTop: "8vh" }}>
+                <div className="custom-grid-3 w-100">
                   <div className="testimonial-card">
                     <p className="testimonial">&quot;Excelente servicio&quot;</p>
                     <p className="testimonial-name">Nombre del paciente</p>
@@ -146,18 +201,17 @@ export default function Home() {
               </div>
             </Carousel.Item>
           </Carousel>
-            
         </div>
-        <div style={{ backgroundColor: "#f3f4f6", alignItems: "center" }}>
+        <div id="comments" style={{ backgroundColor: "#f3f4f6", alignItems: "center" }}>
           <div className="body custom-grid p-20">
-            <h2>Comparte tu experiencia</h2>
+            <h3>Comparte tu experiencia</h3>
             <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
-              <button className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", width: "15vw", borderRadius: "7px" }} onClick={() => setShowForm(!showForm)}>Agregar comentario</button>
+              <button className="bg-black pl-3 pr-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", width: "fit-content", borderRadius: "7px" }} onClick={() => setShowForm(!showForm)}>Agregar comentario</button>
             </div>
           </div>
           <div id="comments-form" className="body pt-0 pb-5" style={{ width: "100%", maxWidth: "800px", margin: "0 auto", display: showForm ? "block" : "none" }}>
             <form action="submit">
-              <div className="w-100 custom-grid">
+              <div className="w-100 comment-form-grid">
                 <div>
                   <label htmlFor="">Nombre *</label>
                   <input type="text" className="form-control" placeholder="Nombre" />
@@ -167,8 +221,10 @@ export default function Home() {
                   <input type="email" className="form-control" placeholder="Correo electrónico" />
                 </div>
               </div>
-              <label htmlFor="">Comentario *</label>
-              <input type="text" className="form-control mb-3" placeholder="Escribe tu comentario aquí"></input>
+              <div className="w-100">
+                <label htmlFor="">Comentario *</label>
+                <input type="text" className="form-control mb-3" placeholder="Escribe tu comentario aquí"></input>
+              </div>
               <button type="submit" className="btn w-100" style={{ fontWeight: "bold", backgroundColor: "#f1f3f4", fontSize: "1.1rem" }}>Enviar</button>
             </form>
           </div>
@@ -187,9 +243,9 @@ export default function Home() {
             <div>
               <i className="bi bi-instagram"></i> mavarezroman
             </div>
-            <div className="mt-5" style={{ fontSize: "0.9rem", color: "#6b7280" }}>
+            <p className="mt-5" style={{ fontSize: "0.9rem", color: "#6b7280" }}>
               Copyright 2025 <i className="bi bi-c-circle"></i>, Mavarez & Román. Todos los derechos reservados.
-            </div>
+            </p>
           </div>
           <div style={{ minWidth: "180px", marginLeft: "40px" }}>
             <ul className="p-0 m-0" style={{ listStyle: "none" }}>
@@ -197,7 +253,7 @@ export default function Home() {
               <li><a href="#servicios">Servicios</a></li>
               <li><a href="#consultorio">Consultorio</a></li>
               <li><a href="#testimonios">Testimonios</a></li>
-              <li><a href="./Agendar">Agendar cita</a></li>
+              <li><a href="./agendar">Agendar cita</a></li>
             </ul>
           </div>
         </div>

@@ -17,129 +17,464 @@
   }
 }
 
-/* Landing page */
-body {
-  background: var(--background);
-  color: var(--foreground);
+/* Estilos de vista de escritorio */
+@media (min-width: 1280px) {
+  /* Landing page */
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  div a {
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+  }
+
+  .carousel-container {
+    width: 100%;
+    height: 50vh;
+    margin-top: 10vh;
+    margin-bottom: 15vh;
+  }
+
+  h2 {
+    font-size: 6.5vh !important;
+    font-weight: 600 !important;
+    margin-bottom: 8vh !important;
+  }
+
+  h3:not(.odont-nombre) {
+    font-size: 6.5vh !important;
+    font-weight: 600 !important;
+  }
+
+  h4 {
+    font-size: 2.7vh !important;
+    font-weight: 500 !important;
+    margin-top: 5vh !important;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: #6b7280;
+  }
+
+  li a {
+    font-size: 1.05rem;
+    color: #6b7280 !important;
+    text-decoration: none;
+  }
+
+  /* Grid de dos columnas */
+  .custom-grid, .comment-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  /* Grid de tres columnas */
+  .custom-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* Grid de cuatro columnas */
+  .custom-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  /* Tarjetas de odontólogos */
+  .odont-card {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+  }
+
+  .odont-nombre {
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin: 2.5vh 0;
+  }
+
+  .odont-desc {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  /* Tarjetas de testimonios */
+  .testimonial-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: #d5d7da 1px solid;
+    padding: 20px;
+  }
+
+  .testimonial {
+    font-size: 1.7rem;
+    color: #6b7280;
+  }
+
+  .testimonial-name {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 3.2vh;
+    margin-bottom: 5px !important;
+  }
+
+  .testimonial-date {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-top: 0 !important;
+  }
+
+  .custom-gap {
+    gap: 40px;
+  }
+
+  .custom-font{
+    font-size: 1.2rem;
+  }
+
+  /* Formulario de agenda*/
+  label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #666a75;
+    margin-top: 2.8vh
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    margin-top: 0.5vh !important;
+  }
+
+  /* Oculta el botón hamburguesa en escritorio */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Menú normal en escritorio */
+  .nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    float: right;
+  }
 }
 
-div a {
-  font-size: 1.2rem;
-  color: rgb(0, 0, 0);
-  text-decoration: none;
+/* Estilos de vista de tabletas */
+@media (min-width: 600px) and (max-width: 1280px) {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  div a {
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+  }
+
+  .carousel-container {
+    width: 100%;
+    height: 40vh;
+    margin-top: 8vh;
+    margin-bottom: 12vh;
+  }
+
+  h2 {
+    font-size: 5.5vh !important;
+    font-weight: 600 !important;
+    margin-bottom: 6vh !important;
+  }
+
+  h3:not(.odont-nombre) {
+    font-size: 5.5vh !important;
+    font-weight: 600 !important;
+  }
+
+  h4 {
+    font-size: 2.5vh !important;
+    font-weight: 500 !important;
+    margin-top: 4vh !important;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: #6b7280;
+  }
+
+  li a {
+    font-size: 1rem;
+    color: #6b7280 !important;
+    text-decoration: none;
+  }
 }
 
-h2 {
-  font-size: 6.5vh !important;
-  font-weight: 600 !important;
-}
+/* Estilos de vista de móviles */
+@media (max-width: 600px) {
+  .custom-grid,
+  .custom-grid-3,
+  .custom-grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+    margin-bottom: 2vh !important;
+  }
 
-h4 {
-  font-size: 2.7vh !important;
-  font-weight: 500 !important;
-  margin-top: 5vh !important;
-}
+  /* Header responsive */
+  .header {
+    position: relative;
+  }
+  
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    margin-right: 10px;
+    z-index: 1001;
+  }
 
-.description {
-  font-size: 1.2rem;
-  color: #6b7280;
-}
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    padding: 16px 24px;
+    z-index: 1000;
+    min-width: 180px;
+  }
 
-li a {
-  font-size: 1.05rem;
-  color: #6b7280 !important;
-  text-decoration: none;
-}
+  .nav-links.open {
+    display: flex;
+    margin-top: 15px;
+  }
 
-.container {
-  height: 20vh;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  padding: 8px;
-}
+  .nav-links a {
+    font-size: 1rem;
+    color: #000;
+    text-decoration: none;
+    text-align: right;
+  }
 
-/* Grid de dos columnas */
-.custom-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
+  .nav-links .bg-black {
+    display: none;
+  }
 
-/* Grid de tres columnas */
-.custom-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+  /* Body responsive */
+  .body, .footer, div {
+    padding: 8px !important;
+  }
 
-/* Tarjetas de odontólogos */
-.odont-card {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: box-shadow 0.2s;
-}
+ .body a {
+    font-size: 0.9rem !important;
+  }
 
-.odont-nombre {
-  font-weight: bold;
-  font-size: 1.7rem;
-  margin: 2.5vh 0;
-}
+  h1 {
+    font-size: 3.5rem !important;
+  }
 
-.odont-desc {
-  color: #6b7280;
-  font-size: 1.1rem;
-  margin-bottom: 16px;
-}
+  h2:not(#servicios h2, #testimonios h2) {
+    font-size: 2.5rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 5vh !important;
+    margin-top: 4vh !important;
+    padding-left: 12px;
+  }
 
-/* Tarjetas de testimonios */
-.testimonial-card {
-  background: #ffffff;
-  border-radius: 15px;
-  border: #d5d7da 1px solid;
-  padding: 20px;
-}
+  #testimonios h2 {
+    font-size: 2.5rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 2vh !important;
+    margin-top: 3vh !important;
+    padding-left: 12px;
+  }
+  
+  #servicios h2 {
+    font-size: 2.5rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 6vh !important;
+    margin-top: 3vh !important;
+  }
 
-.testimonial {
-  font-size: 1.7rem;
-  color: #6b7280;
-}
+  h3:not(.odont-nombre) {
+    font-size: 1.75rem !important;
+    margin-top: 2.5vh !important;
+  }
 
-.testimonial-name {
-  font-weight: bold;
-  font-size: 1rem;
-  margin-top: 3.2vh;
-  margin-bottom: 5px !important;
-}
+  h4 {
+    font-size: 1rem !important;
+    margin-top: 30px !important;
+  }
 
-.testimonial-date {
-  font-size: 0.9rem;
-  color: #9ca3af;
-  margin-top: 0 !important;
-}
+  .odont-card, .testimonial-card, .service-card {
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 0.4vh;
+  }
 
-.custom-gap {
-  gap: 40px;
-}
-.custom-font{
-  font-size: 1.2rem;
-}
+  .odont-nombre {
+    font-size: 1rem !important;
+    margin-top: 1.5vh !important;
+  }
 
-/* Formulario de agenda*/
-label {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #666a75;
-  margin-top: 2.8vh
-}
+  #conocenos {
+    margin-bottom: 0.6vh !important;
+  }
+  
+  #servicios {
+    margin-bottom: 3vh !important;
+  }  
+  
+  #servicios .image {
+    display: none !important;
+  }
 
-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #d1d5db;
-  font-size: 1rem;
-  margin-top: 0.5vh !important;
+  #consultorio {
+    margin-bottom: 3vh !important;
+  }
+
+  #comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #comments div {
+    justify-content: center !important;
+  }
+
+  #comments div button {
+    padding: 10px;
+    font-size: 0.9rem !important;
+    margin-top: 10px;
+  }
+
+  #comments-form input[type="text"].mb-3, #comments-form label:not(.comment-form-grid div label), #comments-form button { 
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  #comments-form label:not(.comment-form-grid div label) {
+    margin-top: 0.5vh !important;
+  }
+
+  /* Tarjetas de testimonios */
+  .testimonial-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: #d5d7da 1px solid;
+    padding: 20px !important;
+  }
+
+  .testimonial {
+    font-size: 1.2rem;
+    color: #6b7280;
+  }
+
+  .testimonial-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 3.2vh;
+    margin-bottom: 5px !important;
+  }
+
+  .testimonial-date {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-top: 0 !important;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px !important;
+    padding-top: 25px !important;
+  }
+
+  .footer li {
+    display: none;
+  }
+
+  .footer p {
+    font-size: 0.9rem !important;
+    text-align: center;
+    margin-top: 5vh !important;
+  }
+
+  /* Carrusel de imágenes */
+  .carousel-container {
+    width: 105vw !important;
+    height: 28vh !important;
+    margin-top: 3vh !important;
+    margin-bottom: 8vh !important;
+    border-radius: 12px;
+    justify-content: center;
+    transform: translateX(-8%);
+  }
+
+  .carousel-container img,
+  .carousel-container picture,
+  .carousel-container video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 12px;
+    display: block;
+  }
+
+  /* Carrusel de servicios y testimonios */
+  #servicios-carousel .w-100,
+  #testimonios .w-100 {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #servicios-carousel .custom-grid-3,
+  #testimonios .custom-grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  
+  #servicios-carousel .service-card,
+  #testimonios .testimonial-card {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Formulario de agenda*/
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666a75;
+    margin-top: 1.5vh
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d1d5db;
+    font-size: 0.8rem;
+    margin-top: 0.5vh !important;
+  }
 }
