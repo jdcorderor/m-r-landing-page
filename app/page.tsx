@@ -1,9 +1,15 @@
+"use client";
+import React, { useState } from 'react';
+import Carousel from "react-bootstrap/Carousel";
+import Image from 'next/image';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Home() {
+  const [showForm, setShowForm] = useState(false);
+
   return (
-    <div>
+    <div onClick={() => showForm ? setShowForm(!showForm) : null} className="w-100 h-100" style={{ overflowX: "hidden", overflowY: "auto", position: "relative" }}>
         <div className="header d-flex w-100 h-30 align-items-center justify-between" >
           <div className="p-20 custom-font" >
             Mavarez & Román
@@ -25,7 +31,19 @@ export default function Home() {
                 </p>
                 <br/>
                 <a href="./Agendar" className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", borderRadius: "7px", textDecoration: "none" }}>Agenda tu cita</a>
-                <div style={{ backgroundColor: "#f3f4f6", marginTop: "10vh", borderRadius: "7px", width: "100%", height: "70vh" }}></div>
+                <div style={{ marginTop: "10vh", width: "100%", height: "70vh" }}>
+                  <Carousel>
+                    <Carousel.Item>
+                      <Image className="d-block w-100" src="/images/carousel1.jpg" width={600} height={400} alt="" style={{ objectFit: "cover", width: "100%", height: "70vh" }} />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <Image className="d-block w-100" src="/images/carousel1.jpg" width={600} height={400} alt="" style={{ objectFit: "cover", width: "100%", height: "70vh" }} />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <Image className="d-block w-100" src="/images/carousel1.jpg" width={600} height={400} alt="" style={{ objectFit: "cover", width: "100%", height: "70vh" }} />
+                    </Carousel.Item>
+                  </Carousel>
+                </div>
             </div>
         </div>
         <div className="body d-flex p-20" id="conocenos">
@@ -72,16 +90,21 @@ export default function Home() {
                 <div className="custom-grid w-100" style={{ marginTop: "8vh" }}>
                   <div>
                     <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "40vh", borderRadius: "10px" }}></div>
-                    <h4>Ubicación corta y horario.</h4>
-                    <p className="desc mb-4">Descripción breve de la ubicación y horario de atención.</p>
+                    <h4>C.C. El Parral, Piso 1, Oficina 116</h4>
+                    <p className="description mb-4">Horario: 8:00 AM a 2:00 PM</p>
                   </div>
-                  <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "100%", borderRadius: "10px" }}></div>
+                  <div style={{ backgroundColor: "#f3f4f6", width: "100%", height: "100%", borderRadius: "10px" }}>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000.037798736754!2d-69.28891356138514!3d10.061087597511873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e87670b60fee3ff%3A0x299f395e8a85ba60!2sConsultorio%20Odontol%C3%B3gico%20Dr%20Ram%C3%B3n%20Mavarez!5e0!3m2!1ses!2sve!4v1748920040093!5m2!1ses!2sve" 
+                    width="100%" height="100%" style={{ borderRadius: "10px" }} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
                 </div>
             </div>
         </div>
-        <div className="body d-flex p-20" id="testimonios">
-            <div className="w-100">
-                <h2 className="mb-5">Testimonios</h2>
+        <div className="body p-20" id="testimonios">
+          <h2 className="mb-3">Testimonios</h2>
+          <Carousel>
+            <Carousel.Item>
+              <div className="w-100">
                 <div className="custom-grid-3 w-100" style={{ marginTop: "8vh" }}>
                   <div className="testimonial-card">
                     <p className="testimonial">&quot;Excelente servicio&quot;</p>
@@ -99,12 +122,55 @@ export default function Home() {
                     <p className="testimonial-date">Fecha</p>
                   </div>
                 </div>
-            </div>
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div className="w-100">
+                <div className="custom-grid-3 w-100" style={{ marginTop: "8vh" }}>
+                  <div className="testimonial-card">
+                    <p className="testimonial">&quot;Excelente servicio&quot;</p>
+                    <p className="testimonial-name">Nombre del paciente</p>
+                    <p className="testimonial-date">Fecha</p>
+                  </div>
+                  <div className="testimonial-card">
+                    <p className="testimonial">&quot;Excelente servicio&quot;</p>
+                    <p className="testimonial-name">Nombre del paciente</p>
+                    <p className="testimonial-date">Fecha</p>
+                  </div>
+                  <div className="testimonial-card">
+                    <p className="testimonial">&quot;Excelente servicio&quot;</p>
+                    <p className="testimonial-name">Nombre del paciente</p>
+                    <p className="testimonial-date">Fecha</p>
+                  </div>
+                </div>
+              </div>
+            </Carousel.Item>
+          </Carousel>
+            
         </div>
-        <div className="body custom-grid p-20" style={{ backgroundColor: "#f3f4f6", alignItems: "center" }}>
-          <h2>Comparte tu experiencia</h2>
-          <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
-            <button className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", width: "15vw", borderRadius: "7px" }}>Agregar comentario</button>
+        <div style={{ backgroundColor: "#f3f4f6", alignItems: "center" }}>
+          <div className="body custom-grid p-20">
+            <h2>Comparte tu experiencia</h2>
+            <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+              <button className="bg-black p-3" style={{ color: "white", fontSize: "1.3rem", fontWeight: "500", width: "15vw", borderRadius: "7px" }} onClick={() => setShowForm(!showForm)}>Agregar comentario</button>
+            </div>
+          </div>
+          <div id="comments-form" className="body pt-0 pb-5" style={{ width: "100%", maxWidth: "800px", margin: "0 auto", display: showForm ? "block" : "none" }}>
+            <form action="submit">
+              <div className="w-100 custom-grid">
+                <div>
+                  <label htmlFor="">Nombre *</label>
+                  <input type="text" className="form-control" placeholder="Nombre" />
+                </div>
+                <div>
+                  <label htmlFor="">Correo electrónico *</label>
+                  <input type="email" className="form-control" placeholder="Correo electrónico" />
+                </div>
+              </div>
+              <label htmlFor="">Comentario *</label>
+              <textarea className="form-control mb-3" rows={5} placeholder="Escribe tu comentario aquí"></textarea>
+              <button type="submit" className="btn w-100" style={{ fontWeight: "bold", backgroundColor: "#f1f3f4", fontSize: "1.1rem" }}>Enviar</button>
+            </form>
           </div>
         </div>
         <div className="footer p-20" id="contacto" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
