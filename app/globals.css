@@ -141,7 +141,15 @@
   .custom-font{
     font-size: 1.2rem;
   }
-
+  .custom-font-2{
+    font-size: 1.1rem;
+  }
+  .custom-weight {
+    font-weight: 500;
+  }
+.custom-height {
+    height: 237px;
+  }
   /* Formulario de agenda*/
   label {
     font-size: 1.1rem;
