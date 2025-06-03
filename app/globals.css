@@ -17,15 +17,14 @@
   }
 }
 
-/* Estilos generales */
-
+/* Landing page */
 body {
   background: var(--background);
   color: var(--foreground);
 }
 
 div a {
-  font-size: 2.3vh;
+  font-size: 1.2rem;
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
@@ -96,7 +95,6 @@ li a {
 }
 
 /* Tarjetas de testimonios */
-
 .testimonial-card {
   background: #ffffff;
   border-radius: 15px;
@@ -120,4 +118,21 @@ li a {
   font-size: 0.9rem;
   color: #9ca3af;
   margin-top: 0 !important;
+}
+
+/* Formulario de agenda*/
+label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #666a75;
+  margin-top: 2.8vh
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  margin-top: 0.5vh !important;
 }
