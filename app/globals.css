@@ -64,15 +64,18 @@
 .main-description {
   width: 70%;
   margin-top: 4vh;
-  margin-bottom: 4vh;
   font-size: 2.5vh;
   color: #6b7280;
 }
 
 .big {
-  padding: 20px 25px;
-  font-size: 1.6rem !important;
-  font-weight: 600 !important;
+  color: #474545;
+  background-color: #ffffff;
+  font-size: 1.5rem !important;
+  font-weight: 550 !important;
+  padding: 25px 35px;
+  border: #cfcfcf 1px solid;
+  border-radius: 40px;
 }
 
 .description {
@@ -149,6 +152,13 @@ iframe {
   margin-bottom: 1vh;
   padding-top: 1vh;
   padding-bottom: 2vh;
+}
+
+#comments form label {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding-left: 4px;
 }
 
 /* Carousel */
@@ -546,6 +556,10 @@ ul {
     margin-top: 3vh !important;
   }
 
+  #servicios button {
+    margin-top: 2rem !important;
+  }
+
   /* Testimonials */
   #testimonios h2 {
     font-size: 3rem !important;
@@ -628,23 +642,6 @@ ul {
 
   #comments hr {
     display: none;
-  }
-
-  label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #666a75;
-    margin-bottom: 1.5vh;
-    padding-left: 2px;
-  }
-
-  input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #d1d5db;
-    font-size: 0.9rem;
-    margin-top: 0.5vh !important;
   }
 
   /* Footer */
@@ -999,6 +996,13 @@ ul {
     display: none !important;
   }
 
+  .copyright {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 8vh;
+    padding-left: 5px;
+  }
+
   /* Carousel */
   .carousel-container {
     width: 105vw !important;
@@ -1125,4 +1129,69 @@ ul {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
+}
+
+/* Transitions */
+
+/* Basic transitions */
+.big button:hover,
+.addcomment-button:hover,
+.submitcomment-button:hover,
+.booking-button:hover,
+.seemore-button:hover,
+.button-container button:hover,
+.booking .variable button:hover:not(.dentist) {
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 4px 18px 0 rgba(0,0,0,0.10);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.dentist-container button:hover {
+  color: #111827 !important;
+  box-shadow: 0 4px 18px 0 rgba(0,0,0,0.10);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.carousel-container:hover {
+  box-shadow: 0 20px 32px 0 rgba(0,0,0,0.10);
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Fade effects */
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: opacity, transform;
+}
+
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.comments-form-transition, .services-carousel-transition {
+  opacity: 0;
+  transform: scaleY(0.97);
+  transition:
+    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+  transform-origin: top;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.10);
+  border: 1px solid #e5e7eb;
+  padding: 0 2vw;
+}
+
+.comments-form-transition.visible, .services-carousel-transition.visible {
+  opacity: 1;
+  transform: scaleY(1);
+  pointer-events: auto;
 }
