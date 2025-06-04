@@ -485,4 +485,16 @@
     font-size: 0.8rem;
     margin-top: 0.5vh !important;
   }
+  .transition1 {
+    color: #000;
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: fit-content;
+    border-radius: 7px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: "all 0.2s ease-in-out",
+  }
 }

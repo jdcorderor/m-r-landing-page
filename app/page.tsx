@@ -303,6 +303,7 @@ export default function Home() {
         </Carousel.Item>
       </Carousel>
       </div>
+
       <div
       id="comments"
       style={{ backgroundColor: "#f3f4f6", alignItems: "center" }}
@@ -311,63 +312,68 @@ export default function Home() {
         <h3>Comparte tu experiencia</h3>
         <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
         <button
-          className="bg-black pl-3 pr-3"
-          style={{
-          color: "white",
-          fontSize: "1.3rem",
-          fontWeight: "500",
-          width: "fit-content",
-          borderRadius: "7px",
+          className={`${showForm ? "pl-3 pr-3 bg-transparent text-black" : "bg-black pl-3 pr-3 text-white"} flex custom-weight w-fit-content rounded border-none-none align-items-center justify-content-center transition-all`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowForm(!showForm);
           }}
-          onClick={() => setShowForm(!showForm)}
         >
-          Agregar comentario
+        
+            <div
+            className={`transition-all duration-200 ease-in-out ${showForm ? "rotate-0" : "rotate-0"}`}
+            >
+            {showForm ? (
+              <svg width="32" height="32" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30.4688 0C13.5584 0 0 13.5584 0 30.4688C0 47.3783 13.5584 60.9375 30.4688 60.9375C47.3782 60.9375 60.9375 47.3783 60.9375 30.4688C60.9375 13.5584 47.3783 0 30.4688 0ZM45.7034 41.4376L41.4378 45.7028L30.4688 34.7339L19.4999 45.7028L15.2341 41.4376L26.2033 30.4688L15.2341 19.4999L19.4999 15.2348L30.4688 26.2033L41.4376 15.2348L45.7033 19.4999L34.7342 30.4688L45.7034 41.4376Z" fill="black"/>
+              </svg>
+            ) : (
+              "Agregar comentario"
+            )}
+          </div>
         </button>
         </div>
       </div>
       <div
-        className="body pt-0 pb-5"
-        style={{
-        width: "100%",
-        maxWidth: "800px",
-        margin: "0 auto",
-        display: showForm ? "block" : "none",
-        }}
+        className={`body pt-0 pb-5 w-full max-w-[800px] mx-auto transition-all duration-300 ease-in-out overflow-hidden ${
+          showForm
+        ? "max-h-[1000px] opacity-100 translate-y-0"
+        : "max-h-0 opacity-0 -translate-y-5"
+        }`}
       >
         <form action="submit" className="flex flex-col gap-4">
-        <div className="flex flex-row gap-4 w-full">
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-row gap-4 w-full">
+        <div className="flex flex-col w-1/2">
           <div>
-            <input type="text" id="name" />
             <label htmlFor="name">Nombre</label>
+            <input type="text" id="name" />
           </div>
           <div>
-            <input type="text" id="apellido" />
-            <label htmlFor="apellido">Apellido</label>
+          <label htmlFor="apellido">Apellido</label>
+          <input type="text" id="apellido" />
           </div>
           <div>
-            <input type="email" id="email" />
             <label htmlFor="email">Correo electrónico</label>
-          </div>
-          </div>
-          <div className="flex w-1/2 h-full flex-col gap-4">
-          <div>
-            <textarea
-            className="h-[239px] w-full border border-gray-300 rounded resize-none"
-            id="comentario"
-            ></textarea>
-            <label htmlFor="comentario">Tu experiencia</label>
-          </div>
+            <input type="email" id="email" />
           </div>
         </div>
-        <div className="flex justify-center pt-4">
-          <button
+        <div className="flex w-1/2 h-full flex-col gap-4">
+          <div>
+            <label htmlFor="comentario">Tu experiencia</label>
+            <textarea
+          className="h-[239px] w-full border border-gray-300 rounded resize-none"
+          id="comentario"
+            ></textarea>
+          </div>
+        </div>
+          </div>
+          <div className="flex justify-center pt-4">
+        <button
           type="submit"
           className="bg-black pt-2 pb-2 pr-18 pl-18 text-white custom-font no-underline rounded"
-          >
+        >
           Enviar reseña
-          </button>
-        </div>
+        </button>
+          </div>
         </form>
       </div>
       </div>
@@ -420,6 +426,4 @@ export default function Home() {
       </div>
     </div>
   );
-
-  
 }
