@@ -5,7 +5,7 @@ import Image from 'next/image';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-// Hook to detect screen size and set slides per view.
+// Hook to detect screen size and set slides per view
 function useSlidesPerView() {
   const [slides, setSlides] = useState(3);
   useEffect(() => {
@@ -21,7 +21,7 @@ function useSlidesPerView() {
   return slides;
 }
 
-// Group items into arrays.
+// Group items into arrays
 function groupItems<T>(items: T[], perGroup: number): T[][] {
   const groups = [];
   for (let i = 0; i < items.length; i += perGroup) {
@@ -34,6 +34,7 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
 
   // Fade transition
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+
   // Comments form transition
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -69,6 +71,7 @@ export default function Home() {
     }
   }, [showForm]);
 
+
   // Services carousel transition
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -85,6 +88,20 @@ export default function Home() {
       el.style.padding = '0 2vw';
     }
   }, [showServices]);
+
+
+  // Hide menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (menuOpen && !target.closest('.nav-links') && !target.closest('.menu-toggle')) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [menuOpen]);
+
 
   // Carousel slides per view
   const slidesPerView = useSlidesPerView();
@@ -124,12 +141,12 @@ export default function Home() {
             <span className="bi bi-list"></span>
           </button>
           <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
-            <a href="#nosotros">Conócenos</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#consultorio">Consultorio</a>
-            <a href="#testimonios">Testimonios</a>
-            <a href="#contacto">Contacto</a>
-            <a href="./agendar" className="booking-button">Agenda tu cita</a>
+            <a href="#nosotros" onClick={() => setMenuOpen(false)}>Conócenos</a>
+            <a href="#servicios" onClick={() => setMenuOpen(false)}>Servicios</a>
+            <a href="#consultorio" onClick={() => setMenuOpen(false)}>Consultorio</a>
+            <a href="#testimonios" onClick={() => setMenuOpen(false)}>Testimonios</a>
+            <a href="#contacto" onClick={() => setMenuOpen(false)}>Contacto</a>
+            <a href="./agendar" className="booking-button" onClick={() => setMenuOpen(false)}>Agenda tu cita</a>
           </nav>
         </div>
       </header>
