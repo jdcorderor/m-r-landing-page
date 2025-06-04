@@ -17,25 +17,200 @@
   }
 }
 
-/* Estilos de vista de escritorio */
-@media (min-width: 1280px) {
-  /* Landing page */
-  body {
-    background: var(--background);
-    color: var(--foreground);
-  }
+/* Landing page */
+.container-1 {
+  width: 100%;
+  height: 100%;
+  overflow-x: "hidden"; 
+  overflow-y: "auto";
+  position: "relative";
+}
 
+/* Header */
+.header {
+  display: flex;
+  width: 100%;
+  height: 5vh;
+  padding: 4.8%;
+  padding-top: 8vh;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bi-list {
+  font-size: 2rem;;
+}
+
+.booking-button {
+  background-color: #202020;
+  padding: 10px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.1 rem;
+  font-weight: 600;
+}
+
+/* Main */
+.body {
+  display: flex;
+  padding: 4.8%;
+}
+
+.container-2 {
+  width: 100%;;
+}
+
+.main-description {
+  width: 70%;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  font-size: 2.5vh;
+  color: #6b7280;
+}
+
+.big {
+  padding: 20px 25px;
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #6b7280;
+  margin-bottom: 2vh;
+}
+
+.seemore-button {
+  background-color: #202020;
+  margin-top: 3vh;
+  padding: 10px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.gray-section {
+  width: 100%;
+  height: fit-content;
+  background-color: #f3f4f6;
+  margin-top: 1vh;
+  margin-bottom: 3vh;
+  align-items: center;
+}
+
+iframe {
+  border-radius: 10px;
+}
+
+.block {
+  display: block;
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end; 
+}
+
+.addcomment-button {
+  background-color: #202020;
+  padding: 10px 20px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.submitcomment-button {
+  width: 32.4%;
+  background-color: #f1f3f4;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5vh;
+  display: block;
+  border: solid 1px #d1d5db;
+  border-radius: 67px;
+  text-decoration: none;
+  color: #302d2d;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px 50px;
+}
+
+.container-4 {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0vh;
+  margin-bottom: 1vh;
+  padding-top: 1vh;
+  padding-bottom: 2vh;
+}
+
+/* Carousel */
+.carousel-container {
+  width: 100%;
+  height: 50vh;
+  margin-top: 10vh;
+  margin-bottom: 15vh;
+  border-radius: 12px;
+}
+
+.carousel-container Image, .carousel-container img {
+  width: 100%;
+  height: 70vh !important; /*OJO*/
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Footer */
+.footer {
+  padding: 4.8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.subtitle {
+  margin-bottom: 4vh;
+  font-size: 1.2rem;
+  font-weight: 550;
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 4vh;
+}
+
+.index {
+  min-width: 180px;
+  margin-left: 40px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Long-size */
+@media (min-width: 1280px) {
   div a {
     font-size: 1.2rem;
     color: rgb(0, 0, 0);
     text-decoration: none;
   }
 
-  .carousel-container {
-    width: 100%;
-    height: 50vh;
-    margin-top: 10vh;
-    margin-bottom: 15vh;
+  /* Headings */
+  h1 {
+    font-size: 9vh !important;
+    font-weight: 600 !important;
   }
 
   h2 {
@@ -44,7 +219,7 @@
     margin-bottom: 8vh !important;
   }
 
-  h3:not(.odont-nombre) {
+  h3:not(.dentist-nombre) {
     font-size: 6.5vh !important;
     font-weight: 600 !important;
   }
@@ -55,6 +230,14 @@
     margin-top: 5vh !important;
   }
 
+  /* Hero section */
+  .main-description {
+    font-size: 1.4rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 3vh !important;
+  }
+
+  /* Text */
   .description {
     font-size: 1.2rem;
     color: #6b7280;
@@ -64,31 +247,39 @@
     font-size: 1.05rem;
     color: #6b7280 !important;
     text-decoration: none;
+  }  
+  
+  .custom-gap {
+    gap: 40px;
   }
 
-  /* Grid de dos columnas */
+  .custom-font{
+    font-size: 1.2rem;
+  }
+
+  /* Grid 2 */
   .custom-grid, .comment-form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 
-  /* Grid de tres columnas */
+  /* Grid 3 */
   .custom-grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
 
-  /* Grid de cuatro columnas */
+  /* Grid 4 */
   .custom-grid-4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
   }
 
-  /* Tarjetas de odontólogos */
-  .odont-card {
+  /* Dentists */
+  .dentist-card {
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -96,19 +287,19 @@
     transition: box-shadow 0.2s;
   }
 
-  .odont-nombre {
+  .dentist-nombre {
     font-weight: bold;
     font-size: 1.7rem;
     margin: 2.5vh 0;
   }
 
-  .odont-desc {
+  .dentist-description {
     color: #6b7280;
     font-size: 1.1rem;
     margin-bottom: 16px;
   }
 
-  /* Tarjetas de testimonios */
+  /* Testimonials */
   .testimonial-card {
     background: #ffffff;
     border-radius: 15px;
@@ -134,32 +325,7 @@
     margin-top: 0 !important;
   }
 
-  .custom-gap {
-    gap: 40px;
-  }
-
-  .custom-font{
-    font-size: 1.2rem;
-  }
-
-  /* Formulario de agenda*/
-  label {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #666a75;
-    margin-top: 2.8vh
-  }
-
-  input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #d1d5db;
-    font-size: 1rem;
-    margin-top: 0.5vh !important;
-  }
-
-  /* Oculta el botón hamburguesa en escritorio */
+  /* Short menu (hidden) */
   .menu-toggle {
     display: none;
     background: none;
@@ -167,83 +333,120 @@
     cursor: pointer;
   }
 
-  /* Menú normal en escritorio */
+  /* Normal menu */
   .nav-links {
     display: flex;
     gap: 25px;
     align-items: center;
     float: right;
   }
-}
 
-/* Estilos de vista de tabletas */
-@media (min-width: 600px) and (max-width: 1280px) {
-  body {
-    background: var(--background);
-    color: var(--foreground);
-  }
-
-  div a {
-    font-size: 1.1rem;
+    /* Booking form */
+  .booking .header a {
+    font-size: 1.2rem;
     color: rgb(0, 0, 0);
     text-decoration: none;
   }
 
-  .carousel-container {
-    width: 100%;
-    height: 40vh;
-    margin-top: 8vh;
-    margin-bottom: 12vh;
-  }
-
-  h2 {
-    font-size: 5.5vh !important;
+  .booking h4 {
+    font-size: 2rem !important;
     font-weight: 600 !important;
-    margin-bottom: 6vh !important;
+    margin-bottom: 4vh !important;
+    margin-top: 5vh !important;
   }
 
-  h3:not(.odont-nombre) {
-    font-size: 5.5vh !important;
-    font-weight: 600 !important;
-  }
-
-  h4 {
-    font-size: 2.5vh !important;
-    font-weight: 500 !important;
-    margin-top: 4vh !important;
-  }
-
-  .description {
+  .booking label {
     font-size: 1.1rem;
-    color: #6b7280;
+    font-weight: 500;
+    color: #666a75;
+    margin-bottom: 0.5vh;
+    width: 100%
   }
 
-  li a {
+  .booking input {
+    margin-bottom: 2vh;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d1d5db;
     font-size: 1rem;
-    color: #6b7280 !important;
-    text-decoration: none;
+    margin-top: none;
+  }
+
+  .variable {
+    display: block;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    padding: none !important;
+  }
+
+  .dentist-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 2vh;
+  }
+
+  .booking .variable button {
+    width: 100% !important;
+    margin: none !important;
+    border-radius: 10px;
+    background-color: #f1f3f4;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid #dee2e6;
+    color: #333;
+  }
+
+  .booking .no-lower-space {
+    margin-bottom: 2vh !important;
+    padding-bottom: 0 !important;
+  }
+
+  .booking .no-upper-space {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 }
 
-/* Estilos de vista de móviles */
-@media (max-width: 600px) {
-  .custom-grid,
-  .custom-grid-3,
-  .custom-grid-4 {
-    grid-template-columns: 1fr !important;
-    gap: 5px !important;
-    margin-bottom: 2vh !important;
+/* Mid-size */
+@media (min-width: 600px) and (max-width: 1280px) {
+  /* Grid 2 */
+  .custom-grid, .comment-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
 
-  /* Header responsive */
+  /* Grid 3 */
+  .custom-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  /* Grid 4 */
+  .custom-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  /* Header */
   .header {
+    padding: 15px;
+    margin-top: 10vh;
     position: relative;
+    font-size: 1.3rem;
   }
   
   .menu-toggle {
     display: block;
     margin-left: auto;
-    margin-right: 10px;
+    margin-right: 15px;
     z-index: 1001;
   }
 
@@ -267,76 +470,440 @@
   }
 
   .nav-links a {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #000;
     text-decoration: none;
     text-align: right;
   }
 
-  .nav-links .bg-black {
+  .booking-button:not(.big) {
     display: none;
   }
 
-  /* Body responsive */
-  .body, .footer, div {
-    padding: 8px !important;
+  /* Body */
+  .body, .footer, div:not(.footer div div) {
+    padding: 14px !important;
   }
 
- .body a {
-    font-size: 0.9rem !important;
+  .main-description {
+    font-size: 1.4rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 6vh !important;
+    width: 95%;
   }
 
+  /* Headings */
   h1 {
     font-size: 3.5rem !important;
+    font-weight: 550 !important;
   }
 
   h2:not(#servicios h2, #testimonios h2) {
-    font-size: 2.5rem !important;
+    font-size: 3rem !important;
     font-weight: 600 !important;
-    margin-bottom: 5vh !important;
-    margin-top: 4vh !important;
-    padding-left: 12px;
+    margin-bottom: 6vh !important;
+    margin-top: 3.5vh !important;
+    padding-left: 20px;
   }
 
-  #testimonios h2 {
-    font-size: 2.5rem !important;
-    font-weight: 600 !important;
-    margin-bottom: 2vh !important;
-    margin-top: 3vh !important;
-    padding-left: 12px;
+  h3:not(.dentist-nombre) {
+    font-size: 3.8vw !important;
+    margin-top: 2.5vh !important;
+    font-weight: 500 !important;
   }
+
+  h4 {
+    font-size: 1.4rem !important;
+    margin-top: 30px !important;
+  }
+
+  /* Dentists */
+  .dentist-card, .testimonial-card, .service-card {
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 0.6vh;
+  }
+
+  .dentist-nombre {
+    font-size: 1.6rem !important;
+    margin-top: 5vh !important;
+  }
+
+  .dentist-description {
+    font-size: 1.2rem !important;
+    margin-bottom: 16px;
+  }
+
+  /* Services */
+  #servicios {
+    margin-bottom: 12vh !important;
+  }  
   
   #servicios h2 {
-    font-size: 2.5rem !important;
+    font-size: 3rem !important;
     font-weight: 600 !important;
     margin-bottom: 6vh !important;
     margin-top: 3vh !important;
   }
 
-  h3:not(.odont-nombre) {
-    font-size: 1.75rem !important;
+  /* Testimonials */
+  #testimonios h2 {
+    font-size: 3rem !important;
+    font-weight: 600 !important;
+    margin-top: 12vh !important;
+    padding-left: 20px;
+  }
+
+  #testimonios .container-2 {
+    margin-top: 0vh !important;
+  }
+
+  .testimonial-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: #d5d7da 1px solid;
+    padding: 20px !important;
+  }
+
+  .testimonial {
+    font-size: 1.3rem;
+    color: #6b7280;
+  }
+
+  .testimonial-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 3.2vh;
+    margin-bottom: 5px !important;
+  }
+
+  .testimonial-date {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-top: 0 !important;
+  }
+
+  /* Comments */
+  .button-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end; 
+  }
+
+  .addcomment-button {
+    background-color: #202020;
+    padding: 10px 20px;
+    border-radius: 7px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .submitcomment-button {
+    width: 32.4%;
+    background-color: #f1f3f4;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5vh;
+    display: block;
+    border: solid 1px #d1d5db;
+    border-radius: 67px;
+    text-decoration: none;
+    color: #302d2d;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 10px 50px;
+  }
+
+  .container-4 {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0vh;
+    margin-bottom: 1vh;
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+  }
+
+  #comments hr {
+    display: none;
+  }
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666a75;
+    margin-bottom: 1.5vh;
+    padding-left: 2px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d1d5db;
+    font-size: 0.9rem;
+    margin-top: 0.5vh !important;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 8vh !important;
+  }
+
+  .subtitle {
+    margin-bottom: 6vh;
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 8vh;
+  }
+
+  .footer ul {
+    display: none;
+  }
+
+  /* Carousel */
+  .carousel-container {
+  width: 104vw !important;
+  height: 100% !important;
+  margin-top: 3vh !important;
+  margin-bottom: 1vh !important;
+  border-radius: 12px;
+  justify-content: center;
+  transform: translateX(-7%);
+}
+
+  .carousel-container img,
+  .carousel-container picture,
+  .carousel-container video {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 12px;
+    display: block;
+  }
+
+  /* Booking form */
+  .booking .body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px !important;
+  }
+
+  .booking .header {
+    margin-top: 3rem !important;
+  }
+
+  .booking .header a {
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding-left: 30px;
+  }
+
+  .booking h4 {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+    margin-top: 2rem !important;
+    padding-left: 30px;
+  }
+
+  .booking div {
+    width: 100%;
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  .booking .container-2 {
+    margin-top: 0vh !important;
+    margin-bottom: 0vh !important;
+    padding-top: 0vh !important;
+    padding-bottom: 0vh !important;
+  }
+
+  .booking label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #666a75;
+    margin-top: none;
+    margin-bottom: 0.5vh;
+    width: 100%
+  }
+
+  .booking input {
+    margin-bottom: 0vh;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    margin-top: none;
+  }
+
+  .variable {
+    display: block;
+    gap: 2px;
+    width: 100%;
+    margin-top: 0px;
+    padding: none !important;
+  }
+
+  
+
+  .dentist-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 2rem !important;
+  }
+
+  .variable label:not(.variable div label) {
+    padding-left: 17px;
+    margin-top: 1vh;
+    margin-bottom: none !important;
+  }
+
+  .booking .variable button {
+    width: 100% !important;
+    margin: none !important;
+    border-radius: 10px;
+    background-color: #f1f3f4;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid #dee2e6;
+    color: #333;
+  }
+
+  .booking .no-lower-space {
+    margin-bottom: 2vh !important;
+    padding-bottom: 0 !important;
+  }
+
+  .booking .no-upper-space {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* Short-size */
+@media (max-width: 600px) {
+  /* Grid */
+  .custom-grid, .custom-grid-3, .custom-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    margin-bottom: 2vh;
+  }
+
+  /* Header */
+  .header {
+    position: relative;
+    padding: 10px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    align-items: center;
+  }
+  
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    margin-right: 10px;
+    z-index: 1001;
+  }
+
+  .booking-button:not(.big) {
+    display: none;
+  }
+
+  .big {
+    font-size: 1.4rem !important;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    padding: 15px 20px;
+    z-index: 1000;
+    min-width: 180px;
+  }
+
+  .nav-links.open {
+    display: flex;
+    margin-top: 15px;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+    color: #000;
+    text-decoration: none;
+    text-align: right;
+    margin-bottom: 1vh;
+  }
+
+  /* Body */
+  .body, .footer, div {
+    padding: 8px;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 3.2rem !important;
+    font-weight: 550 !important;
+  }
+
+  h2:not(#servicios h2, #testimonios h2) {
+    font-size: 2.2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 4vh !important;
+    margin-top: 4vh !important;
+    padding-left: 16px;
+  }
+
+  h3:not(.dentist-nombre) {
+    font-size: 1.2rem !important;
     margin-top: 2.5vh !important;
   }
 
   h4 {
-    font-size: 1rem !important;
+    font-size: 1.1rem !important;
     margin-top: 30px !important;
   }
-
-  .odont-card, .testimonial-card, .service-card {
+  
+  /* Dentists */
+  .dentist-card, .testimonial-card, .service-card {
     min-width: 0;
     width: 100%;
-    margin-bottom: 0.4vh;
+    margin-bottom: 0.8vh;
   }
 
-  .odont-nombre {
-    font-size: 1rem !important;
+  .dentist-nombre {
+    font-size: 1.3rem !important;
     margin-top: 1.5vh !important;
-  }
-
-  #conocenos {
+  }  
+  
+  #nosotros {
     margin-bottom: 0.6vh !important;
   }
+
+  /* Services */  
+  #servicios h2 {
+    font-size: 2.2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 6vh !important;
+    margin-top: 3vh !important;
+  }  
   
   #servicios {
     margin-bottom: 3vh !important;
@@ -346,10 +913,52 @@
     display: none !important;
   }
 
+  /* Testimonials */
+  #testimonios h2 {
+    font-size: 2.2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 2vh !important;
+    margin-top: 3vh !important;
+    padding-left: 16px;
+  }
+  
+  .testimonial-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: #d5d7da 1px solid;
+    padding: 20px !important;
+  }
+
+  .testimonial {
+    font-size: 1.2rem;
+    color: #6b7280;
+  }
+
+  .testimonial-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 3.2vh;
+    margin-bottom: 5px !important;
+  }
+
+  .testimonial-date {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-top: 0 !important;
+  }
+
+  /* Office */
+  #consultorio p {
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 3vh !important;
+  }
+
   #consultorio {
     margin-bottom: 3vh !important;
   }
 
+  /* Comments */
   #comments {
     display: flex;
     flex-direction: column;
@@ -377,32 +986,7 @@
     margin-top: 0.5vh !important;
   }
 
-  /* Tarjetas de testimonios */
-  .testimonial-card {
-    background: #ffffff;
-    border-radius: 15px;
-    border: #d5d7da 1px solid;
-    padding: 20px !important;
-  }
-
-  .testimonial {
-    font-size: 1.2rem;
-    color: #6b7280;
-  }
-
-  .testimonial-name {
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-top: 3.2vh;
-    margin-bottom: 5px !important;
-  }
-
-  .testimonial-date {
-    font-size: 0.9rem;
-    color: #9ca3af;
-    margin-top: 0 !important;
-  }
-
+  /* Footer */
   .footer {
     display: flex;
     flex-direction: column;
@@ -411,17 +995,11 @@
     padding-top: 25px !important;
   }
 
-  .footer li {
-    display: none;
+  .footer ul {
+    display: none !important;
   }
 
-  .footer p {
-    font-size: 0.9rem !important;
-    text-align: center;
-    margin-top: 5vh !important;
-  }
-
-  /* Carrusel de imágenes */
+  /* Carousel */
   .carousel-container {
     width: 105vw !important;
     height: 28vh !important;
@@ -442,7 +1020,7 @@
     display: block;
   }
 
-  /* Carrusel de servicios y testimonios */
+  /* Services and testimonials carousels */
   #servicios-carousel .w-100,
   #testimonios .w-100 {
     padding: 0 !important;
@@ -461,20 +1039,90 @@
     min-width: 0 !important;
   }
 
-  /* Formulario de agenda*/
-  label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #666a75;
-    margin-top: 1.5vh
+  /* Booking form */
+  .booking .header a {
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding-left: 16px;
   }
 
-  input {
+  .booking h4 {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 4vh !important;
+    margin-top: 5vh !important;
+    padding-left: 16px;
+  }
+
+  .booking .custom-grid .container-2 {
+    margin-top: 0vh !important;
+    margin-bottom: 0vh !important;
+    padding-top: 0vh !important;
+    padding-bottom: 0vh !important;
+  }  
+  
+  .booking label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #666a75;
+    margin: none;
+    width: 100%;
+    margin-bottom: 1vh;
+  }
+
+  .booking input {
+    margin-bottom: 1vh;
     width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #d1d5db;
-    font-size: 0.8rem;
-    margin-top: 0.5vh !important;
+    font-size: 1rem;
+    margin-top: none;
+  }
+
+  .variable {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    padding: none !important;
+  }
+
+  .booking .variable button {
+    width: 100% !important;
+    margin: none !important;
+    border-radius: 10px;
+    background-color: #f1f3f4;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid #dee2e6;
+    color: #333;
+  }
+
+  .dentist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 2vh;
+  }
+
+  .variable label:not(.variable div label) {
+    padding-left: 10px;
+    margin-top: 1vh;
+    margin-bottom: none !important;
+  }
+
+  .booking .no-lower-space {
+    margin-bottom: 2vh !important;
+    padding-bottom: 0 !important;
+  }
+
+  .booking .no-upper-space {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 }
