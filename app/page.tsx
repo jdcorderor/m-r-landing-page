@@ -106,23 +106,23 @@ export default function Home() {
   // Carousel slides per view
   const slidesPerView = useSlidesPerView();
 
-  const services = [
-    <div className="service-card" key="service-1"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-    <div className="service-card" key="service-2"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-    <div className="service-card" key="service-3"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-    <div className="service-card" key="service-4"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-    <div className="service-card" key="service-5"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-    <div className="service-card" key="service-6"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  ];
+  const services = useMemo(() => [
+  <div className="service-card" key="service-1"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
+  <div className="service-card" key="service-2"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
+  <div className="service-card" key="service-3"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
+  <div className="service-card" key="service-4"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
+  <div className="service-card" key="service-5"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
+  <div className="service-card" key="service-6"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
+  ], []);
 
-  const testimonials = [
-    <div className="testimonial-card" key="testimonial-1"><p className="testimonial">"Excelente servicio"</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-2"><p className="testimonial">"Muy profesionales"</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-3"><p className="testimonial">"Recomendados"</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-4"><p className="testimonial">"Atención de calidad"</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-5"><p className="testimonial">"Excelente"</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-6"><p className="testimonial">"Calidad al mejor costo"</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-  ];
+  const testimonials = useMemo(() => [
+    <div className="testimonial-card" key="testimonial-1"><p className="testimonial">&quot;Excelente servicio&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
+    <div className="testimonial-card" key="testimonial-2"><p className="testimonial">&quot;Muy profesionales&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
+    <div className="testimonial-card" key="testimonial-3"><p className="testimonial">&quot;Recomendados&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
+    <div className="testimonial-card" key="testimonial-4"><p className="testimonial">&quot;Atención de calidad&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
+    <div className="testimonial-card" key="testimonial-5"><p className="testimonial">&quot;Excelente&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
+    <div className="testimonial-card" key="testimonial-6"><p className="testimonial">&quot;Calidad al mejor costo&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
+  ], []);
 
   const serviceSlides = useMemo(() => groupItems(services, slidesPerView), [services, slidesPerView]);
   const testimonialSlides = useMemo(() => groupItems(testimonials, slidesPerView), [testimonials, slidesPerView]);
