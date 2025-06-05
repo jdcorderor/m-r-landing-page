@@ -1,131 +1,144 @@
 "use client";
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import Carousel from "react-bootstrap/Carousel";
 import Image from 'next/image';
+import { useSlidesPerView, groupItems, formatDate } from '@/hooks/homePageHooks';
+import { useFadeTransition, useFormTransition, useCarouselTransition, useHideMenuOnClickOutside } from '@/hooks/useHomePageEffects';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-// Hook to detect screen size and set slides per view
-function useSlidesPerView() {
-  const [slides, setSlides] = useState(3);
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < 700) setSlides(1);
-      else if (window.innerWidth < 1024) setSlides(2);
-      else setSlides(3);
-    }
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  return slides;
-}
-
-// Group items into arrays
-function groupItems<T>(items: T[], perGroup: number): T[][] {
-  const groups = [];
-  for (let i = 0; i < items.length; i += perGroup) {
-    groups.push(items.slice(i, i + perGroup));
-  }
-  return groups;
-}
-
 export default function Home() {
+  // State variables for toggling form, services, and menu
   const [showForm, setShowForm] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-
-  // Fade transition
-  useEffect(() => {
-    const sections = document.querySelectorAll('.section-fade');
-    const observer = new window.IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.20 }
-    );
-    sections.forEach(section => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
-
-
-  // Comments form transition
+  
+  // Refs (services carousel, comments form)
   const formRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = formRef.current;
-    if (!el) return;
-    if (showForm) { 
-      el.style.transition = 'max-height 1.5s cubic-bezier(0.22, 1, 0.36, 1), padding 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
-      el.style.maxHeight = '1200px';
-      el.style.padding = '2vw 2vw 2vw 2vw';
-    } else {
-      el.style.transition = 'max-height 0.2s, padding 0.2s';
-      el.style.maxHeight = '0';
-      el.style.padding = '0 2vw';
-    }
-  }, [showForm]);
-
-
-  // Services carousel transition
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = carouselRef.current;
-    if (!el) return;
-    if (showServices) {
-      el.style.transition = 'max-height 2s cubic-bezier(0.22, 1, 0.36, 1), padding 2s cubic-bezier(0.22, 1, 0.36, 1)';
-      el.style.maxHeight = '1200px';
-      el.style.padding = '2vw 2vw 2vw 2vw';
-    } else {
-      el.style.transition = 'max-height 0.8s, padding 0.8s';
-      el.style.maxHeight = '0';
-      el.style.padding = '0 2vw';
-    }
-  }, [showServices]);
+  // Custom hooks for effects (fade-in transition, deployment, and hide menu on click outside)
+  useFadeTransition();
+  useFormTransition(formRef, showForm);
+  useCarouselTransition(carouselRef, showServices);
+  useHideMenuOnClickOutside(menuOpen, setMenuOpen);
 
+  // -----------------------------------------------------------------------------
 
-  // Hide menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (menuOpen && !target.closest('.nav-links') && !target.closest('.menu-toggle')) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [menuOpen]);
-
-
-  // Carousel slides per view
+  // Carousel slides per view (responsive)
   const slidesPerView = useSlidesPerView();
 
-  const services = useMemo(() => [
-  <div className="service-card" key="service-1"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  <div className="service-card" key="service-2"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  <div className="service-card" key="service-3"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  <div className="service-card" key="service-4"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  <div className="service-card" key="service-5"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  <div className="service-card" key="service-6"><Image src="/images/carousel1.jpg" width={600} height={400} alt="" /></div>,
-  ], []);
+  // Define testimonial type and state
+  type Testimonial = {
+    comentario: string;
+    emisor: string;
+    fecha: string;
+  };
+  
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  
+  // Get testimonials from the DB using fetch
+  useEffect(() => {
+    fetch("/api/comentarios", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => setTestimonials(data))
+      .catch((error) => console.error("Error en el fetch:", error));
+  }, []);
 
-  const testimonials = useMemo(() => [
-    <div className="testimonial-card" key="testimonial-1"><p className="testimonial">&quot;Excelente servicio&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-2"><p className="testimonial">&quot;Muy profesionales&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-3"><p className="testimonial">&quot;Recomendados&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-4"><p className="testimonial">&quot;Atención de calidad&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-5"><p className="testimonial">&quot;Excelente&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-    <div className="testimonial-card" key="testimonial-6"><p className="testimonial">&quot;Calidad al mejor costo&quot;</p><p className="testimonial-name">Nombre</p><p className="testimonial-date">Fecha</p></div>,
-  ], []);
+  // Build testimonial cards, using useMemo for render optimization
+  const testimonialCards = useMemo(() => testimonials.map((testimonial, index) => (
+    <div className="testimonial-card" key={index}>
+      <p className="testimonial">&quot;{testimonial.comentario}&quot;</p>
+      <p className="testimonial-name">{testimonial.emisor}</p>
+      <p className="testimonial-date">{formatDate(testimonial.fecha)}</p>
+    </div>
+  )), [testimonials]);
 
-  const serviceSlides = useMemo(() => groupItems(services, slidesPerView), [services, slidesPerView]);
-  const testimonialSlides = useMemo(() => groupItems(testimonials, slidesPerView), [testimonials, slidesPerView]);
+  // Build testimonial carousel items, using useMemo for render optimization
+  const testimonialSlides = useMemo(() => groupItems(testimonialCards, slidesPerView), [testimonialCards, slidesPerView]);
+
+  // -----------------------------------------------------------------------------
+
+  // Define service type and state
+  type Service = {
+    nombre: string;
+    descripcion: string;
+    url_imagen: string;
+  }
+
+  const [services, setServices] = useState<Service[]>([]);
+
+  // Get services from the DB using fetch
+  useEffect(() => {
+    fetch("/api/servicios", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+    .then((response) => response.json())
+    .then((data) => setServices(data.map((service: Service) => ({ nombre: service.nombre, descripcion: service.descripcion, imagen: service.url_imagen }))))
+    .catch(error => {
+      console.error("Error en el fetch", error);
+    })
+  }, []);
+  
+  // Build service cards, using useMemo for render optimization
+  const serviceCards = useMemo(() => services.map((service, index) => (
+    // Create a service card.
+     <div key={index}></div>
+  )), [services]);
+
+  // Build service carousel items, using useMemo for render optimization
+  const serviceSlides = useMemo(() => groupItems(serviceCards, slidesPerView), [serviceCards, slidesPerView]);
+
+  // -----------------------------------------------------------------------------
+
+  // Define states for comment's form fields
+  const [ sender, setSender ] = useState("");
+  const [ email, setEmail ] = useState("");
+  const [ comment, setComment ] = useState("");
+
+  // Post new comment to the DB using fetch
+  const handleCommentSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const newComment = {
+      emisor: sender,
+      email: email,
+      comentario: comment
+    };
+
+    try {
+      const response = await fetch("/api/comentarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newComment),
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        setSender("");
+        setEmail("");
+        setComment("");
+        setShowForm(false);
+
+        const data = await response.json();
+        setTestimonials((prevTestimonials) => [...prevTestimonials, data]);
+      }
+    } catch (error) {
+      console.error("Error al enviar el comentario:", error);
+    }
+  }
 
   return (
     <div className="container-1">
@@ -291,19 +304,19 @@ export default function Home() {
             </div>
           </div>
           <div id="comments-form" ref={formRef} className={`container-4 comments-form-transition${showForm ? "visible" : ""}`}>
-            <form action="submit">
+            <form onSubmit={ handleCommentSubmit }>
               <div className="container-4 custom-grid-3">
                 <div>
                   <label htmlFor="">Nombre y Apellido *</label>
-                  <input type="text" className="form-control" placeholder="Nombre" />
+                  <input type="text" className="form-control" value={ sender } onChange={ (e) => setSender(e.target.value) } placeholder="Nombre" required />
                 </div>
                 <div>
                   <label htmlFor="">Correo electrónico *</label>
-                  <input type="email" className="form-control" placeholder="Correo electrónico" />
+                  <input type="email" className="form-control" value={ email } onChange={ (e) => setEmail(e.target.value) } placeholder="Correo electrónico" required />
                 </div>
                 <div>
                   <label htmlFor="">Comentario *</label>
-                  <input type="text" className="form-control" placeholder="Escribe tu comentario aquí"></input>
+                  <input type="text" className="form-control" value={ comment } onChange={ (e) => setComment(e.target.value) } placeholder="Escribe tu comentario aquí" required></input>
                 </div>
               </div>
               <button type="submit" className="submitcomment-button">Enviar</button>
