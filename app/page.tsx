@@ -69,7 +69,9 @@ export default function Home() {
   type Service = {
     nombre: string;
     descripcion: string;
-    url_imagen: string;
+    caracteristicas: string[];
+    duracion: number; // Minutes
+    precio: number; // USD
   }
 
   const [services, setServices] = useState<Service[]>([]);
@@ -84,7 +86,7 @@ export default function Home() {
       credentials: "include",
     })
     .then((response) => response.json())
-    .then((data) => setServices(data.map((service: Service) => ({ nombre: service.nombre, descripcion: service.descripcion, imagen: service.url_imagen }))))
+    .then((data) => setServices(data))
     .catch(error => {
       console.error("Error en el fetch", error);
     })
