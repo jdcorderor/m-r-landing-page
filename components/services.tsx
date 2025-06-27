@@ -6,13 +6,11 @@ export default function Services() {
     // Carousel slides per view (responsive)
     const slidesPerView = useSlidesPerView();
     
-    // Define service type and state
+    // Define service type
     type Service = {
         nombre: string;
         descripcion: string;
         caracteristicas: string[];
-        duracion: number; // Minutes
-        precio: number; // USD
     }
     
     // State variable for services list
@@ -36,31 +34,36 @@ export default function Services() {
       
     // Build service cards, using useMemo for render optimization
     const serviceCards = useMemo(() => services.map((service, index) => (
-        // Create a service card.
-        <div key={index}></div>
+        <div className="border rounded-lg p-4" key={index}>
+            <p className="">&quot;{service.nombre}&quot;</p>
+            <p className="">{service.descripcion}</p>
+            <p className="">
+                {service.caracteristicas.map((caracteristica, index) => (
+                    <span key={index} className="inline-block mr-2">{caracteristica}</span>
+            ))}
+            </p>
+        </div>
     )), [services]);
     
     // Build service carousel items, using useMemo for render optimization
     const serviceSlides = useMemo(() => groupItems(serviceCards, slidesPerView), [serviceCards, slidesPerView]);
     
     return (
-        <section className="flex py-12 md:py-16 px-[5vw]" id="servicios">
+        <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="servicios">
             <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Servicios</h2>          
 
-            <div>
-                <div>
-                    <Carousel>
-                        {serviceSlides.map((group, idx) => (
-                            <Carousel.Item key={idx}>
-                                <div className="">
-                                    <div className={`${(slidesPerView === 2) ? "" : `-${slidesPerView}`}`}>
-                                        {group}
-                                    </div>
+            <div className="w-full mt-8">
+                <Carousel className="fit-content">
+                    {serviceSlides.map((group, idx) => (
+                        <Carousel.Item key={idx}>
+                            <div className="">
+                                <div className="flex gap-4">
+                                    {group}
                                 </div>
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
-                </div>
+                            </div>
+                        </Carousel.Item>
+                    ))}
+                </Carousel>
             </div>
         </section>
     );

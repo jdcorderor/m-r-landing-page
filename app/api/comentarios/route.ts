@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
         const client = await dbPool.connect();
-        const result = await client.query("SELECT * FROM comentarios");
+        const result = await client.query("SELECT * FROM comentarios WHERE estado = 'aprobado' ORDER BY fecha DESC");
         client.release(); // Release the client back to the pool
 
         return NextResponse.json(result.rows);
@@ -24,8 +24,8 @@ export async function POST(request: Request) {
 
         const client = await dbPool.connect();
         const newComment = await client.query(
-            "INSERT INTO comentarios (emisor, email, comentario) VALUES ($1, $2, $3) RETURNING *",
-            [emisor, email, comentario]
+            "INSERT INTO comentarios (emisor, email, comentario, estado) VALUES ($1, $2, $3, $4) RETURNING *",
+            [emisor, email, comentario, "pendiente"]
         );
         client.release(); // Release the client back to the pool
 

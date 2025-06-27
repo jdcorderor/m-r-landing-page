@@ -1,36 +1,69 @@
-import Image from 'next/image';
+import React, { useState, useMemo, useEffect } from 'react';
+import Carousel from "react-bootstrap/Carousel";
+import { groupItems, useSlidesPerView } from '@/hooks/homePageHooks';
 
 export default function About() {
-  const dentists = [
-    {
-      name: "Od. Ramón Mavarez",
-      description: "Descripción del odontólogo Ramón Mavarez.",
-      image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=facearea&w=400&h=400&facepad=2"
-    },
-    {
-      name: "Od. Patricia Román",
-      description: "Descripción de la odontóloga Patricia Román.",
-      image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=facearea&w=400&h=400&facepad=2"
-    },
-    {
-      name: "Dr. José Espinoza",
-      description: "Descripción del doctor José Espinoza.",
-      image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=400&h=400&facepad=2"
-    }
-  ];
+  // Carousel slides per view (responsive)
+  const slidesPerView = useSlidesPerView();
+
+  // Define dentist type
+  type Dentist = {
+    nombre: string;
+    apellido: string;
+    descripcion: string;
+    email: string;
+    especialidad: string;
+    telefono: string;
+  }
+      
+  // State variable for dentists list
+  const [dentists, setDentists] = useState<Dentist[]>([]);
+      
+  // Get services from the DB using fetch
+  useEffect(() => {
+    fetch("/api/odontologos", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+    .then((response) => response.json())
+    .then((data) => setDentists(data))
+    .catch(error => {
+      console.error("Error en el fetch", error);
+    })
+  }, []);
+        
+  // Build dentist cards, using useMemo for render optimization
+  const dentistCards = useMemo(() => dentists.map((dentist, index) => (
+    <div className="border rounded-lg p-4" key={index}>
+        <p>{dentist.nombre} {dentist.apellido}</p>
+        <p>{dentist.especialidad}</p>
+        <p>{dentist.descripcion}</p>
+        <p>Email: {dentist.email}</p>
+        <p>Teléfono: {dentist.telefono}</p>
+    </div>
+  )), [dentists]);
+      
+  // Build dentist carousel items, using useMemo for render optimization
+  const dentistSlides = useMemo(() => groupItems(dentistCards, slidesPerView), [dentistCards, slidesPerView]);
+
   return (
     <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="nosotros">
-      <div>
-        <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Conócenos</h2>
-      </div>
-      <div className="mt-8 grid gap-8 md:grid-cols-3">
-        {dentists.map((dentist, idx) => (
-          <div key={idx} className="bg-white rounded-lg shadow p-6 flex flex-col items-center">
-            <Image src={dentist.image} alt={dentist.name} width={128} height={128} className="w-32 h-32 object-cover rounded-full mb-4"/>
-            <h3 className="text-xl font-semibold mb-2">{dentist.name}</h3>
-            <p className="text-gray-600 text-center">{dentist.description}</p>
-          </div>
-        ))}
+      <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Conócenos</h2>
+      <div className="w-full mt-8">
+        <Carousel className="fit-content">
+          {dentistSlides.map((group, idx) => (
+            <Carousel.Item key={idx}>
+              <div className="">
+                <div className="flex gap-4">
+                  {group}
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel>
       </div>
     </section>
   );
