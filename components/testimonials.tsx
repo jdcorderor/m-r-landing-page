@@ -2,6 +2,8 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import Carousel from "react-bootstrap/Carousel";
 import { useSlidesPerView, groupItems, formatDate } from '@/hooks/homePageHooks';
 import { useFormTransition } from '@/hooks/useHomePageEffects'
+import Input from '@/components/ui/input';
+import Button from '@/components/ui/button';
 
 export default function Testimonials() {
     // State variable for toggling form
@@ -113,29 +115,40 @@ export default function Testimonials() {
             </section>
 
             <section className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100" id="comments">
-                <div className="flex items-center">
-                    <h3 style={{ fontSize: "2.5rem", fontWeight: "bold" }} className="mx-auto">Comparte tu experiencia</h3>
-                    <div className="mx-auto bg-white border rounded-[20px] font-medium py-2 px-4 ">
-                        <button className="" onClick={() => setShowForm(!showForm)}>{(showForm) ? "Cancelar" : "Agregar comentario"}</button>
+                <div className="flex">
+                    <div className="flex w-full items-center justify-between px-1 md:px-5 mb-2">
+                        <p className="text-start text-xl md:text-4xl font-bold">Comparte tu experiencia</p>
+                        <Button
+                            className="w-[50%] md:w-[15%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-600 hover:text-white rounded-lg"
+                            onClick={() => setShowForm(!showForm)}
+                        >
+                            {showForm ? "Cancelar" : "Agregar comentario"}
+                        </Button>
                     </div>
                 </div>
-                <div className={`${showForm ? "" : "hidden"}`} id="comments-form" ref={formRef}>
+                <div
+                    id="comments-form"
+                    ref={formRef}
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
+                >
                     <form onSubmit={ handleCommentSubmit }>
-                        <div className="">
-                            <div>
-                                <label htmlFor="">Nombre y Apellido *</label>
-                                <input type="text" className="" value={ sender } onChange={ (e) => setSender(e.target.value) } placeholder="Nombre" required />
+                        <div className="flex flex-col md:flex-row justify-between gap-4 mb-5">
+                            <div className="flex flex-col w-full md:w-[30%]">
+                                <label className="mb-2" htmlFor="">Nombre y Apellido *</label>
+                                <Input type="text" className="" value={ sender } onChange={ (e) => setSender(e.target.value) } placeholder="Nombre" required />
                             </div>
-                            <div>
-                                <label htmlFor="">Correo electrónico *</label>
-                                <input type="email" className="" value={ email } onChange={ (e) => setEmail(e.target.value) } placeholder="Correo electrónico" required />
+                            <div className="flex flex-col w-full md:w-[30%]">
+                                <label className="mb-2" htmlFor="">Correo electrónico *</label>
+                                <Input type="email" className="w-full" value={ email } onChange={ (e) => setEmail(e.target.value) } placeholder="Correo electrónico" required />
                             </div>
-                            <div>
-                                <label htmlFor="">Comentario *</label>
-                                <input type="text" className="" value={ comment } onChange={ (e) => setComment(e.target.value) } placeholder="Escribe tu comentario aquí" required></input>
+                            <div className="flex flex-col  w-full md:w-[30%]">
+                                <label className="mb-2" htmlFor="">Comentario *</label>
+                                <Input type="text" className="" value={ comment } onChange={ (e) => setComment(e.target.value) } placeholder="Escribe tu comentario aquí" required></Input>
                             </div>
                         </div>
-                        <button type="submit" className="">Enviar</button>
+                        <div className="flex flex-row justify-center">
+                            <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-600 hover:text-white rounded-lg">Enviar</Button>
+                        </div>
                     </form>
                 </div>
             </section>

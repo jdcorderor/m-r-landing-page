@@ -4,21 +4,21 @@ export default function Footer() {
             <div className="flex pb-6">
                 <div className="flex-1 justify-start gap-3">
                     <div className="font-bold mb-4">Mavarez & Román</div>
-                    <div><i className="bi bi-telephone"></i> 0212-1234567</div>
-                    <div><i className="bi bi-envelope"></i> info@mavarezroman.com</div>
-                    <div><i className="bi bi-instagram"></i> mavarezroman</div>
+                    <div className="py-1"><i className="bi bi-telephone"></i> 0212-1234567</div>
+                    <div className="py-1"><i className="bi bi-envelope"></i> info@mavarezroman.com</div>
+                    <div className="py-1"><i className="bi bi-instagram"></i> mavarezroman</div>
                 </div>
                 <div>
                     <ul>
-                        <li><a href="#nosotros" className="text-black" style={{ textDecoration: 'none' }}>Conócenos</a></li>
-                        <li><a href="#servicios" className="text-black" style={{ textDecoration: 'none' }}>Servicios</a></li>
-                        <li><a href="#consultorio" className="text-black" style={{ textDecoration: 'none' }}>Consultorio</a></li>
-                        <li><a href="#testimonios" className="text-black" style={{ textDecoration: 'none' }}>Testimonios</a></li>
-                        <li><a href="/agendar" className="text-black" style={{ textDecoration: 'none' }}>Agendar cita</a></li>
+                        <li className="py-1"><a href="#nosotros" className="text-black" style={{ textDecoration: 'none' }}>Conócenos</a></li>
+                        <li className="py-1"><a href="#servicios" className="text-black" style={{ textDecoration: 'none' }}>Servicios</a></li>
+                        <li className="py-1"><a href="#consultorio" className="text-black" style={{ textDecoration: 'none' }}>Consultorio</a></li>
+                        <li className="py-1"><a href="#testimonios" className="text-black" style={{ textDecoration: 'none' }}>Testimonios</a></li>
+                        <li className="py-1"><a href="/agendar" className="text-black" style={{ textDecoration: 'none' }}>Agendar cita</a></li>
                     </ul>
                 </div>
             </div>
-            <p className="mx-auto text-[0.85rem]">Copyright 2025 <i className="bi bi-c-circle"></i>, Mavarez & Román. Todos los derechos reservados.</p>
+            <p className="mt-3 md:mt-0 mx-auto text-[0.85rem]">Copyright 2025 <i className="bi bi-c-circle"></i>, Mavarez & Román. Todos los derechos reservados.</p>
         </footer>
     );
 }

@@ -1,4 +1,4 @@
-import { dbPool } from "@/lib/db";
+/*import { dbPool } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 
@@ -38,3 +38,4 @@ export async function POST(request: Request) {
 // UPDATE ROUTE
 
 // DELETE ROUTE
+*/
