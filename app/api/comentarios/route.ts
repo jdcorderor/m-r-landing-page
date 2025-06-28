@@ -1,4 +1,4 @@
-/*import { dbPool } from "@/lib/db";
+import { dbPool } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -34,4 +34,4 @@ export async function POST(request: Request) {
         console.error('Error al enviar datos:', error);
         return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
     }
-}*/
+}

@@ -1,4 +1,4 @@
-/*import { dbPool } from "@/lib/db";
+import { dbPool } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 // GET ROUTE
@@ -13,4 +13,4 @@ export async function GET() {
         console.error("Error al obtener datos:", error);
         return NextResponse.json({ message: "Error interno del servidor" }, { status: 500 });
     }
-}*/
+}
