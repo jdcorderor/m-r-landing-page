@@ -27,7 +27,7 @@ export default function HeroSection() {
                 </Carousel.Item>
             </Carousel>
           </div>
-          <a href="/agendar" className="inline-block mx-auto px-4 py-2 border rounded-[25] text-black text-[1.2rem] font-semibold" style={{ textDecoration: 'none' }}>
+          <a href="/agendar" className="inline-block mx-auto px-10 py-3 text-xl md:px-10 md:py-4 md:text-3xl border rounded-[25] text-black font-bold shadow-md" style={{ textDecoration: 'none' }}>
             Agenda tu cita
           </a>
         </section>
