@@ -42,6 +42,7 @@ export default function Home() {
   // State variables for alert and modal visibility
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [showQuickBooking, setShowQuickBooking] = useState<boolean>(false);
   
   // State variables for form inputs
@@ -213,6 +214,7 @@ export default function Home() {
                             className="w-[48%] bg-gray-600 text-white hover:bg-gray-400 rounded"
                             onClick={() => {
                               setShowModal(false);
+                              setShowConfirm(true);
                               const telefono = "584124117850";
                               const mensaje = encodeURIComponent(
                                 `¡Hola! Quiero agendar una cita en Mavarez & Román.\n\n` +
@@ -292,8 +294,8 @@ export default function Home() {
                 {showAlert && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm">
                       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
-                        <p className="text-center text-lg font-medium mt-2 mb-4">Por favor, seleccione un especialista</p>
-                        <div className="flex items-center justify-center mt-3">
+                        <p className="text-center mb-6 text-lg font-medium">Por favor, selecciona un Odontólogo</p>
+                        <div className="flex items-center justify-center">
                           <Button
                           className="w-[50%] bg-gray-200 hover:bg-gray-600 hover:text-white rounded"
                           onClick={() => setShowAlert(false)}
@@ -304,8 +306,38 @@ export default function Home() {
                       </div>
                     </div>
                 )}
+
+                {showConfirm && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
+                    <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                      <h2 className="text-xl font-bold text-center mb-4">✅<br></br>Cita Programada</h2>
+                      <p className="text-center mb-6">Su cita ha sido procesada exitosamente. Para más información, comunicate a través de WhatsApp</p>
+                      <div className="flex justify-center">
+                        <Button
+                          className="w-1/2 bg-green-300 hover:bg-green-500 rounded"
+                          onClick={() => {
+                          setShowConfirm(false);
+                          setDentist(null);
+                          setName(null);
+                          setLastName(null);
+                          setId(null);
+                          setBirthDate(null);
+                          setEmail(null);
+                          setPhone(null);
+                          setAppointmentDate(null);
+                          setAppointmentTime(null);
+                          setReason(null);
+                          }}
+                        >
+                          Continuar
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+
           </form>
         </div>
       </div>

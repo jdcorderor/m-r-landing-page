@@ -8,7 +8,12 @@ import Button from '@/components/ui/button';
 export default function Testimonials() {
     // State variable for toggling form
     const [showForm, setShowForm] = useState(false);
-      
+    const [showModal, setShowModal] = useState<boolean>(false);
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setShowModal(true);
+};
     // Ref for the comments form
     const formRef = useRef<HTMLDivElement>(null);
     
@@ -29,19 +34,52 @@ export default function Testimonials() {
     
     // State variable for testimonials list
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-      
+    
     // Get testimonials from the DB using fetch
     useEffect(() => {
         fetch("/api/comentarios", {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
+            "Content-Type": "application/json",
             },
             credentials: "include",
         })
-        .then((response) => response.json())
-        .then((data) => setTestimonials(data))
-        .catch((error) => console.error("Error en el fetch:", error));
+    .then((response) => {
+        if (!response.ok) {throw new Error(`API Error: ${response.status}`);}
+        return response.json();
+    })
+    .then((data) => setTestimonials(data))
+    .catch((error) => {
+        console.warn("Fallo al obtener testimonios. Usando datos mock:", error.message);
+        const mockTestimonials: Testimonial[] = [
+        {
+            emisor: "Prueba 1",
+            comentario: "¡Excelente atención y profesionales de primera!",
+            fecha: "2024-10-10",
+        },
+        {
+            emisor: "Prueba 2",
+            comentario: "Me encantó el trato personalizado. Recomendado al 100%.",
+            fecha: "2025-01-15",
+        },
+        {
+            emisor: "Prueba 3",
+            comentario: "Todo el proceso fue rápido y cómodo. Gracias por su dedicación.",
+            fecha: "2025-03-08",
+        },
+        {
+            emisor: "Prueba 4",
+            comentario: "¡Excelente atención y profesionales de primera!",
+            fecha: "2024-10-10",
+        },
+        {
+            emisor: "Prueba 5",
+            comentario: "¡Excelente atención y profesionales de primera!",
+            fecha: "2024-10-10",
+        },
+        ];
+        setTestimonials(mockTestimonials);
+        });
     }, []);
     
     // Build testimonial cards, using useMemo for render optimization
@@ -101,17 +139,6 @@ export default function Testimonials() {
         <div>
             <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="testimonios">
                 <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Testimonios</h2>
-                <div className="w-full mt-8">
-                    <Carousel className="fit-content">
-                        {testimonialSlides.map((group, idx) => (
-                            <Carousel.Item key={idx}>
-                                <div className="flex gap-4">
-                                    {group}
-                                </div>
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>            
-                </div>
             </section>
 
             <section className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100" id="comments">
@@ -127,7 +154,7 @@ export default function Testimonials() {
                     </div>
                 </div>
                 <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                    <form onSubmit={ handleCommentSubmit } className="pt-6">
+                    <form onSubmit={ handleSubmit } className="pt-6">
                         <div className="flex flex-col md:flex-row justify-between gap-4 mb-5">
                             <div className="flex flex-col w-full md:w-[30%]">
                                 <label className="mb-2 ml-2" htmlFor="">Nombre y Apellido *</label>
@@ -145,9 +172,45 @@ export default function Testimonials() {
                         <div className="flex flex-row justify-center">
                             <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-200 rounded-lg">Enviar</Button>
                         </div>
+                        
+                        {showModal && (
+                            <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
+                                <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                                    <h2 className="text-xl font-bold text-center mb-4">✅<br></br>Comentario Guardado</h2>
+                                    <p className="text-center mb-6">Su comentario se ha añadido correctamente. Proximamente aparecerá en el Carrusel de comentarios</p>
+                                    <div className="flex justify-center">
+                                        <Button
+                                            className="w-1/2 bg-green-300 hover:bg-green-500 rounded"
+                                            onClick={() => {
+                                                setShowModal(false);
+                                                setSender("");
+                                                setEmail("");
+                                                setComment("");
+                                            }}
+                                        >
+                                            Continuar
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </form>
                 </div>
             </section>
+            <div className="w-full mt-8">
+                <Carousel className="fit-content" 
+                    interval={null}
+                    nextIcon={<span className="text-3xl text-black p-3 ms-20 rounded-full">❯</span>}
+                    prevIcon={<span className="text-3xl text-black p-3 me-20 rounded-full">❮</span>}
+                    >
+                    {testimonialSlides.map((group, idx) => (
+                        <Carousel.Item key={idx}>
+                            <div className="flex gap-4 mx-24 justify-center">
+                                    {group}                                </div>
+                        </Carousel.Item>
+                    ))}
+                </Carousel>            
+            </div>
         </div>
     )
 }

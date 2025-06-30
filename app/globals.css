@@ -11,3 +11,21 @@
     --foreground: #ededed;
   }
 }
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .animate-slide {
+    animation: slide 20s linear infinite;
+  }
+  .hover\:pause:hover {
+    animation-play-state: paused !important;
+  }
+}

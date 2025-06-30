@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="flex flex-col pt-12 md:pt-16 px-[5vw]" id="contacto">
+        <footer className="flex flex-col pt-12 mt-10 md:pt-16 px-[5vw] bg-gray-300" id="contacto">
             <div className="flex pb-6">
                 <div className="flex-1 justify-start gap-3">
                     <div className="font-bold mb-4">Mavarez & Román</div>
