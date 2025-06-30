@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
         const client = await dbPool.connect();
-        const result = await client.query("SELECT nombre, apellido, descripcion, email, especialidad, telefono FROM odontologos");
+        const result = await client.query("SELECT id, nombre, apellido, descripcion, email, especialidad, telefono FROM odontologos");
         client.release();
 
         return NextResponse.json(result.rows);

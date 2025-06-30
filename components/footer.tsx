@@ -18,7 +18,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </div>
-            <p className="mt-3 md:mt-0 mx-auto text-[0.85rem]">Copyright 2025 <i className="bi bi-c-circle"></i>, Mavarez & Román. Todos los derechos reservados.</p>
+            <p className="mt-3 md:mt-0 mx-auto text-[0.85rem] text-center">Copyright 2025 <i className="bi bi-c-circle"></i>, Mavarez & Román. Todos los derechos reservados.</p>
         </footer>
     );
 }

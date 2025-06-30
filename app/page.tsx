@@ -7,14 +7,10 @@ import Services from "@/components/services";
 import Clinic from "@/components/clinic";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
-import { useFadeTransition } from '@/hooks/useHomePageEffects';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Home() {
-  // Custom hook for fade-in transition effect
-  useFadeTransition();
-
   return (
     <main className="flex flex-col justify-start pb-[5vh] min-h-screen">
       {/* Header */}

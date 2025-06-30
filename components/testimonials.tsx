@@ -117,37 +117,33 @@ export default function Testimonials() {
             <section className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100" id="comments">
                 <div className="flex">
                     <div className="flex w-full items-center justify-between px-1 md:px-5 mb-2">
-                        <p className="text-start text-xl md:text-4xl font-bold">Comparte tu experiencia</p>
+                        <span className="items-center text-3xl md:text-5xl font-bold">Comparte tu experiencia</span>
                         <Button
-                            className="w-[50%] md:w-[15%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-600 hover:text-white rounded-lg"
+                            className="w-[50vw] md:w-[20vw] bg-white-100 border"
                             onClick={() => setShowForm(!showForm)}
                         >
                             {showForm ? "Cancelar" : "Agregar comentario"}
                         </Button>
                     </div>
                 </div>
-                <div
-                    id="comments-form"
-                    ref={formRef}
-                    className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}
-                >
-                    <form onSubmit={ handleCommentSubmit }>
+                <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                    <form onSubmit={ handleCommentSubmit } className="pt-6">
                         <div className="flex flex-col md:flex-row justify-between gap-4 mb-5">
                             <div className="flex flex-col w-full md:w-[30%]">
-                                <label className="mb-2" htmlFor="">Nombre y Apellido *</label>
-                                <Input type="text" className="" value={ sender } onChange={ (e) => setSender(e.target.value) } placeholder="Nombre" required />
+                                <label className="mb-2 ml-2" htmlFor="">Nombre y Apellido *</label>
+                                <Input type="text" className="" value={ sender } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setSender(e.target.value) } placeholder="Nombre" required />
                             </div>
                             <div className="flex flex-col w-full md:w-[30%]">
-                                <label className="mb-2" htmlFor="">Correo electrónico *</label>
-                                <Input type="email" className="w-full" value={ email } onChange={ (e) => setEmail(e.target.value) } placeholder="Correo electrónico" required />
+                                <label className="mb-2 ml-2" htmlFor="">Correo electrónico *</label>
+                                <Input type="email" className="w-full" value={ email } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value) } placeholder="Correo electrónico" required />
                             </div>
                             <div className="flex flex-col  w-full md:w-[30%]">
-                                <label className="mb-2" htmlFor="">Comentario *</label>
-                                <Input type="text" className="" value={ comment } onChange={ (e) => setComment(e.target.value) } placeholder="Escribe tu comentario aquí" required></Input>
+                                <label className="mb-2 ml-2" htmlFor="">Comentario *</label>
+                                <Input type="text" className="" value={ comment } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setComment(e.target.value) } placeholder="Escribe tu comentario aquí" required></Input>
                             </div>
                         </div>
                         <div className="flex flex-row justify-center">
-                            <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-600 hover:text-white rounded-lg">Enviar</Button>
+                            <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-200 rounded-lg">Enviar</Button>
                         </div>
                     </form>
                 </div>

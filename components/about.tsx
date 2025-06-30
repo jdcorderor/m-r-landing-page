@@ -8,6 +8,7 @@ export default function About() {
 
   // Define dentist type
   type Dentist = {
+    id: string;
     nombre: string;
     apellido: string;
     descripcion: string;
@@ -19,7 +20,7 @@ export default function About() {
   // State variable for dentists list
   const [dentists, setDentists] = useState<Dentist[]>([]);
       
-  // Get services from the DB using fetch
+  // Get dentists from the DB using fetch
   useEffect(() => {
     fetch("/api/odontologos", {
       method: "GET",
