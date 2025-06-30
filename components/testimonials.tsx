@@ -6,7 +6,6 @@ import Input from '@/components/ui/input';
 import Button from '@/components/ui/button';
 import TestimonialCard from './ui/TestimonialCard';
 
-// --- Definición de tipos ---
 export type Testimonial = {
     id: string;
     comentario: string;
@@ -21,7 +20,6 @@ export type NewCommentPayload = {
     comentario: string;
 };
 
-// --- Constantes para URLs de API (se mantienen para cuando las necesites) ---
 const API_COMMENTS_GET_URL = "/api/comentarios";
 const API_COMMENTS_POST_URL = "/api/comentarios";
 
@@ -66,11 +64,11 @@ export default function Testimonials() {
 
     const slidesPerView = useSlidesPerView();
     const [testimonials, setTestimonials] = useState<Testimonial[]>(MOCK_TESTIMONIALS);
-    const [isLoadingTestimonials, setIsLoadingTestimonials] = useState<boolean>(false); // Falso al iniciar con mock data
+    const [isLoadingTestimonials, setIsLoadingTestimonials] = useState<boolean>(false);
     const [testimonialsError, setTestimonialsError] = useState<string | null>(null);
 
     const fetchTestimonials = useCallback(async () => {
-        // Para la API cuando este
+        // PARA LA API
         // setIsLoadingTestimonials(true);
         // setTestimonialsError(null);
         // try {
@@ -92,6 +90,7 @@ export default function Testimonials() {
         //   setIsLoadingTestimonials(false);
         // }
 
+        // Para simular un retraso en la carga de mock data si lo deseas:
         setIsLoadingTestimonials(true);
         setTimeout(() => {
             setTestimonials(MOCK_TESTIMONIALS);
@@ -99,7 +98,7 @@ export default function Testimonials() {
         }, 500); // Simula 0.5 segundos de carga
     }, []);
 
-    //Para la API
+    // Para la API
     // useEffect(() => {
     //   fetchTestimonials();
     // }, [fetchTestimonials]);
@@ -111,7 +110,6 @@ export default function Testimonials() {
 
     const testimonialSlides = useMemo(() => groupItems(testimonialCards, slidesPerView), [testimonialCards, slidesPerView]);
 
-    // --- Estados para el formulario de comentarios ---
     const [sender, setSender] = useState("");
     const [email, setEmail] = useState("");
     const [comment, setComment] = useState("");
@@ -131,7 +129,7 @@ export default function Testimonials() {
             email: email,
             comentario: comment,
         };
-        // Aquí se simula el envío del comentario a la API
+
         try {
             // const response = await fetch(API_COMMENTS_POST_URL, {
             //   method: "POST",
@@ -145,12 +143,14 @@ export default function Testimonials() {
             // }
             // const addedComment: Testimonial = await response.json();
 
+            // ** SIMULACIÓN DE ENVÍO EXITOSO **
             await new Promise(resolve => setTimeout(resolve, 1000)); // Simula un retraso de red
             const addedComment: Testimonial = {
                 ...newCommentPayload,
                 id: (Math.random() * 100000).toFixed(0), // Genera un ID mock
                 fecha: new Date().toISOString(), // Fecha actual
             };
+            // ** FIN SIMULACIÓN **
 
             setTestimonials((prevTestimonials) => [...prevTestimonials, addedComment]);
             setSubmitCommentSuccess("¡Gracias por tu comentario! Se ha enviado correctamente.");
@@ -173,7 +173,6 @@ export default function Testimonials() {
 
     return (
         <div>
-            {/* Sección de Testimonios Existentes */}
             <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="testimonios">
                 <h2 className="text-5xl font-bold mb-8 text-center md:text-left">Testimonios</h2>
                 <div className="w-full mt-8">
@@ -209,7 +208,6 @@ export default function Testimonials() {
                 </div>
             </section>
 
-            {/* Sección del Formulario para Compartir Experiencia */}
             <section className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100" id="comments">
                 <div className="flex">
                     <div className="flex w-full items-center justify-between px-1 md:px-5 mb-2">
