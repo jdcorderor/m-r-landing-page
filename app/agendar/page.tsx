@@ -84,6 +84,20 @@ export default function Home() {
   const [appointmentDate, setAppointmentDate] = useState<string | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<string | null>(null);
   const [reason, setReason] = useState<string | null>(null);
+  const [isUnderage, setIsUnderage] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (birthDate) {
+      const today = new Date();
+      const birthDateObj = new Date(birthDate);
+      let age = today.getFullYear() - birthDateObj.getFullYear();
+      const m = today.getMonth() - birthDateObj.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+      }
+      setIsUnderage(age < 18);
+    }
+  }, [birthDate]);
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -190,6 +204,11 @@ export default function Home() {
               <div className="w-full md:w-[49%] md:ml-1" >
                 <label className="mb-2 pl-2" htmlFor="">Cédula de Identidad *</label>
                 <Input required type="number" min="100000" max="99999999" className="rounded-md" placeholder="Cédula (ej. 12345678)" value={id ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setId(e.target.value)}/>
+                {isUnderage && (
+                  <p className="text-red-600 text-xs mt-1">
+                    Si el paciente no dispone de número de cédula, por favor proporcionar el de su representante legal.
+                  </p>
+                )}
               </div>
               
             </div>
