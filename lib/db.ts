@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
-const result = dotenv.config(); // Load environment variables from .env file
-console.log("dotenv result:", result);
-console.log("Conectando a: ", process.env.DATABASE_URL);
+dotenv.config(); // Load environment variables from .env file
 
 import { Pool } from "pg";
 

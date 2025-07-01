@@ -248,13 +248,15 @@ export default function Home() {
                 <Input required type="time" className="" value={appointmentTime ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentTime(e.target.value)} min="08:00" max="14:00"/>        
               </div>
             </div>
-            
             {dentist !== null && appointmentDate && appointmentTime && confirmedDates.some((c) => {
               if (c.odontologo_id !== dentists[dentist]?.id) return false;
                 
               const start = new Date(`${c.fecha}`).toISOString();
+              console.log("Start:", start);
               const end = new Date(`${c.fin_tentativo}`).toISOString();
+              console.log("End:", end);
               const selected = new Date(`${appointmentDate}T${appointmentTime}`).toISOString();
+              console.log("Selected:", selected);
                 
               return selected >= start && selected < end;
             }) && (

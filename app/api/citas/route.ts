@@ -24,7 +24,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "Faltan campos obligatorios (paciente, odontólogo, detalles)" }, { status: 400 });
         }
 
-        const fecha = `${detalles.fecha_cita}T${detalles.hora_cita}:00Z`;
+        const fecha = new Date(`${detalles.fecha_cita}T${detalles.hora_cita}:00-04:00`).toISOString();
 
         const client = await dbPool.connect();
 
