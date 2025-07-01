@@ -38,11 +38,38 @@ export default function Home() {
   }, []);
   
   // ------------------------------------------------------------------------------
+
+  // State variable for confirmed dates
+  type ConfirmedDate = {
+    fecha: string;
+    fin_tentativo: string;
+    odontologo_id: string;
+  }
+  
+  // State variable for confirmed dates
+  const [confirmedDates, setConfirmedDates] = useState<ConfirmedDate[]>([]);
+
+  // Get confirmed dates from the DB using fetch
+  useEffect(() => {
+    fetch("/api/citas", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+    .then((response) => response.json())
+    .then((data) => setConfirmedDates(data))
+    .catch(error => {
+      console.error("Error en el fetch", error);
+    })
+  }, []);
+
+  // ------------------------------------------------------------------------------
   
   // State variables for alert and modal visibility
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [showQuickBooking, setShowQuickBooking] = useState<boolean>(false);
   
   // State variables for form inputs
   const [dentist, setDentist] = useState<number | null>(null);
@@ -52,18 +79,34 @@ export default function Home() {
   const [birthDate, setBirthDate] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [phone, setPhone] = useState<string | null>(null);
+  const [address, setAddress] = useState<string | null>(null);
+  const [gender, setGender] = useState<string | null>(null);
   const [appointmentDate, setAppointmentDate] = useState<string | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<string | null>(null);
   const [reason, setReason] = useState<string | null>(null);
-
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dentist === null) {
       setShowAlert(true);
       return;
-    } 
-    setShowModal(true); 
-  };
+    }
+    
+    if (dentist !== null && appointmentDate && appointmentTime) {
+      const overlap = confirmedDates.some((c) => {
+        if (c.odontologo_id !== dentists[dentist]?.id) return false;
+        const start = new Date(`${c.fecha}`).toISOString();
+        const end = new Date(`${c.fin_tentativo}`).toISOString();
+        const selected = new Date(`${appointmentDate}T${appointmentTime}`).toISOString();
+        return selected >= start && selected < end;
+      });
+      
+      if (!overlap) {
+        setShowModal(true);
+        return;
+      }
+    }
+  }
 
   // Post new booking request to the DB using fetch
   const handleBooking = async () => {
@@ -75,8 +118,8 @@ export default function Home() {
         fecha_nacimiento: birthDate,
         email: email,
         telefono: phone,
-        genero: "",
-        direccion: ""
+        genero: gender,
+        direccion: address
       },
       odontologo: dentist !== null && dentists[dentist] ? dentists[dentist] : null,
       detalles: {
@@ -104,6 +147,8 @@ export default function Home() {
         setBirthDate(null);
         setEmail(null);
         setPhone(null);
+        setAddress(null);
+        setGender(null);
         setAppointmentDate(null);
         setAppointmentTime(null);
         setReason(null);
@@ -125,7 +170,6 @@ export default function Home() {
         <div className="">
           <div className="text-center mb-5">
             <p className="text-4xl font-bold">Agendar</p>
-            <span className="text-sm mt-2">¿Eres un paciente frecuente? Agiliza tu proceso de reservación <a onClick={() => setShowQuickBooking(true)} className="text-black font-bold cursor-pointer" style={{ textDecoration: 'none' }}>aquí</a></span>
           </div>
           <form onSubmit={ handleSubmit }>
             <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
@@ -139,11 +183,11 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
-              <div className="w-full md:w-[49%] mx-0 md:mx-1 md:mr-1" >
+              <div className="w-full md:w-[49%] mb-3 md:mb-0 mx-0 md:mx-1 md:mr-1" >
                 <label className="mb-2 pl-2" htmlFor="">Fecha de nacimiento *</label>
                 <Input required className="rounded-md" type="date" value={birthDate ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBirthDate(e.target.value)}/>
               </div>
-              <div className="w-full md:w-[49%] mb-3 md:mb-0 md:ml-1" >
+              <div className="w-full md:w-[49%] md:ml-1" >
                 <label className="mb-2 pl-2" htmlFor="">Cédula de Identidad *</label>
                 <Input required type="number" min="100000" max="99999999" className="rounded-md" placeholder="Cédula (ej. 12345678)" value={id ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setId(e.target.value)}/>
               </div>
@@ -159,7 +203,30 @@ export default function Home() {
                 <Input required type="number" className="rounded-md" placeholder="Teléfono (ej. 04241234567)" value={phone ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}/>
               </div>
             </div>
-            <div className="flex flex-col my-3 justify-between">
+            <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
+              <div className="w-full md:w-[49%] mb-3 md:mb-0 md:mr-1">
+                <label className="mb-2 pl-2" htmlFor="">Dirección *</label>
+                <Input required type="text" className="rounded-md" placeholder="Dirección" value={address ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value)}/>
+              </div>
+              <div className="w-full md:w-[49%] mx-0 md:mx-1 md:ml-1">
+                <label className="mb-2 pl-2" htmlFor="">Género *</label>
+                <div className="flex gap-4 mt-2 ml-2">
+                  <label className="flex items-center cursor-pointer">
+                    <input type="radio" name="gender" value="M" checked={gender === "M"} onChange={() => setGender("M")} className="accent-blue-600 w-3 h-3" required/>
+                    <span className="ml-2">M</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input type="radio" name="gender" value="F" checked={gender === "F"} onChange={() => setGender("F")} className="accent-blue-600 w-3 h-3"/>
+                    <span className="ml-2">F</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input type="radio" name="gender" value="O" checked={gender === "O"} onChange={() => setGender("O")} className="accent-blue-600 w-3 h-3"/>
+                    <span className="ml-2">Prefiero no decirlo</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col mt-[4vh] md:mt-3 justify-between">
               <label className="mb-2 pl-2" htmlFor="">Odontólogo *</label>
               <div className="flex flex-col md:flex-row gap-2">
                 {dentists.map((dentistItem, index) => (
@@ -171,16 +238,31 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
+            <div className="flex flex-col md:flex-row mt-3 mx-0 md:mx-1 justify-between">
               <div className="w-full md:w-[49%] mb-3 md:mb-0 md:mr-1">
                 <label className="mb-2 pl-2" htmlFor="">Fecha de cita *</label>
-                <Input required type="date" className="" value={appointmentDate ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentDate(e.target.value)}/>
+                <Input required type="date" className="" value={appointmentDate ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentDate(e.target.value)} min={new Date().toISOString().split('T')[0]}/>
               </div>
               <div className="w-full md:w-[49%] mx-0 md:mx-1 md:ml-1">
                 <label className="mb-2 pl-2" htmlFor="">Hora de cita *</label>
-                <Input required type="time" className="" value={appointmentTime ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentTime(e.target.value)}/>
+                <Input required type="time" className="" value={appointmentTime ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentTime(e.target.value)} min="08:00" max="14:00"/>        
               </div>
             </div>
+            
+            {dentist !== null && appointmentDate && appointmentTime && confirmedDates.some((c) => {
+              if (c.odontologo_id !== dentists[dentist]?.id) return false;
+                
+              const start = new Date(`${c.fecha}`).toISOString();
+              const end = new Date(`${c.fin_tentativo}`).toISOString();
+              const selected = new Date(`${appointmentDate}T${appointmentTime}`).toISOString();
+                
+              return selected >= start && selected < end;
+            }) && (
+              <span className="text-red-600 text-xs block text-center mt-1 mb-4">
+                Ya existe una cita agendada para este odontólogo en el horario seleccionado. <br /> Por favor, elija otro horario.
+              </span>
+            )}
+
             <div className="mt-3">
               <div>
                 <label className="mb-2 pl-2" htmlFor="">Motivo *</label>
@@ -195,52 +277,6 @@ export default function Home() {
                 >
                   <span className="book-button">Agendar</span>
                 </Button>
-
-                {/* Quick booking modal */}
-                {showQuickBooking && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
-                      <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
-                        <span className="block text-3xl font-bold text-center my-3">Estimado usuario</span>
-                        <p className="text-center mb-6">Por favor, ingrese su cédula de identidad. </p>
-                        <div className="flex justify-between mt-4">
-                          <Button
-                            className="w-[48%] bg-gray-200 hover:bg-gray-300 rounded"
-                            onClick={() => setShowQuickBooking(false)}
-                          >
-                            Cancelar
-                          </Button>
-                          <Button
-                            className="w-[48%] bg-gray-600 text-white hover:bg-gray-400 rounded"
-                            onClick={() => {
-                              setShowModal(false);
-                              const telefono = "584124117850";
-                              const mensaje = encodeURIComponent(
-                                `¡Hola! Quiero agendar una cita en Mavarez & Román.\n\n` +
-                                `Nombre: ${name}\n` +
-                                `Apellido: ${lastName}\n` +
-                                `Cédula: ${id}\n` +
-                                `Fecha de nacimiento: ${birthDate}\n` +
-                                `Correo: ${email}\n` +
-                                `Teléfono: ${phone}\n` +
-                                `Odontólogo: ${dentist !== null && dentists[dentist] ? dentists[dentist].nombre.split(" ")[0] + " " + dentists[dentist].apellido.split(" ")[0] : ""}\n` +
-                                `Fecha de cita: ${appointmentDate}\n` +
-                                `Hora de cita: ${appointmentTime}\n` +
-                                `Motivo: ${reason}\n`
-                                );
-                              window.open(
-                                `https://api.whatsapp.com/send?phone=${telefono} &text=${mensaje}`,
-                                "_blank",
-                                "noopener,noreferrer"
-                              );
-                              handleBooking();
-                            }}
-                          >
-                            Continuar
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                )}
 
                 {/* Confirm modal */}
                 {showModal && (
@@ -267,7 +303,7 @@ export default function Home() {
                               `Cédula: ${id}\n` +
                               `Fecha de nacimiento: ${birthDate}\n` +
                               `Correo: ${email}\n` +
-                              `Teléfono: ${phone}\n` +
+                              `Teléfono: ${phone}\n \n` +
                               `Odontólogo: ${dentist !== null && dentists[dentist] ? dentists[dentist].nombre.split(" ")[0] + " " + dentists[dentist].apellido.split(" ")[0] : ""}\n` +
                               `Fecha de cita: ${appointmentDate}\n` +
                               `Hora de cita: ${appointmentTime}\n` +

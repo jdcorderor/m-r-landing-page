@@ -15,15 +15,15 @@ export default function HeroSection() {
             </div>
           </div>
           <div className="w-full py-[35px]">
-            <Carousel className="overflow-hidden shadow-lg w-full md:h-[450px]">
+            <Carousel className="overflow-hidden shadow-lg w-full md:h-[65vh]">
                 <Carousel.Item>
-              <Image src="/images/carousel1.jpg" width={1920} height={500} alt="Consultorio odontológico" className="object-cover w-full md:h-[450px]" />
+              <Image src="/images/carousel1.jpg" width={920} height={500} alt="Consultorio odontológico" className="w-full" />
                 </Carousel.Item>
                 <Carousel.Item>
-              <Image src="/images/carousel1.jpg" width={1920} height={500} alt="Equipo odontológico" className="object-cover w-full md:h-[450px]" />
+              <Image src="/images/carousel1.jpg" width={1080} height={648} alt="Equipo odontológico" className="w-full" />
                 </Carousel.Item>
                 <Carousel.Item>
-              <Image src="/images/carousel1.jpg" width={1920} height={500} alt="Paciente feliz" className="object-cover w-full md:h-[450px]" />
+              <Image src="/images/carousel1.jpg" width={920} height={500} alt="Paciente feliz" className="w-full" />
                 </Carousel.Item>
             </Carousel>
           </div>

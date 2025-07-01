@@ -1,6 +1,20 @@
 import { dbPool } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+// GET ROUTE
+export async function GET() {
+    try {
+        const client = await dbPool.connect();
+        const result = await client.query("SELECT fecha, fin_tentativo, odontologo_id FROM citas WHERE estado = 'confirmada' ORDER BY fecha DESC");
+        client.release();
+
+        return NextResponse.json(result.rows);
+    } catch (error) {
+        console.error("Error al obtener datos:", error);
+        return NextResponse.json({ message: "Error interno del servidor" }, { status: 500 });
+    }
+}
+
 // POST ROUTE
 export async function POST(request: Request) {
     try {
@@ -9,8 +23,8 @@ export async function POST(request: Request) {
         if (!paciente || !odontologo || !detalles) {
             return NextResponse.json({ message: "Faltan campos obligatorios (paciente, odontólogo, detalles)" }, { status: 400 });
         }
-        
-        const fecha = new Date(`${detalles.fecha}T${detalles.hora}`);
+
+        const fecha = `${detalles.fecha_cita}T${detalles.hora_cita}:00Z`;
 
         const client = await dbPool.connect();
 

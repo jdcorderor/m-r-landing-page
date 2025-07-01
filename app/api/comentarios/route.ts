@@ -1,6 +1,7 @@
 import { dbPool } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+// GET ROUTE
 export async function GET() {
     try {
         const client = await dbPool.connect();
@@ -14,6 +15,7 @@ export async function GET() {
     }
 }
 
+// POST ROUTE
 export async function POST(request: Request) {
     try {
         const { emisor, email, comentario } = await request.json();
