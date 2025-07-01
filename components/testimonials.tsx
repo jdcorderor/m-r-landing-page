@@ -260,7 +260,7 @@ export default function Testimonials() {
                                     value={email}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                                     placeholder="Correo electrónico"
-                                    required
+                                    required 
                                     disabled={isSubmittingComment}
                                 />
                             </div>
