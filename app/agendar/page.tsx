@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import Header from "@/components/header_agendar";
+import Header from "@/components/booking_header";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 
