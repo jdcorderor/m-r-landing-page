@@ -38,7 +38,7 @@ const DentistCard: React.FC<DentistCardProps> = ({ dentist }) => {
                 <div className="flex-1 pl-4 pt-4 md:pt-3">
                     <span className="block text-3xl font-bold text-gray-700 mb-2">{dentist.nombre.split(" ")[0]} {dentist.apellido.split(" ")[0]}</span>
                     <p className="text-gray-600 text-sm mb-4 md:mb-5">{dentist.especialidad}</p>
-                    <p className="text-gray-700 mb-3 md:mb-5 line-clamp-4 text-[0.7rem] md:text-sm text-justify mr-8">{dentist.descripcion}</p>
+                    <p className="text-gray-700 mb-3 md:mb-5 line-clamp-5 md:line-clamp-4 text-[0.7rem] md:text-sm text-justify mr-8">{dentist.descripcion}</p>
                 </div>            
             </div>
             
