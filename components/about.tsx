@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Carousel from "react-bootstrap/Carousel";
 import { groupItems, useSlidesPerView } from '@/hooks/homePageHooks';
+import DentistCard from './ui/DentistCard';
 
 export default function About() {
   // Carousel slides per view (responsive)
@@ -15,6 +16,7 @@ export default function About() {
     email: string;
     especialidad: string;
     telefono: string;
+    imagen_url: string;
   }
       
   // State variable for dentists list
@@ -37,14 +39,8 @@ export default function About() {
   }, []);
         
   // Build dentist cards, using useMemo for render optimization
-  const dentistCards = useMemo(() => dentists.map((dentist, index) => (
-    <div className="border rounded-lg p-4" key={index}>
-        <p>{dentist.nombre} {dentist.apellido}</p>
-        <p>{dentist.especialidad}</p>
-        <p>{dentist.descripcion}</p>
-        <p>Email: {dentist.email}</p>
-        <p>Teléfono: {dentist.telefono}</p>
-    </div>
+  const dentistCards = useMemo(() => dentists.map((dentist) => (
+    <DentistCard key={dentist.id} dentist={dentist}></DentistCard>
   )), [dentists]);
       
   // Build dentist carousel items, using useMemo for render optimization
@@ -58,7 +54,7 @@ export default function About() {
           {dentistSlides.map((group, idx) => (
             <Carousel.Item key={idx}>
               <div className="">
-                <div className="flex gap-4">
+                <div className="flex gap-5">
                   {group}
                 </div>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Carousel from "react-bootstrap/Carousel";
 import { groupItems, useSlidesPerView } from '@/hooks/homePageHooks';
+import ServiceCard from './ui/ServiceCard';
 
 export default function Services() {
     // Carousel slides per view (responsive)
@@ -11,6 +12,7 @@ export default function Services() {
         nombre: string;
         descripcion: string;
         caracteristicas: string[];
+        imagen_url: string;
     }
     
     // State variable for services list
@@ -34,15 +36,7 @@ export default function Services() {
       
     // Build service cards, using useMemo for render optimization
     const serviceCards = useMemo(() => services.map((service, index) => (
-        <div className="border rounded-lg p-4" key={index}>
-            <p className="">&quot;{service.nombre}&quot;</p>
-            <p className="">{service.descripcion}</p>
-            <p className="">
-                {service.caracteristicas.map((caracteristica, index) => (
-                    <span key={index} className="inline-block mr-2">{caracteristica}</span>
-            ))}
-            </p>
-        </div>
+        <ServiceCard key={index} service={service}></ServiceCard>
     )), [services]);
     
     // Build service carousel items, using useMemo for render optimization

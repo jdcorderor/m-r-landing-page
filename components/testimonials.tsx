@@ -4,6 +4,7 @@ import { useSlidesPerView, groupItems, formatDate } from '@/hooks/homePageHooks'
 import { useFormTransition } from '@/hooks/useHomePageEffects'
 import Input from '@/components/ui/input';
 import Button from '@/components/ui/button';
+import TestimonialCard from './ui/TestimonialCard';
 
 export default function Testimonials() {
     // State variable for toggling form
@@ -46,11 +47,7 @@ export default function Testimonials() {
     
     // Build testimonial cards, using useMemo for render optimization
     const testimonialCards = useMemo(() => testimonials.map((testimonial, index) => (
-        <div className="border rounded-lg p-4" key={index}>
-            <p className="">&quot;{testimonial.comentario}&quot;</p>
-            <p className="">{testimonial.emisor}</p>
-            <p className="">{formatDate(testimonial.fecha)}</p>
-        </div>
+        <TestimonialCard key={index} testimonial={testimonial} formatDate={formatDate}></TestimonialCard>
     )), [testimonials]);
     
     // Build testimonial carousel items, using useMemo for render optimization
@@ -105,7 +102,7 @@ export default function Testimonials() {
                     <Carousel className="fit-content">
                         {testimonialSlides.map((group, idx) => (
                             <Carousel.Item key={idx}>
-                                <div className="flex gap-4">
+                                <div className="flex gap-5">
                                     {group}
                                 </div>
                             </Carousel.Item>
@@ -119,7 +116,7 @@ export default function Testimonials() {
                     <div className="flex w-full items-center justify-between px-1 md:px-5 mb-2">
                         <span className="items-center text-3xl md:text-5xl font-bold">Comparte tu experiencia</span>
                         <Button
-                            className="w-[50vw] md:w-[20vw] bg-white-100 border"
+                            className="w-[50vw] md:w-[20vw] bg-white-100 border text-gray-700"
                             onClick={() => setShowForm(!showForm)}
                         >
                             {showForm ? "Cancelar" : "Agregar comentario"}
@@ -127,7 +124,7 @@ export default function Testimonials() {
                     </div>
                 </div>
                 <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                    <form onSubmit={ handleCommentSubmit } className="pt-6">
+                    <form onSubmit={ handleCommentSubmit } className="pt-8">
                         <div className="flex flex-col md:flex-row justify-between gap-4 mb-5">
                             <div className="flex flex-col w-full md:w-[30%]">
                                 <label className="mb-2 ml-2" htmlFor="">Nombre y Apellido *</label>

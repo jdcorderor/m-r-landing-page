@@ -84,6 +84,28 @@ export default function Home() {
   const [appointmentDate, setAppointmentDate] = useState<string | null>(null);
   const [appointmentTime, setAppointmentTime] = useState<string | null>(null);
   const [reason, setReason] = useState<string | null>(null);
+  const [isUnderage, setIsUnderage] = useState<boolean>(false);
+  const [isApple, setIsApple] = useState(false);
+
+  useEffect(() => {
+    const ua = window.navigator.userAgent;
+    if (/iPad|iPhone|iPod|Macintosh/.test(ua)) {
+      setIsApple(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (birthDate) {
+      const today = new Date();
+      const birthDateObj = new Date(birthDate);
+      let age = today.getFullYear() - birthDateObj.getFullYear();
+      const m = today.getMonth() - birthDateObj.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+      }
+      setIsUnderage(age < 18);
+    }
+  }, [birthDate]);
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -175,63 +197,65 @@ export default function Home() {
             <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
               <div className="w-full md:w-[49%] mb-3 md:mb-0 md:mr-1">
                 <label className="mb-2 pl-2" htmlFor="">Nombre *</label>
-                <Input required className="rounded-md" placeholder="Nombre" value={name ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}/>
+                <Input required placeholder="Nombre" value={name ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}/>
               </div>
               <div className="w-full md:w-[49%] mx-0 md:mx-1 md:ml-1">
                 <label className="mb-2 pl-2" htmlFor="">Apellido *</label>
-                <Input required className="rounded-md" placeholder="Apellido" value={lastName ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}/>
+                <Input required placeholder="Apellido" value={lastName ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}/>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
+            <div className="flex flex-col md:flex-row my-1 mx-0 md:mx-1 justify-between">
               <div className="w-full md:w-[49%] mb-3 md:mb-0 mx-0 md:mx-1 md:mr-1" >
                 <label className="mb-2 pl-2" htmlFor="">Fecha de nacimiento *</label>
-                <Input required className="rounded-md" type="date" value={birthDate ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBirthDate(e.target.value)}/>
+                <input required className={`px-3 py-2 bg-white text-gray-500 outline-none border shadow-sm rounded-lg duration-150 mb-2 ${isApple ? "w-[94%] h-10" : "w-full"}`} type="date" value={birthDate ?? ""} lang="es" inputMode="numeric" pattern="\d{4}-\d{2}-\d{2}" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBirthDate(e.target.value)} max={new Date().toISOString().split('T')[0]}/>
               </div>
               <div className="w-full md:w-[49%] md:ml-1" >
                 <label className="mb-2 pl-2" htmlFor="">Cédula de Identidad *</label>
-                <Input required type="number" min="100000" max="99999999" className="rounded-md" placeholder="Cédula (ej. 12345678)" value={id ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setId(e.target.value)}/>
+                <Input required type="number" min="100000" max="99999999" placeholder="Cédula (ej. 12345678)" value={id ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setId(e.target.value)}/>
               </div>
-              
-            </div>
+            </div>                
+            
+            {isUnderage && (
+              <span className="text-red-600 text-xs block text-center mb-4">
+                Si el paciente no dispone de cédula de identidad, por favor proporcionar la de su representante legal.
+              </span>
+            )}
+            
             <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
               <div className="w-full md:w-[49%] mb-3 md:mb-0 md:mr-1">
                 <label className="mb-2 pl-2" htmlFor="">Correo electrónico *</label>
-                <Input required type="email" className="rounded-md" placeholder="nombre@correo.com" value={email ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
+                <Input required type="email" placeholder="nombre@correo.com" value={email ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
               </div>
               <div className="w-full md:w-[49%] mx-0 md:mx-1 md:ml-1">
                 <label className="mb-2 pl-2" htmlFor="">Teléfono *</label>
-                <Input required type="number" className="rounded-md" placeholder="Teléfono (ej. 04241234567)" value={phone ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}/>
+                <Input required type="number" placeholder="Teléfono (ej. 04241234567)" value={phone ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}/>
               </div>
             </div>
             <div className="flex flex-col md:flex-row my-3 mx-0 md:mx-1 justify-between">
               <div className="w-full md:w-[49%] mb-3 md:mb-0 md:mr-1">
                 <label className="mb-2 pl-2" htmlFor="">Dirección *</label>
-                <Input required type="text" className="rounded-md" placeholder="Dirección" value={address ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value)}/>
+                <Input required type="text" placeholder="Dirección" value={address ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value)}/>
               </div>
               <div className="w-full md:w-[49%] mx-0 md:mx-1 md:ml-1">
                 <label className="mb-2 pl-2" htmlFor="">Género *</label>
-                <div className="flex gap-4 mt-2 ml-2">
+                <div className="flex justify-center gap-4 mt-2 ml-2">
                   <label className="flex items-center cursor-pointer">
                     <input type="radio" name="gender" value="M" checked={gender === "M"} onChange={() => setGender("M")} className="accent-blue-600 w-3 h-3" required/>
-                    <span className="ml-2">M</span>
+                    <span className="ml-2">Masculino</span>
                   </label>
                   <label className="flex items-center cursor-pointer">
                     <input type="radio" name="gender" value="F" checked={gender === "F"} onChange={() => setGender("F")} className="accent-blue-600 w-3 h-3"/>
-                    <span className="ml-2">F</span>
-                  </label>
-                  <label className="flex items-center cursor-pointer">
-                    <input type="radio" name="gender" value="O" checked={gender === "O"} onChange={() => setGender("O")} className="accent-blue-600 w-3 h-3"/>
-                    <span className="ml-2">Prefiero no decirlo</span>
+                    <span className="ml-2">Femenino</span>
                   </label>
                 </div>
               </div>
             </div>
             <div className="flex flex-col mt-[4vh] md:mt-3 justify-between">
               <label className="mb-2 pl-2" htmlFor="">Odontólogo *</label>
-              <div className="flex flex-col md:flex-row gap-2">
+              <div className="flex flex-col md:flex-row gap-2 mb-3">
                 {dentists.map((dentistItem, index) => (
                   <div className="w-full" key={index}>
-                    <Button key={index} type="button" className={`${dentist === index ? "border-primary" : ""} w-full md:w-[99%] mb-3 md:mb-0 rounded-`} style={{ border: dentist === index ? "2px solid #e3e6ea" : "2px solid #e3e6ea" }} onClick={() => setDentist(index)}>
+                    <Button key={index} type="button" className={`${dentist === index ? "border-primary" : ""} w-full md:w-[99%] mb-1 rounded-`} style={{ border: dentist === index ? "2px solid #e3e6ea" : "2px solid #e3e6ea" }} onClick={() => setDentist(index)}>
                       {dentistItem.nombre.split(" ")[0]} {dentistItem.apellido.split(" ")[0]}
                     </Button>
                   </div>
@@ -241,22 +265,43 @@ export default function Home() {
             <div className="flex flex-col md:flex-row mt-3 mx-0 md:mx-1 justify-between">
               <div className="w-full md:w-[49%] mb-3 md:mb-0 md:mr-1">
                 <label className="mb-2 pl-2" htmlFor="">Fecha de cita *</label>
-                <Input required type="date" className="" value={appointmentDate ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentDate(e.target.value)} min={new Date().toISOString().split('T')[0]}/>
+                <input required type="date" className={`px-3 py-2 bg-white text-gray-500 outline-none border shadow-sm rounded-lg duration-150 mb-2 ${isApple ? "w-[94%] h-10" : "w-full"}`} value={appointmentDate ?? ""} lang="es" inputMode="numeric" pattern="\d{4}-\d{2}-\d{2}" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentDate(e.target.value)}
+                  min={(() => {
+                    const now = new Date();
+                    
+                    if (now.getHours() > 14 || (now.getHours() === 14 && now.getMinutes() > 0)) {
+                      const tomorrow = new Date(now);
+                      tomorrow.setDate(now.getDate() + 1);
+                      return tomorrow.toISOString().split('T')[0];
+                    }
+
+                    return now.toISOString().split('T')[0];
+                  })()}
+                />
               </div>
               <div className="w-full md:w-[49%] mx-0 md:mx-1 md:ml-1">
                 <label className="mb-2 pl-2" htmlFor="">Hora de cita *</label>
-                <Input required type="time" className="" value={appointmentTime ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentTime(e.target.value)} min="08:00" max="14:00"/>        
+                <input required type="time" className={`px-3 py-2 bg-white text-gray-500 outline-none border shadow-sm rounded-lg duration-150 mb-2 ${isApple ? "w-[94%] h-10" : "w-full"}`} value={appointmentTime ?? ""} lang="es" inputMode="numeric" pattern="[0-9]{2}:[0-9]{2}" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppointmentTime(e.target.value)}
+                  min={ appointmentDate === new Date().toISOString().split('T')[0] ? (() => {
+                    const now = new Date();
+                    const maxHour = 14;
+                    if (now.getHours() > maxHour || (now.getHours() === maxHour && now.getMinutes() > 0)) {
+                      return "14:00";
+                    }
+                      return now.toTimeString().slice(0, 5);
+                    })() : "08:00"
+                  }
+                  max="14:00"
+                />
               </div>
             </div>
-            {dentist !== null && appointmentDate && appointmentTime && confirmedDates.some((c) => {
+            
+            {dentist !== null && appointmentDate && appointmentTime && new Date(`${appointmentDate}T${appointmentTime}`).toISOString() > new Date().toISOString() && confirmedDates.some((c) => {
               if (c.odontologo_id !== dentists[dentist]?.id) return false;
                 
               const start = new Date(`${c.fecha}`).toISOString();
-              console.log("Start:", start);
               const end = new Date(`${c.fin_tentativo}`).toISOString();
-              console.log("End:", end);
               const selected = new Date(`${appointmentDate}T${appointmentTime}`).toISOString();
-              console.log("Selected:", selected);
                 
               return selected >= start && selected < end;
             }) && (
@@ -264,6 +309,39 @@ export default function Home() {
                 Ya existe una cita agendada para este odontólogo en el horario seleccionado. <br /> Por favor, elija otro horario.
               </span>
             )}
+
+            {appointmentDate && appointmentTime && (() => {
+              const selectedDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+              const now = new Date();
+              const selectedHour = selectedDateTime.getHours();
+              const selectedMinute = selectedDateTime.getMinutes();
+
+              const isValidHour = (
+                (selectedHour > 8 && selectedHour < 14) ||
+                (selectedHour === 8 && selectedMinute >= 0) ||
+                (selectedHour === 14 && selectedMinute === 0)
+              );
+
+              {/* Validates past dates */} 
+              if (selectedDateTime.toISOString() < now.toISOString()) {
+                return (
+                  <span className="text-red-600 text-xs block text-center mt-1 mb-4">
+                    Ha seleccionado un horario inválido. <br /> Por favor, elija otro horario.
+                  </span>
+                );
+              }
+
+              {/* Validates schedule */}
+              if (!isValidHour) {
+                return (
+                  <span className="text-red-600 text-xs block text-center mt-1 mb-4">
+                    El horario debe estar entre las 08:00 y las 14:00. <br /> Por favor, elija otro horario.
+                  </span>
+                );
+              }
+
+              return null;
+            })()}
 
             <div className="mt-3">
               <div>
@@ -297,7 +375,7 @@ export default function Home() {
                           className="w-[48%] bg-gray-600 text-white hover:bg-gray-400 rounded"
                           onClick={() => {
                             setShowModal(false);
-                            const telefono = "584124117850";
+                            const telefono = "584120426729";
                             const mensaje = encodeURIComponent(
                               `¡Hola! Quiero agendar una cita en Mavarez & Román.\n\n` +
                               `Nombre: ${name}\n` +

@@ -7,7 +7,7 @@ export default function Clinic() {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           <div>
             <div>
-              <Image src="https://i.pinimg.com/originals/30/71/2c/30712c25b8f9ee230cba7165294ae3e6.jpg" alt="Consultorio" width={500} height={300} className="w-full md:h-[350px] mb-[28px] rounded-lg"/>
+              <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//consultorio.jpg" alt="Consultorio" width={500} height={300} className="w-full md:h-[350px] mb-[28px] rounded-lg"/>
               <h4 style={{ fontWeight: 'bold' }}>C.C. El Parral, Piso 1, Oficina 116</h4>
               <p className="">Horario: 8:00 AM a 2:00 PM</p>
             </div>

@@ -17,13 +17,16 @@ export default function HeroSection() {
           <div className="w-full py-[35px]">
             <Carousel className="overflow-hidden shadow-lg w-full md:h-[65vh]">
                 <Carousel.Item>
-              <Image src="/images/carousel1.jpg" width={920} height={500} alt="Consultorio odontológico" className="w-full" />
+                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel1.jpg" width={1080} height={500} alt="" className="object-cover w-full md:-translate-y-1/8" />
                 </Carousel.Item>
                 <Carousel.Item>
-              <Image src="/images/carousel1.jpg" width={1080} height={648} alt="Equipo odontológico" className="w-full" />
+                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel2.jpg" width={1080} height={500} alt="" className="object-cover w-full top-2 md:-translate-y-1/4" />
                 </Carousel.Item>
                 <Carousel.Item>
-              <Image src="/images/carousel1.jpg" width={920} height={500} alt="Paciente feliz" className="w-full" />
+                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel3.jpg" width={1080} height={500} alt="" className="object-cover w-full top-2 md:-translate-y-1/4" />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel4.jpg" width={1080} height={500} alt="" className="object-cover w-full top-2 md:-translate-y-1/8" />
                 </Carousel.Item>
             </Carousel>
           </div>
