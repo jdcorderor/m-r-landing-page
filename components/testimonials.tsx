@@ -9,6 +9,8 @@ import TestimonialCard from './ui/TestimonialCard';
 export default function Testimonials() {
     // State variable for toggling form
     const [showForm, setShowForm] = useState(false);
+    const [MessageSentModal, setMessageSentModal] = useState<boolean>(false);
+    const [MessageFailedModal, setMessageFailedModal] = useState<boolean>(false);
       
     // Ref for the comments form
     const formRef = useRef<HTMLDivElement>(null);
@@ -62,6 +64,8 @@ export default function Testimonials() {
     
     // Post new comment to the DB using fetch
     const handleCommentSubmit = async (event: React.FormEvent) => {
+        
+        console.log("Enviando comentario...");
         event.preventDefault();
     
         const newComment = {
@@ -84,13 +88,15 @@ export default function Testimonials() {
                 setSender("");
                 setEmail("");
                 setComment("");
-                setShowForm(false);
+                setMessageSentModal(true);
+                {/*setShowForm(false);*/}
         
-                const data = await response.json();
+            const data = await response.json();
                 setTestimonials((prevTestimonials) => [...prevTestimonials, data]);
             }
         } catch (error) {
             console.error("Error al enviar el comentario:", error);
+            setMessageFailedModal(true);
         }
     }
     
@@ -142,6 +148,45 @@ export default function Testimonials() {
                         <div className="flex flex-row justify-center">
                             <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-200 rounded-lg">Enviar</Button>
                         </div>
+                        {/* Modal de confirmación */}
+                        {MessageSentModal && (
+                            <div className="fixed inset-0 flex items-center justify-center z-[1000] bg-black bg-opacity-50 backdrop-blur-sm ">
+                                <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                                    <h2 className="text-xl font-bold text-center mb-4">✅<br></br>Comentario Guardado</h2>
+                                    <p className="text-center mb-6">Su comentario se ha añadido correctamente. Proximamente aparecerá en el Carrusel de comentarios</p>
+                                    <div className="flex justify-center">
+                                        <Button
+                                            className="w-1/2 bg-green-300 hover:bg-green-500 rounded"
+                                            onClick={() => {
+                                                setMessageSentModal(false);
+                                                setShowForm(false);
+                                            }}
+                                        >
+                                            Continuar
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {/* Modal de Error */}
+                        {MessageFailedModal && (
+                            <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
+                                <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                                    <h2 className="text-xl font-bold text-center mb-4">😥<br></br>Ha ocurrido un error</h2>
+                                    <p className="text-center mb-6">No se pudo añadir su comentario. Por favor, intentelo nuevamente y si el error persiste contecte a soporte</p>
+                                    <div className="flex justify-center">
+                                        <Button
+                                            className="w-1/2 bg-green-300 text-black hover:bg-green-500 text-white rounded"
+                                            onClick={() => {
+                                                setMessageFailedModal(false);
+                                            }}
+                                        >
+                                            Continuar
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </form>
                 </div>
             </section>

@@ -70,6 +70,8 @@ export default function Home() {
   // State variables for alert and modal visibility
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [showFailed, setShowFailed] = useState<boolean>(false);
   
   // State variables for form inputs
   const [dentist, setDentist] = useState<number | null>(null);
@@ -158,9 +160,9 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newDate),
-        credentials: "include",
+
       });
-      
+    
       if (response.ok) {
         setDentist(null);
         setName(null);
@@ -176,9 +178,11 @@ export default function Home() {
         setReason(null);
         setShowModal(false);
         setShowAlert(false);
+        setShowConfirm(true);
       }
     } catch (error) {
       console.error("Error al enviar el comentario:", error);
+      setShowFailed(true);
     }
   };
 
@@ -419,6 +423,46 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
+                )}
+
+                {/* Confirmation modal */}
+                {showConfirm && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
+                    <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                      <h2 className="text-xl font-bold text-center mb-4">✅<br></br>Cita Programada</h2>
+                      <p className="text-center mb-6">Su cita ha sido procesada exitosamente. Para más información, comunicate a través de WhatsApp</p>
+                      <div className="flex justify-center">
+                        <Button
+                          className="w-1/2 bg-green-300 hover:bg-green-500 rounded"
+                          onClick={() => {
+                          setShowConfirm(false);
+                          }}
+                        >
+                          Continuar
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Failed modal */}
+                {showFailed && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
+                    <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                      <h2 className="text-xl font-bold text-center mb-4">😥<br></br>Error al programar la cita</h2>
+                      <p className="text-center mb-6">Ha ocurrido un error inesperado. Por favor, intentelo nuevamente y si el error persiste contecte a soporte</p>
+                      <div className="flex justify-center">
+                        <Button
+                          className="w-1/2 bg-green-300 hover:bg-green-500 rounded"
+                          onClick={() => {
+                          setShowFailed(false);
+                          }}
+                        >
+                          Continuar
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
