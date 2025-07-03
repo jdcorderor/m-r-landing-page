@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Header from "@/components/header";
 import HeroSection from "@/components/herosection";
 import About from "@/components/about";
@@ -7,32 +7,60 @@ import Services from "@/components/services";
 import Clinic from "@/components/clinic";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
+import Loading from '@/components/loading';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Home() {
+
+  // logica para el loading
+  const [isLoading, setIsLoading] = useState(true);
+  const [readySections, setReadySections] = useState<Set<string>>(new Set());
+  
+  // Total de componentes que deben cargar
+  const requiredSections = ["about", "services", "testimonials"];
+  
+  useEffect(() => {
+    if (readySections.size  === requiredSections.length) {
+      setIsLoading(false);
+    }
+  }, [readySections]);
+
+  const markReady = (section: string) => {
+    setReadySections((prev) => {
+      const updated = new Set(prev);
+      updated.add(section);
+      return updated;
+    });
+  };
   return (
     <main className="flex flex-col justify-start pb-[5vh] min-h-screen">
-      {/* Header */}
-      <Header />
+      <div className={isLoading ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "d-none"}>
+        <Loading />
+      </div>
+      <div className={!isLoading ? "d-block" : "d-none"}>
 
-      {/* Hero section */}
-      <HeroSection />
+        {/* Header */}
+        <Header />
 
-      {/* About Us */}
-      <About />
+        {/* Hero section */}
+        <HeroSection />
 
-      {/* Services */}
-      <Services />
+        {/* About Us */}
+        <About onReady={() => markReady("about")} />
 
-      {/* Clinic */}
-      <Clinic />
+        {/* Services */}
+        <Services onReady={() => markReady("services") }/>
 
-      {/* Testimonials */}
-      <Testimonials />
-        
-      {/* Footer */}
-      <Footer />
+        {/* Clinic */}
+        <Clinic />
+
+        {/* Testimonials */}
+        <Testimonials onReady={() => markReady("testimonials")} />
+          
+        {/* Footer */}
+        <Footer />
+      </div>
     </main>
   );
 }

@@ -6,7 +6,7 @@ import Input from '@/components/ui/input';
 import Button from '@/components/ui/button';
 import TestimonialCard from './ui/TestimonialCard';
 
-export default function Testimonials() {
+export default function Testimonials({ onReady }: { onReady: () => void }) {
     // State variable for toggling form
     const [showForm, setShowForm] = useState(false);
     const [MessageSentModal, setMessageSentModal] = useState<boolean>(false);
@@ -44,7 +44,12 @@ export default function Testimonials() {
         })
         .then((response) => response.json())
         .then((data) => setTestimonials(data))
-        .catch((error) => console.error("Error en el fetch:", error));
+        .catch((error) => {
+            console.error("Error en el fetch:", error)
+        })
+        .finally(() => {
+            onReady();
+        });
     }, []);
     
     // Build testimonial cards, using useMemo for render optimization

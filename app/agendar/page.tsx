@@ -5,8 +5,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Header from "@/components/booking_header";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
+import Loading from "@/components/loading";
 
 export default function Home() {
+  // State variable for loading
+  const [isDentistsReady, setisDentistsReady] = useState(false);
+  const [isDatesReady, setisDatesReady] = useState(false);
+
+
   // Define dentist type
   type Dentist = {
     id: string;
@@ -34,7 +40,9 @@ export default function Home() {
     .then((data) => setDentists(data))
     .catch(error => {
       console.error("Error en el fetch", error);
-    })
+    }).finally(() => {
+      setisDentistsReady(true);
+    });
   }, []);
   
   // ------------------------------------------------------------------------------
@@ -62,7 +70,9 @@ export default function Home() {
     .then((data) => setConfirmedDates(data))
     .catch(error => {
       console.error("Error en el fetch", error);
-    })
+    }).finally(() => {
+      setisDatesReady(true);
+    });
   }, []);
 
   // ------------------------------------------------------------------------------
@@ -192,7 +202,11 @@ export default function Home() {
       <Header />
 
       {/* Booking form section */}
-      <div className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100 rounded-4xl max-w-3xl mx-[5%] md:mx-auto mt-4 mb-5">
+      <div className={(!isDentistsReady && !isDatesReady) ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "d-none"}>
+        <Loading />
+      </div>
+      <div className={(isDentistsReady && isDatesReady) ? "flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100 rounded-4xl max-w-3xl mx-[5%] md:mx-auto mt-4 mb-5" : "d-none"}>
+        {/* Booking form */}
         <div className="">
           <div className="text-center mb-5">
             <p className="text-4xl font-bold">Agendar</p>
