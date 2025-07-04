@@ -6,7 +6,7 @@ import Input from '@/components/ui/input';
 import Button from '@/components/ui/button';
 import TestimonialCard from './ui/TestimonialCard';
 
-export default function Testimonials() {
+export default function Testimonials({ onReady } : { onReady: () => void }) {
     // State variable for toggling form
     const [showForm, setShowForm] = useState(false);
       
@@ -15,6 +15,12 @@ export default function Testimonials() {
     
     // Custom hook for form transition effect
     useFormTransition(formRef, showForm);
+
+    // -----------------------------------------------------------------------------
+
+    // State variables for success/fail modals
+    const [TestimonialSentModal, setTestimonialSentModal] = useState<boolean>(false);
+    const [TestimonialFailedModal, setTestimonialFailedModal] = useState<boolean>(false);
 
     // -----------------------------------------------------------------------------
     
@@ -42,8 +48,13 @@ export default function Testimonials() {
         })
         .then((response) => response.json())
         .then((data) => setTestimonials(data))
-        .catch((error) => console.error("Error en el fetch:", error));
-    }, []);
+        .catch((error) => {
+          console.error("Error en el fetch:", error);  
+        })
+        .finally(() => {
+            onReady();
+        })
+    }, [onReady]);
     
     // Build testimonial cards, using useMemo for render optimization
     const testimonialCards = useMemo(() => testimonials.map((testimonial, index) => (
@@ -85,12 +96,11 @@ export default function Testimonials() {
                 setEmail("");
                 setComment("");
                 setShowForm(false);
-        
-                const data = await response.json();
-                setTestimonials((prevTestimonials) => [...prevTestimonials, data]);
+                setTestimonialSentModal(true);
             }
         } catch (error) {
             console.error("Error al enviar el comentario:", error);
+            setTestimonialFailedModal(true);
         }
     }
     
@@ -145,6 +155,38 @@ export default function Testimonials() {
                     </form>
                 </div>
             </section>
+
+            {/* Success modal */}
+            {TestimonialSentModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-[1000] bg-black/40 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full flex flex-col items-center">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                            <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <span className="text-xl font-semibold text-center mb-2">¡Tu testimonio ha sido enviado!</span>
+                        <span className="text-center text-sm text-gray-600 my-2">Estimado paciente, gracias por compartir tu experiencia con nosotros.</span>
+                        <Button className="w-full bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg py-2 mt-2 transition" onClick={() => setTestimonialSentModal(false)}> Continuar </Button>
+                    </div>
+                </div>
+            )}
+            
+            {/* Fail modal */}
+            {TestimonialFailedModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-[1000] bg-black/40 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full flex flex-col items-center">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
+                            <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <span className="text-xl font-semibold text-center mb-2">¡Ups, ha ocurrido un error!</span>
+                        <span className="text-center text-sm text-gray-600 my-2">Estimado paciente, su testimonio no ha sido enviado. Por favor, intente nuevamente.</span>
+                        <Button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg py-2 mt-2 transition" onClick={() => setTestimonialFailedModal(false)}> Continuar </Button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

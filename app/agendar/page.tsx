@@ -5,8 +5,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Header from "@/components/booking_header";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
+import Loading from "@/components/loading";
 
 export default function Home() {
+  // State variables for loading view
+  const [dentistsLoaded, setDentistsLoaded] = useState(false);
+  const [datesLoaded, setDatesLoaded] = useState(false);
+
+  // ------------------------------------------------------------------------------
+
   // Define dentist type
   type Dentist = {
     id: string;
@@ -34,6 +41,9 @@ export default function Home() {
     .then((data) => setDentists(data))
     .catch(error => {
       console.error("Error en el fetch", error);
+    })
+    .finally(() => {
+      setDentistsLoaded(true);
     })
   }, []);
   
@@ -63,6 +73,9 @@ export default function Home() {
     .catch(error => {
       console.error("Error en el fetch", error);
     })
+    .finally(() => {
+      setDatesLoaded(true);
+    })
   }, []);
 
   // ------------------------------------------------------------------------------
@@ -70,6 +83,8 @@ export default function Home() {
   // State variables for alert and modal visibility
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [showSentModal, setShowSentModal] = useState<boolean>(false);
+  const [showFailModal, setShowFailModal] = useState<boolean>(false);
   
   // State variables for form inputs
   const [dentist, setDentist] = useState<number | null>(null);
@@ -176,9 +191,11 @@ export default function Home() {
         setReason(null);
         setShowModal(false);
         setShowAlert(false);
+        setShowSentModal(true);
       }
     } catch (error) {
       console.error("Error al enviar el comentario:", error);
+      setShowFailModal(true);
     }
   };
 
@@ -188,7 +205,13 @@ export default function Home() {
       <Header />
 
       {/* Booking form section */}
-      <div className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100 rounded-4xl max-w-3xl mx-[5%] md:mx-auto mt-4 mb-5">
+      <div className={(!dentistsLoaded && !datesLoaded) ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "d-none"}>
+        <Loading />
+      </div>
+
+      <div className={(dentistsLoaded && datesLoaded) ? "flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100 rounded-4xl max-w-3xl mx-[5%] md:mx-auto mt-4 mb-5" : "d-none"}>
+        
+        {/* Booking form */}
         <div className="">
           <div className="text-center mb-5">
             <p className="text-4xl font-bold">Agendar</p>
@@ -362,8 +385,8 @@ export default function Home() {
                 {showModal && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
                       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
-                        <span className="block text-3xl font-bold text-center my-3">Confirme su cita</span>
-                        <p className="text-center mb-6">Al confirmar su cita, se generará un mensaje automático de WhatsApp.<br></br>Por favor, envíelo. Será atendido a la brevedad posible para culminar su proceso de reservación.</p>
+                        <span className="block text-2xl font-bold text-center my-3">Confirme su cita</span>
+                        <span className="block text-center text-medium mb-8">Al confirmar su cita, se generará un mensaje automático de WhatsApp.<br></br> <strong>Por favor, envíelo.</strong> Será atendido a la brevedad posible para culminar su proceso de reservación.</span>
                         <div className="flex justify-between mt-4">
                         <Button
                           className="w-[48%] bg-gray-200 hover:bg-gray-300 rounded"
@@ -408,7 +431,8 @@ export default function Home() {
                 {showAlert && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm">
                       <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
-                        <p className="text-center text-lg font-medium mt-2 mb-4">Por favor, seleccione un especialista</p>
+                        <p className="text-center text-2xl font-bold mt-2 mb-3">¡Importante!</p>
+                        <p className="text-center text-medium mt-2 mb-4">Por favor, seleccione un especialista antes de continuar con su reservación.</p>
                         <div className="flex items-center justify-center mt-3">
                           <Button
                           className="w-[50%] bg-gray-200 hover:bg-gray-600 hover:text-white rounded"
@@ -419,6 +443,38 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
+                )}
+
+                {/* Success modal */}
+                {showSentModal && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 bg-transparent bg-opacity-30 backdrop-blur-sm ">
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full flex flex-col items-center">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                            <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <span className="text-xl font-semibold text-center mb-2">¡Su cita ha sido procesada!</span>
+                        <span className="text-center text-sm text-gray-600 my-2">Estimado paciente, su cita ha sido procesada exitosamente. <strong> Una vez que sea confirmada, le será enviado un correo electrónico. </strong> <br /><br /> Ante cualquier duda, comuníquese con atención al cliente: <strong> 0412-0426729 </strong></span>
+                        <Button className="w-full bg-green-300 hover:bg-green-500 rounded mt-3" onClick={() => { setShowSentModal(false); }}> Continuar </Button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Fail modal */}
+                {showFailModal && (
+                  <div className="fixed inset-0 flex items-center justify-center z-[1000] bg-black/40 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full flex flex-col items-center">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
+                            <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <span className="text-xl font-semibold text-center mb-2">¡Ups, ha ocurrido un error!</span>
+                        <span className="text-center text-sm text-gray-600 my-2">Estimado paciente, ha ocurrido un error inesperado. Por favor, intente nuevamente. <br /><br /> Si el problema persiste, comuníquese con atención al cliente: <strong> 0412-0426729 </strong></span>
+                        <Button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg py-2 mt-3 transition" onClick={() => setShowFailModal(false)}> Continuar </Button>
+                    </div>
+                </div>
                 )}
               </div>
             </div>

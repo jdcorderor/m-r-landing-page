@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { groupItems, useSlidesPerView } from '@/hooks/homePageHooks';
 import DentistCard from './ui/DentistCard';
 
-export default function About() {
+export default function About({ onReady } : { onReady: () => void }) {
   // Carousel slides per view (responsive)
   const slidesPerView = useSlidesPerView();
 
@@ -36,7 +36,10 @@ export default function About() {
     .catch(error => {
       console.error("Error en el fetch", error);
     })
-  }, []);
+    .finally(() => {
+      onReady();
+    })
+  }, [onReady]);
         
   // Build dentist cards, using useMemo for render optimization
   const dentistCards = useMemo(() => dentists.map((dentist) => (

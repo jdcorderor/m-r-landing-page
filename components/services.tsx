@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { groupItems, useSlidesPerView } from '@/hooks/homePageHooks';
 import ServiceCard from './ui/ServiceCard';
 
-export default function Services() {
+export default function Services({ onReady } : { onReady: () => void }) {
     // Carousel slides per view (responsive)
     const slidesPerView = useSlidesPerView();
     
@@ -32,7 +32,10 @@ export default function Services() {
         .catch(error => {
             console.error("Error en el fetch", error);
         })
-    }, []);
+        .finally(() => {
+            onReady();
+        })
+    }, [onReady]);
       
     // Build service cards, using useMemo for render optimization
     const serviceCards = useMemo(() => services.map((service, index) => (
