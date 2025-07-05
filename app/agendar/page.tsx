@@ -201,18 +201,17 @@ export default function Home() {
 
   return (
     <section>
-      {/* Header section */}
-      <Header />
-
       {/* Booking form section */}
       <div className={(!dentistsLoaded && !datesLoaded) ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "d-none"}>
         <Loading />
       </div>
 
-      <div className={(dentistsLoaded && datesLoaded) ? "flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100 rounded-4xl max-w-3xl mx-[5%] md:mx-auto mt-4 mb-5" : "d-none"}>
-        
+      <div className={(dentistsLoaded && datesLoaded) ? "block" : "d-none"}> 
+        {/* Header section */}
+        <Header />
+
         {/* Booking form */}
-        <div className="">
+        <div className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100 rounded-4xl max-w-3xl mx-[5%] md:mx-auto mt-4 mb-5">
           <div className="text-center mb-5">
             <p className="text-4xl font-bold">Agendar</p>
           </div>
