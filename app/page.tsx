@@ -8,7 +8,6 @@ import Clinic from "@/components/clinic";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
 import Loading from '@/components/loading';
-import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Home() {
@@ -37,10 +36,10 @@ export default function Home() {
 
   return (
     <main className="flex flex-col justify-start pb-[5vh] min-h-screen">
-      <div className={isLoading ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "d-none"}>
+      <div className={isLoading ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "hidden"}>
         <Loading />
       </div>
-      <div className={!isLoading ? "d-block" : "d-none"}>
+      <div className={!isLoading ? "d-block" : "hidden"}>
 
         {/* Header */}
         <Header />

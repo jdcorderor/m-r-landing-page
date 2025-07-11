@@ -28,13 +28,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
                 </div>
 
                 {/* Service's main data */}
-                <div className="px-6">
+                <div className="px-6 py-2">
                     <span className="block text-2xl font-semibold text-gray-700 mb-3">{service.nombre}</span>
                     <p className="text-gray-700 mb-4 text-justify line-clamp-4 text-sm md:text-[1rem]">{service.descripcion}</p>
                 </div>
 
                 {/* Details list */}
-                <div className="px-0 mt-auto flex-grow flex flex-col justify-end">
+                <div className="px-8 pb-5 mt-auto flex-grow flex flex-col justify-end">
                     {service.caracteristicas && service.caracteristicas.length > 0 && (
                         <ul className="list-none text-gray-600 text-[0.8rem] md:text-sm">
                             {service.caracteristicas.map((caracteristica, idx) => (

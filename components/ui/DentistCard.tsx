@@ -19,7 +19,7 @@ type DentistCardProps = {
 
 const DentistCard: React.FC<DentistCardProps> = ({ dentist }) => {
     return (
-        <div className="relative border border-gray.100 rounded-lg p-6 flex-1 min-w-[280px] shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between">
+        <div className="relative border-gray.100 rounded-lg p-6 flex-1 min-w-[280px] shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-between">
             <div className="block md:flex ml-10">
                 {/* Dentist's image */}
                 <div className="flex justify-center mx-auto md:block md:pr-5 md:pl-3 pb-2 md:pb-0">

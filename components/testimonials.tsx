@@ -108,7 +108,7 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
         <div>
             <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="testimonios">
                 <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Testimonios</h2>
-                <div className="w-full mt-8">
+                <div className="w-full mt-3">
                     <Carousel className="fit-content">
                         {testimonialSlides.map((group, idx) => (
                             <Carousel.Item key={idx}>
@@ -123,19 +123,19 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
 
             <section className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100" id="comments">
                 <div className="flex">
-                    <div className="flex w-full items-center justify-between px-1 md:px-5 mb-2">
+                    <div className="flex w-full items-center justify-between mb-2">
                         <span className="items-center text-3xl md:text-5xl font-bold">Comparte tu experiencia</span>
                         <Button
-                            className="w-[50vw] md:w-[20vw] bg-white-100 border text-gray-700"
+                            className="border-gray-200 w-[50vw] md:w-[20vw] bg-gray-100 rounded-full  text-gray-700"
                             onClick={() => setShowForm(!showForm)}
                         >
-                            {showForm ? "Cancelar" : "Agregar comentario"}
+                            <span className="text-lg">{showForm ? "Cancelar" : "Agregar comentario"}</span>
                         </Button>
                     </div>
                 </div>
                 <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
                     <form onSubmit={ handleCommentSubmit } className="pt-8">
-                        <div className="flex flex-col md:flex-row justify-between gap-4 mb-5">
+                        <div className="flex flex-col md:flex-row justify-between gap-4 mb-12">
                             <div className="flex flex-col w-full md:w-[30%]">
                                 <label className="mb-2 ml-2" htmlFor="">Nombre y Apellido *</label>
                                 <Input type="text" className="" value={ sender } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setSender(e.target.value) } placeholder="Nombre" required />
@@ -150,7 +150,7 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
                             </div>
                         </div>
                         <div className="flex flex-row justify-center">
-                            <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-200 rounded-lg">Enviar</Button>
+                            <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-200 rounded-full">Enviar</Button>
                         </div>
                     </form>
                 </div>

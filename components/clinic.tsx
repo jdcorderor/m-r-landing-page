@@ -8,8 +8,8 @@ export default function Clinic() {
           <div>
             <div>
               <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//consultorio.jpg" alt="Consultorio" width={500} height={300} className="w-full md:h-[350px] mb-[28px] rounded-lg"/>
-              <h4 style={{ fontWeight: 'bold' }}>C.C. El Parral, Piso 1, Oficina 116</h4>
-              <p className="">Horario: 8:00 AM a 2:00 PM</p>
+              <h4><span className="font-bold text-2xl">C.C. El Parral, Piso 1, Oficina 116</span></h4>
+              <p>Horario: 8:00 AM a 2:00 PM</p>
             </div>
           </div>
           <div className="w-full rounded-lg overflow-hidden shadow-lg md:mb-3">

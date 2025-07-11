@@ -49,7 +49,7 @@ export default function Services({ onReady } : { onReady: () => void }) {
         <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="servicios">
             <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Servicios</h2>          
 
-            <div className="w-full mt-8">
+            <div className="w-full mt-3">
                 <Carousel className="fit-content">
                     {serviceSlides.map((group, idx) => (
                         <Carousel.Item key={idx}>
