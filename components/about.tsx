@@ -52,7 +52,7 @@ export default function About({ onReady } : { onReady: () => void }) {
   return (
     <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="nosotros">
       <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Conócenos</h2>
-      <div className="w-full mt-3">
+      <div className="w-full mt-8">
         <Carousel className="fit-content">
           {dentistSlides.map((group, idx) => (
             <Carousel.Item key={idx}>

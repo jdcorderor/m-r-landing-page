@@ -108,7 +108,7 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
         <div>
             <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="testimonios">
                 <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Testimonios</h2>
-                <div className="w-full mt-3">
+                <div className="w-full mt-8">
                     <Carousel className="fit-content">
                         {testimonialSlides.map((group, idx) => (
                             <Carousel.Item key={idx}>

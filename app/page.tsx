@@ -9,6 +9,7 @@ import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
 import Loading from '@/components/loading';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Home() {
   // State variables for loading view
