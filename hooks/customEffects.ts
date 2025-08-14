@@ -34,22 +34,6 @@ export function useFormTransition(ref: RefObject<HTMLDivElement | null>, show: b
   }, [ref, show]);
 }
 
-export function useCarouselTransition(ref: RefObject<HTMLDivElement | null>, show: boolean) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (show) {
-      el.style.transition = 'max-height 2s cubic-bezier(0.22, 1, 0.36, 1), padding 2s cubic-bezier(0.22, 1, 0.36, 1)';
-      el.style.maxHeight = '1200px';
-      el.style.padding = '2vw 2vw 2vw 2vw';
-    } else {
-      el.style.transition = 'max-height 0.8s, padding 0.8s';
-      el.style.maxHeight = '0';
-      el.style.padding = '0 2vw';
-    }
-  }, [ref, show]);
-}
-
 export function useHideMenuOnClickOutside(menuOpen: boolean, setMenuOpen: (open: boolean) => void) {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

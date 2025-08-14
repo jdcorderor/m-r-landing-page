@@ -1,24 +1,48 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import Carousel from "react-bootstrap/Carousel";
-import { groupItems, useSlidesPerView } from '@/hooks/homePageHooks';
-import DentistCard from './ui/DentistCard';
+import React, { useState, useEffect } from "react";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { NextArrowDark, PrevArrowDark } from "./ui/arrows/carouselArrows";
+
+import { Dentist } from "@/app/types/dentist";
+import DentistCard from "./ui/cards/DentistCard";
 
 export default function About({ onReady } : { onReady: () => void }) {
-  // Carousel slides per view (responsive)
-  const slidesPerView = useSlidesPerView();
-
-  // Define dentist type
-  type Dentist = {
-    id: string;
-    nombre: string;
-    apellido: string;
-    descripcion: string;
-    email: string;
-    especialidad: string;
-    telefono: string;
-    imagen_url: string;
-  }
-      
+  // Carousel settings
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2, 
+    slidesToScroll: 1,
+    nextArrow: <NextArrowDark />,
+    prevArrow: <PrevArrowDark />,
+    responsive: [
+      {
+        breakpoint: 1440,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+    ]
+  };
+       
   // State variable for dentists list
   const [dentists, setDentists] = useState<Dentist[]>([]);
       
@@ -40,30 +64,18 @@ export default function About({ onReady } : { onReady: () => void }) {
       onReady();
     })
   }, [onReady]);
-        
-  // Build dentist cards, using useMemo for render optimization
-  const dentistCards = useMemo(() => dentists.map((dentist) => (
-    <DentistCard key={dentist.id} dentist={dentist}></DentistCard>
-  )), [dentists]);
-      
-  // Build dentist carousel items, using useMemo for render optimization
-  const dentistSlides = useMemo(() => groupItems(dentistCards, slidesPerView), [dentistCards, slidesPerView]);
 
   return (
-    <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="nosotros">
-      <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Conócenos</h2>
-      <div className="w-full mt-8">
-        <Carousel className="fit-content">
-          {dentistSlides.map((group, idx) => (
-            <Carousel.Item key={idx}>
-              <div className="">
-                <div className="flex gap-5">
-                  {group}
-                </div>
-              </div>
-            </Carousel.Item>
+    <section className="flex flex-col py-6 md:py-12 gap-1" id="nosotros">
+      <h2 className="text-5xl font-bold px-5 md:px-24">Conócenos</h2>
+      <div className="w-full mt-8 px-5 md:px-20">
+        <Slider {...settings}>
+          {dentists.map((dentist, index) => (
+            <div key={index} className="md:px-4">
+              <DentistCard key={dentist.id} dentist={dentist}></DentistCard>
+            </div>
           ))}
-        </Carousel>
+        </Slider>
       </div>
     </section>
   );

@@ -1,38 +1,53 @@
 "use client";
 import React from 'react';
-import Carousel from "react-bootstrap/Carousel";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { NextArrow, PrevArrow } from "./ui/arrows/carouselArrows";
+
 import Image from 'next/image';
 
 export default function HeroSection() {
+    // Carousel settings
+    const settings = {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1, 
+      slidesToScroll: 1,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
+    };
+
+    // Slides
+    const slides = [
+      { src: "https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel1.jpg", },
+      { src: "https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel2.jpg", },
+      { src: "https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel3.jpg", },
+      { src: "https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel4.jpg", },
+    ];
+
     return (
-        <section className="flex flex-col py-12 md:py-16">
-          <div className="w-full px-[5vw] flex flex-col md:flex-row items-center gap-10">
-            <div className="flex-1 text-center md:text-left">
-              <h1 style={{ fontSize: '4rem', fontWeight: 'bold' }} className="pb-[20px]">Mavarez & Román</h1>
-              <p className="text-lg md:text-xl pb-[20px]">
-                Somos un equipo de odontólogos comprometidos con tu salud bucal. Ofrecemos servicios de alta calidad para cuidar de tu sonrisa.
-              </p>
-            </div>
+        <section className="flex flex-col py-12">
+          <div className="flex flex-col items-center gap-6 px-8">
+            <h1 className="text-6xl md:text-7xl text-center font-bold">Mavarez & Román.</h1>
+            <p className="text-lg md:text-xl text-center">
+              Somos un equipo de odontólogos comprometidos con tu salud bucal. Ofrecemos servicios de alta calidad para cuidar de tu sonrisa.
+            </p>
           </div>
-          <div className="w-full py-[35px]">
-            <Carousel className="overflow-hidden shadow-lg w-full md:h-[65vh]">
-                <Carousel.Item>
-                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel1.jpg" width={1080} height={500} alt="" className="object-cover w-full md:-translate-y-1/8" />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel2.jpg" width={1080} height={500} alt="" className="object-cover w-full top-2 md:-translate-y-1/4" />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel3.jpg" width={1080} height={500} alt="" className="object-cover w-full top-2 md:-translate-y-1/4" />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//carrusel4.jpg" width={1080} height={500} alt="" className="object-cover w-full top-2 md:-translate-y-1/8" />
-                </Carousel.Item>
-            </Carousel>
+
+          <div className="flex flex-col w-full py-16 gap-5">
+            <Slider {...settings}>
+              {slides.map((slide, index) => (
+                <div key={index} className="md:h-150">
+                  <Image src={slide.src} width={1080} height={500} alt="" className="object-cover w-full md:-translate-y-1/8" />
+                </div>
+              ))}
+            </Slider>
+
+            <a href="/login" className="w-fit text-xl text-gray-900 font-medium border-2 border-gray-200 rounded-full px-8 py-3 mx-auto">Agenda tu cita</a>
           </div>
-          <a href="/agendar" className="inline-block mx-auto px-10 py-3 text-xl md:px-10 md:py-4 md:text-2xl border rounded-[50] font-bold shadow-md text-center" style={{ textDecoration: 'none', color: 'rgb(32, 31, 31)' }}>
-            Agenda tu cita
-          </a>
         </section>
     );
 }

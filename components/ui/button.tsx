@@ -5,11 +5,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = ({ children, ...props }: ButtonProps) => (
-    <button
-        role="button"
-        {...props}
-        className={`${props.className || ""} px-4 py-2.5 font-semibold text-sm text-center duration-150 shadow-md hover:bg-gray-200 rounded-5 `}
-    >
+    <button role="button" {...props} className={`${props.className || ""} text-sm text-center font-semibold duration-150 hover:bg-gray-200`}>
         {children}
     </button>
 )

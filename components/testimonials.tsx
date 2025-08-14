@@ -1,12 +1,32 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
-import Carousel from "react-bootstrap/Carousel";
-import { useSlidesPerView, groupItems, formatDate } from '@/hooks/homePageHooks';
-import { useFormTransition } from '@/hooks/useHomePageEffects'
+import React, { useState, useRef, useEffect } from 'react';
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { NextArrow, PrevArrow } from "./ui/arrows/carouselArrows";
+
+import { Testimonial } from "@/app/types/testimonial";
+import TestimonialCard from './ui/cards/TestimonialCard';
+
 import Input from '@/components/ui/input';
 import Button from '@/components/ui/button';
-import TestimonialCard from './ui/TestimonialCard';
+import { formatDate } from '@/hooks/formatDate';
+import { useFormTransition } from '@/hooks/customEffects'
 
 export default function Testimonials({ onReady } : { onReady: () => void }) {
+    // Carousel settings
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3, 
+        slidesToScroll: 1,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+    };
+
+    // -----------------------------------------------------------------------------
+
     // State variable for toggling form
     const [showForm, setShowForm] = useState(false);
       
@@ -23,16 +43,6 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
     const [TestimonialFailedModal, setTestimonialFailedModal] = useState<boolean>(false);
 
     // -----------------------------------------------------------------------------
-    
-    // Carousel slides per view (responsive)
-    const slidesPerView = useSlidesPerView();
-    
-    // Define testimonial type and state
-    type Testimonial = {
-        comentario: string;
-        emisor: string;
-        fecha: string;
-    };
     
     // State variable for testimonials list
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -55,14 +65,6 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
             onReady();
         })
     }, [onReady]);
-    
-    // Build testimonial cards, using useMemo for render optimization
-    const testimonialCards = useMemo(() => testimonials.map((testimonial, index) => (
-        <TestimonialCard key={index} testimonial={testimonial} formatDate={formatDate}></TestimonialCard>
-    )), [testimonials]);
-    
-    // Build testimonial carousel items, using useMemo for render optimization
-    const testimonialSlides = useMemo(() => groupItems(testimonialCards, slidesPerView), [testimonialCards, slidesPerView]);
     
     // -----------------------------------------------------------------------------
     
@@ -105,53 +107,52 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
     }
     
     return (
-        <div>
-            <section className="flex flex-col py-12 md:py-16 px-[5vw]" id="testimonios">
-                <h2 style={{ fontSize: '3.2rem', fontWeight: 'bold' }}>Testimonios</h2>
-                <div className="w-full mt-8">
-                    <Carousel className="fit-content">
-                        {testimonialSlides.map((group, idx) => (
-                            <Carousel.Item key={idx}>
-                                <div className="flex gap-5">
-                                    {group}
-                                </div>
-                            </Carousel.Item>
+        <section>
+            <section className="flex flex-col py-12 gap-1" id="nosotros">
+                <h2 className="text-5xl font-bold px-24">Testimonios</h2>
+                <div className="w-full mt-8 px-20">
+                    <Slider {...settings}>
+                        {testimonials.map((testimonial, index) => (
+                            <div key={index} className="px-4">
+                                <TestimonialCard key={index} testimonial={testimonial} formatDate={formatDate}></TestimonialCard>
+                            </div>
                         ))}
-                    </Carousel>            
+                    </Slider>
                 </div>
             </section>
 
-            <section className="flex flex-col py-12 md:py-16 px-[5vw] bg-gray-100" id="comments">
-                <div className="flex">
-                    <div className="flex w-full items-center justify-between px-1 md:px-5 mb-2">
-                        <span className="items-center text-3xl md:text-5xl font-bold">Comparte tu experiencia</span>
-                        <Button
-                            className="w-[50vw] md:w-[20vw] bg-white-100 border text-gray-700"
-                            onClick={() => setShowForm(!showForm)}
-                        >
-                            {showForm ? "Cancelar" : "Agregar comentario"}
+            <section className="flex flex-col px-20 py-12 md:py-16 bg-gray-100" id="comments">
+                <div className="flex w-full justify-between items-center px-1 md:px-5 py-3">
+                    <h2 className="text-3xl md:text-5xl font-bold text-gray-800">Comparte tu experiencia</h2>
+                    <Button className="w-fit bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 transition-colors duration-200 rounded-full px-20 py-2" onClick={() => setShowForm(!showForm)}>
+                        {showForm ? "Cancelar" : "Agregar comentario"}
+                    </Button>
+                </div>
+
+                <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                    <form onSubmit={handleCommentSubmit} className="flex flex-col pt-6 gap-6">
+                    <div className="flex flex-col md:flex-row justify-between gap-6">
+                        <div className="flex flex-col w-full gap-2">
+                        <label htmlFor="sender" className="text-sm font-medium text-gray-700">Nombre y Apellido *</label>
+                        <Input id="sender" type="text" value={sender} onChange={(e) => setSender(e.target.value)} placeholder="Nombre" required className="text-sm border border-gray-300 rounded-lg "/>
+                        </div>
+
+                        <div className="flex flex-col w-full gap-2">
+                        <label htmlFor="email" className="text-sm font-medium text-gray-700">Correo electrónico *</label>
+                        <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Correo electrónico" required className="text-sm border border-gray-300 rounded-lg"/>
+                        </div>
+
+                        <div className="flex flex-col w-full gap-2">
+                        <label htmlFor="comment" className="text-sm font-medium text-gray-700">Comentario *</label>
+                        <Input id="comment" type="text" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Escribe tu comentario aquí" required className="text-sm border border-gray-300 rounded-lg"/>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center">
+                        <Button type="submit" className="w-fit bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 rounded-full transition-colors duration-200 px-20 py-2">
+                        Enviar
                         </Button>
                     </div>
-                </div>
-                <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                    <form onSubmit={ handleCommentSubmit } className="pt-8">
-                        <div className="flex flex-col md:flex-row justify-between gap-4 mb-5">
-                            <div className="flex flex-col w-full md:w-[30%]">
-                                <label className="mb-2 ml-2" htmlFor="">Nombre y Apellido *</label>
-                                <Input type="text" className="" value={ sender } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setSender(e.target.value) } placeholder="Nombre" required />
-                            </div>
-                            <div className="flex flex-col w-full md:w-[30%]">
-                                <label className="mb-2 ml-2" htmlFor="">Correo electrónico *</label>
-                                <Input type="email" className="w-full" value={ email } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value) } placeholder="Correo electrónico" required />
-                            </div>
-                            <div className="flex flex-col  w-full md:w-[30%]">
-                                <label className="mb-2 ml-2" htmlFor="">Comentario *</label>
-                                <Input type="text" className="" value={ comment } onChange={ (e: React.ChangeEvent<HTMLInputElement>) => setComment(e.target.value) } placeholder="Escribe tu comentario aquí" required></Input>
-                            </div>
-                        </div>
-                        <div className="flex flex-row justify-center">
-                            <Button type="submit" className="w-[50%] my-2 bg-white-100 border border-gray-300 hover:bg-gray-200 rounded-lg">Enviar</Button>
-                        </div>
                     </form>
                 </div>
             </section>
@@ -187,6 +188,6 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
                     </div>
                 </div>
             )}
-        </div>
+        </section>
     )
 }

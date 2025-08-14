@@ -1,17 +1,16 @@
 "use client";
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import Header from "@/components/header";
+
+import Loading from '@/components/loading';
+import Header from '@/components/header';
 import HeroSection from "@/components/herosection";
 import About from "@/components/about";
 import Services from "@/components/services";
 import Clinic from "@/components/clinic";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
-import Loading from '@/components/loading';
-import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default function Home() {
+export default function Page() {
   // State variables for loading view
   const [isLoading, setIsLoading] = useState(true);
   const [loadedSections, setloadedSections] = useState<Set<string>>(new Set());
@@ -36,13 +35,12 @@ export default function Home() {
   }, [loadedSections, memoizedRequiredSections.length]);
 
   return (
-    <main className="flex flex-col justify-start pb-[5vh] min-h-screen">
-      <div className={isLoading ? "flex justify-center items-center min-h-screen bg-white transition-opacity duration-500" : "d-none"}>
+    <main className="flex flex-col justify-start">
+      <div className={isLoading ? "flex min-h-screen bg-white justify-center items-center transition-opacity duration-500" : "hidden"}>
         <Loading />
       </div>
-      <div className={!isLoading ? "d-block" : "d-none"}>
 
-        {/* Header */}
+      <div className={!isLoading ? "" : "hidden"}>
         <Header />
 
         {/* Hero section */}
