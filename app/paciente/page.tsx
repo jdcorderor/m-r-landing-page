@@ -5,6 +5,7 @@ import Header from "@/components/alt-header";
 import { useRouter } from "next/navigation";
 import { Patient } from "../types/patient";
 import { Pencil, Clock } from "lucide-react";
+import { formatDate } from "@/hooks/formatDate";
 
 export default function Page() {
   // Router
@@ -117,7 +118,7 @@ export default function Page() {
                           <div className="text-lg font-semibold text-gray-700 mb-2">{p.nombre} {p.apellido}</div>
                           <div className="text-gray-600"><span className="font-medium">Cédula de identidad:</span> {p.cedula || "-"}</div>
                           <div className="text-gray-600"><span className="font-medium">Fecha de nacimiento:</span>{" "}
-                            {new Date(p.fecha_nacimiento).toLocaleDateString("es-VE", { day: "2-digit", month: "2-digit", year: "numeric" })}
+                            {formatDate(p.fecha_nacimiento)}
                           </div>
                           <div className="text-gray-600"><span className="font-medium">Correo electrónico:</span> {p.email}</div>
                           <div className="text-gray-600"><span className="font-medium">Teléfono:</span> {p.telefono}</div>
