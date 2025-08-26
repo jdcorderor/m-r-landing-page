@@ -91,7 +91,7 @@ export default function Page() {
                     <span className="block mx-auto font-semibold"><a href="/recuperar-credenciales" className="hover:underline">¿Olvidaste tu contraseña?</a></span>
                   </div>
                   <div className="mt-4">
-                      <button className="w-full bg-gray-200 border-3 border-gray-300 rounded-full py-2 text-sm font-bold">Iniciar sesión</button>
+                      <button className="w-full bg-gray-100 hover:bg-gray-200 border-3 border-gray-300 rounded-full py-2 text-sm font-bold">Iniciar sesión</button>
                   </div>
                   <div className="flex justify-center mt-2 text-sm">
                     <span className="text-center">¿Es tu primera reservación? <a href="/agendar" className="font-bold hover:underline">Agenda aquí</a></span>
