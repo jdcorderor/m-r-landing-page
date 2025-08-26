@@ -168,7 +168,7 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
                         </div>
                         <span className="text-xl font-semibold text-center mb-2">¡Tu testimonio ha sido enviado!</span>
                         <span className="text-center text-sm text-gray-600 my-2">Estimado paciente, gracias por compartir tu experiencia con nosotros.</span>
-                        <Button className="w-full bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg py-2 mt-2 transition" onClick={() => setTestimonialSentModal(false)}> Continuar </Button>
+                        <Button className="w-full bg-green-500 hover:bg-green-600 text-white font-medium rounded-full py-2 mt-2 transition" onClick={() => setTestimonialSentModal(false)}> Continuar </Button>
                     </div>
                 </div>
             )}
@@ -184,7 +184,7 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
                         </div>
                         <span className="text-xl font-semibold text-center mb-2">¡Ups, ha ocurrido un error!</span>
                         <span className="text-center text-sm text-gray-600 my-2">Estimado paciente, su testimonio no ha sido enviado. Por favor, intente nuevamente.</span>
-                        <Button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg py-2 mt-2 transition" onClick={() => setTestimonialFailedModal(false)}> Continuar </Button>
+                        <Button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-full py-2 mt-2 transition" onClick={() => setTestimonialFailedModal(false)}> Continuar </Button>
                     </div>
                 </div>
             )}

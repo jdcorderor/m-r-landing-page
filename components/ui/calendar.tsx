@@ -3,6 +3,13 @@ import Button from './button';
 import { NextArrow, PrevArrow } from './arrows/arrows';
 import { ConfirmedDate } from "@/app/types/date";
 
+const formatLocalDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 interface CalendarProps {
   onHandleChange: (date: string | null, hour: string | null) => void;
   confirmedDates: ConfirmedDate[] | null;
@@ -114,7 +121,11 @@ const Calendar: React.FC<CalendarProps> = ({ onHandleChange, confirmedDates, den
       const newDate = isSameDate ? null : date;
       setSelectedDate(newDate);
 
-      const formattedDate = newDate ? newDate.toISOString().split("T")[0] : null;
+      if (isSameDate) {
+        setHours([])
+      }
+
+      const formattedDate = newDate ? formatLocalDate(newDate) : null;
 
       onHandleChange(formattedDate, selectedHour);
     }
@@ -125,38 +136,38 @@ const Calendar: React.FC<CalendarProps> = ({ onHandleChange, confirmedDates, den
     const newHour = hour === selectedHour ? null : hour;
     setSelectedHour(newHour);
 
-    const formattedDate = selectedDate ? selectedDate.toISOString().split("T")[0] : null;
+    const formattedDate = selectedDate ? formatLocalDate(selectedDate) : null;
 
     onHandleChange(formattedDate, newHour);
   };
 
   return (
-    <section className="space-y-12">
-      <div className="w-full justify-center overflow-hidden space-y-4">
+    <section className="space-y-6 max-w-[600px] mx-auto">
+      <div className="justify-center overflow-hidden space-y-4">
         <div className="flex justify-between items-center px-1.5">
           <span className="text-sm text-gray-800 font-semibold">
             {(selectedDate ?? new Date()).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', })}
           </span>
 
           <div className="flex gap-2">
-            <button type="button" className="w-fit h-fit transform text-gray-300 text-2xl rounded-full cursor-pointer" onClick={() => document.querySelector('.scroll-container')?.scrollBy({ left: -192, behavior: 'smooth' })}>
+            <button type="button" className="w-fit h-fit transform text-gray-300 text-2xl rounded-full cursor-pointer" onClick={() => document.querySelector('.scroll-container')?.scrollBy({ left: -240, behavior: 'smooth' })}>
               <PrevArrow></PrevArrow>
             </button>
             
-            <button type="button" className="w-fit h-fit transform text-gray-300 text-2xl rounded-full cursor-pointer" onClick={() => document.querySelector('.scroll-container')?.scrollBy({ left: 192, behavior: 'smooth' })}>
+            <button type="button" className="w-fit h-fit transform text-gray-300 text-2xl rounded-full cursor-pointer" onClick={() => document.querySelector('.scroll-container')?.scrollBy({ left: 240, behavior: 'smooth' })}>
               <NextArrow></NextArrow>
             </button>
           </div>   
         </div>
 
-        <div className="flex w-full justify-center items-center pl-1.5">
-          <div className="w-full flex space-x-4 overflow-hidden scroll-container scroll-smooth">
+        <div className="flex justify-center items-center">
+          <div className="flex gap-3 overflow-hidden scroll-container scroll-smooth max-w-[600px]">
             {dates.map((date, index) => {
               const isSelected = selectedDate && selectedDate.getDate() === date.getDate() && selectedDate.getMonth() === date.getMonth() && selectedDate.getFullYear() === date.getFullYear();
 
               return (
                 <div key={index} id={`date-${index}`} className={`flex flex-col items-center justify-center cursor-pointer ${ isSelected ? 'font-semibold' : '' }`} onClick={() => handleDateSelect(date)}>
-                  <div className={`flex w-12 h-12 rounded-full justify-center items-center ${ isSelected ? "bg-[#003366] text-white" : "" } ${ formatWeekday(date) === "Dom" ? "bg-gray-300" : "" } ${ !isSelected && formatWeekday(date) != "Dom" ? "bg-gray-100 text-gray-800 border-3 border-gray-300 hover:bg-gray-300" : ""}`}>
+                  <div className={`flex w-12 h-12 rounded-full justify-center items-center ${ isSelected ? "bg-blue-600 text-white" : "" } ${ formatWeekday(date) === "Dom" ? "bg-gray-300" : "" } ${ !isSelected && formatWeekday(date) != "Dom" ? "bg-gray-100 text-gray-800 border-3 border-gray-300 hover:bg-gray-300" : ""}`}>
                     {formatDay(date)}
                   </div>
                   <span className="text-xs text-gray-500 my-1">
@@ -173,7 +184,7 @@ const Calendar: React.FC<CalendarProps> = ({ onHandleChange, confirmedDates, den
           {hours.map((hour, index) => {
             return (
               <div key={index}>
-                <Button key={index} type="button" className={`${hour === selectedHour ? "border-[#003366]" : "border-gray-200"} w-full bg-white border-3 shadow-none py-1`} onClick={() => handleHourSelect(hour)}>     
+                <Button key={index} type="button" className={`w-full ${hour === selectedHour ? "border-blue-600" : "border-gray-200"} bg-white border-3 rounded-full shadow-none py-1`} onClick={() => handleHourSelect(hour)}>     
                   <span className="text-sm">{hour}</span>
                 </Button>
               </div>
