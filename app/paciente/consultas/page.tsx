@@ -138,7 +138,6 @@ export default function Page() {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="sticky top-0 bg-gray-100">
                                         <tr>
-                                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">N° Consulta</th>
                                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Fecha</th>
                                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Especialista</th>
                                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Diagnóstico</th>
@@ -150,8 +149,7 @@ export default function Page() {
                                     <tbody className="bg-white divide-y divide-gray-200">
                                         {filteredConsultations.map((c, index) => (
                                             <tr key={index} className="hover:bg-gray-50 text-sm">
-                                                <td className="px-4 py-3 text-sm">{c.codigo || "-"}</td>
-                                                <td className="px-4 py-3 text-sm">{c.fecha ? formatDate(c.fecha) : "-"}</td>
+                                                <td className="px-4 py-3 text-sm">{c.fecha ? formatDate(c.fecha).split(", ")[0] : "-"}</td>
                                                 <td className="px-4 py-3 text-sm">Od. {c.especialista || "-"}</td>
                                                 <td className="px-4 py-3 text-sm max-w-md truncate">{c.diagnostico.join(", ") || "-"}</td>
                                                 <td className="px-4 py-3 text-sm max-w-md truncate">{c.tratamiento.join(", ") || "-"}</td>
