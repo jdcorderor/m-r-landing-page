@@ -13,16 +13,35 @@ import Button from '@/components/ui/button';
 import { formatDate } from '@/hooks/formatDate';
 import { useFormTransition } from '@/hooks/customEffects'
 
+// Hook for calculating window width
+function useWindowWidth() {
+  const [width, setWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 1024);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+}
+
 export default function Testimonials({ onReady } : { onReady: () => void }) {
     // Carousel settings
+    const windowWidth = useWindowWidth();
+
+    const slidesToShow = windowWidth <= 768 ? 1 : 3;
+    const arrowsVisibility = windowWidth > 700;
+
     const settings = {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 3, 
+        slidesToShow,
         slidesToScroll: 1,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
+        adaptiveHeight: true,
+        nextArrow: arrowsVisibility ? <NextArrow /> : undefined,
+        prevArrow: arrowsVisibility ? <PrevArrow /> : undefined,
     };
 
     // -----------------------------------------------------------------------------
@@ -108,12 +127,13 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
     
     return (
         <section>
-            <section className="flex flex-col py-12 gap-1" id="nosotros">
-                <h2 className="text-5xl font-bold px-24">Testimonios</h2>
-                <div className="w-full mt-8 px-20">
+            <section className="flex flex-col pt-18 md:pt-24 pb-12" id="testimonios">
+                <h2 className="text-4xl md:text-5xl text-center font-bold px-10 mb-8 md:mb-14">Historias reales, sonrisas que inspiran.</h2>
+                
+                <div className="w-full px-5 md:px-20">
                     <Slider {...settings}>
                         {testimonials.map((testimonial, index) => (
-                            <div key={index} className="px-4">
+                            <div key={index} className="w-full px-1 md:px-4">
                                 <TestimonialCard key={index} testimonial={testimonial} formatDate={formatDate}></TestimonialCard>
                             </div>
                         ))}
@@ -121,38 +141,38 @@ export default function Testimonials({ onReady } : { onReady: () => void }) {
                 </div>
             </section>
 
-            <section className="flex flex-col px-20 py-12 md:py-16 bg-gray-100" id="comments">
-                <div className="flex w-full justify-between items-center px-1 md:px-5 py-3">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-800">Comparte tu experiencia</h2>
+            <section className="flex flex-col px-5 md:px-20 py-12 md:py-16 bg-gray-100 mt-8" id="comments">
+                <div className="flex flex-col md:flex-row w-full justify-between items-center px-1 md:px-5 py-6 md:py-3 gap-8">
+                    <h2 className="text-4xl md:text-5xl font-bold text-center md:text-left text-gray-800">Comparte tu experiencia</h2>
                     <Button className="w-fit bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 transition-colors duration-200 rounded-full px-20 py-2" onClick={() => setShowForm(!showForm)}>
-                        {showForm ? "Cancelar" : "Agregar comentario"}
+                        {showForm ? "Cancelar" : "Enviar testimonio"}
                     </Button>
                 </div>
 
                 <div id="comments-form" ref={formRef} className={`transition-all duration-500 ease-in-out overflow-hidden ${showForm ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                    <form onSubmit={handleCommentSubmit} className="flex flex-col pt-6 gap-6">
-                    <div className="flex flex-col md:flex-row justify-between gap-6">
-                        <div className="flex flex-col w-full gap-2">
-                        <label htmlFor="sender" className="text-sm font-medium text-gray-700">Nombre y Apellido *</label>
-                        <Input id="sender" type="text" value={sender} onChange={(e) => setSender(e.target.value)} placeholder="Nombre" required className="text-sm border border-gray-300 rounded-lg "/>
+                    <form onSubmit={handleCommentSubmit} className="flex flex-col pt-8 gap-6 border-t-1 border-gray-200 md:border-t-0">
+                        <div className="flex flex-col md:flex-row justify-between gap-6">
+                            <div className="flex flex-col w-full gap-2">
+                                <label htmlFor="sender" className="text-sm font-medium text-gray-700">Nombre y Apellido *</label>
+                                <Input id="sender" type="text" value={sender} onChange={(e) => setSender(e.target.value)} placeholder="Nombre" required className="text-sm border border-gray-300 rounded-lg "/>
+                            </div>
+
+                            <div className="flex flex-col w-full gap-2">
+                                <label htmlFor="email" className="text-sm font-medium text-gray-700">Correo electrónico *</label>
+                                <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Correo electrónico" required className="text-sm border border-gray-300 rounded-lg"/>
+                            </div>
+
+                            <div className="flex flex-col w-full gap-2">
+                                <label htmlFor="comment" className="text-sm font-medium text-gray-700">Comentario *</label>
+                                <Input id="comment" type="text" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Escribe tu comentario aquí" required className="text-sm border border-gray-300 rounded-lg"/>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col w-full gap-2">
-                        <label htmlFor="email" className="text-sm font-medium text-gray-700">Correo electrónico *</label>
-                        <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Correo electrónico" required className="text-sm border border-gray-300 rounded-lg"/>
+                        <div className="flex justify-center">
+                            <Button type="submit" className="w-fit bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 rounded-full transition-colors duration-200 px-20 py-2">
+                                Enviar
+                            </Button>
                         </div>
-
-                        <div className="flex flex-col w-full gap-2">
-                        <label htmlFor="comment" className="text-sm font-medium text-gray-700">Comentario *</label>
-                        <Input id="comment" type="text" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Escribe tu comentario aquí" required className="text-sm border border-gray-300 rounded-lg"/>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-center">
-                        <Button type="submit" className="w-fit bg-white border border-gray-300 text-gray-700 hover:bg-gray-200 rounded-full transition-colors duration-200 px-20 py-2">
-                        Enviar
-                        </Button>
-                    </div>
                     </form>
                 </div>
             </section>

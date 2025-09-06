@@ -29,7 +29,7 @@ export default function HeroSection() {
     ];
 
     return (
-        <section className="flex flex-col py-12">
+        <section className="flex flex-col pt-12">
           <div className="flex flex-col items-center gap-6 px-8">
             <h1 className="text-6xl md:text-7xl text-center font-bold">Mavarez & Román.</h1>
             <p className="text-lg md:text-xl text-center">
@@ -37,7 +37,7 @@ export default function HeroSection() {
             </p>
           </div>
 
-          <div className="flex flex-col w-full py-16 gap-5">
+          <div className="flex flex-col w-full pt-16 pb-4 gap-5">
             <Slider {...settings}>
               {slides.map((slide, index) => (
                 <div key={index} className="md:h-150">

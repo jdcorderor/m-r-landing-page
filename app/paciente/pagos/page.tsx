@@ -174,11 +174,10 @@ export default function Page() {
                             </div>
                         </div>
 
-
                         <div className="bg-white py-1 space-y-2">
                             <Input className="border border-gray-300 text-sm font-medium shadow-none" placeholder="ej. Pedro Pérez | 01/01/2025" type="text" value={searchTerm} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}></Input>
-                            <div className={`overflow-x-auto duration-500 max-h-[60vh]`}>
-                                <table className="min-w-full divide-y divide-gray-200">
+                            <div className={`w-full overflow-x-auto duration-500 max-h-[60vh]`}>
+                                <table className="min-w-[900px] md:min-w-full divide-y divide-gray-200">
                                     <thead className="sticky top-0 bg-gray-100">
                                         <tr>
                                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">N° Consulta</th>

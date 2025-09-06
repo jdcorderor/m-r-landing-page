@@ -116,7 +116,7 @@ export default function Page() {
     <section>
       <Header />
 
-      <div className="flex flex-col max-w-xl bg-gray-100 rounded-2xl p-16 mx-auto my-16">
+      <div className="flex flex-col max-w-xl md:bg-gray-100 rounded-2xl p-8 md:p-16 mx-auto md:my-16">
 
         <div className="flex flex-col gap-4 text-sm">
           <form action="submit" onSubmit={ handlePasswordChange }>

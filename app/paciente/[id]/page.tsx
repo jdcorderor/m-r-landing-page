@@ -118,6 +118,19 @@ export default function Page() {
     };
 
     // --------------------------------------------------------------------------
+    
+    // Additional state variables
+    const [isApple, setIsApple] = useState(false);
+    
+    // OS detector
+    useEffect(() => {
+        const ua = window.navigator.userAgent;
+        if (/iPad|iPhone|iPod|Macintosh/.test(ua)) {
+            setIsApple(true);
+        }
+    }, []);
+
+    // --------------------------------------------------------------------------
 
     // Verify user variable
     if (user.username === "") return null;
@@ -134,7 +147,7 @@ export default function Page() {
                 <div className="flex flex-col items-center justify-center w-full">
                     <Header />
 
-                    <div className="w-full max-w-4xl bg-gray-50 border border-gray-200 rounded-lg my-10">
+                    <div className="w-full max-w-4xl md:bg-gray-50 md:border border-gray-200 rounded-lg md:my-10">
 
                         <main className="flex flex-col w-full gap-4 py-12">
                             <h1 className="text-2xl font-bold text-gray-800 text-center">Actualización de Datos</h1>
@@ -159,7 +172,8 @@ export default function Page() {
 
                                         <div className="flex flex-col flex-1 gap-1">
                                             <label htmlFor="fecha-nacimiento" className="font-semibold">Fecha de nacimiento *</label>
-                                            <Input id="fecha-nacimiento" required type="date" placeholder="Fecha de nacimiento" max={new Date().toISOString().split("T")[0]} className="border-gray-300" value={patient.fecha_nacimiento?.split("T")[0] ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPatient(prev => ({ ...(prev ?? {}), fecha_nacimiento: e.target.value }))} />
+                                            <input id="fecha-nacimiento" required type="date" placeholder="Fecha de nacimiento" className={`bg-white text-gray-700 border border-gray-300 rounded-lg outline-none px-3 py-2 ${isApple ? "h-9 md:h-10" : "w-full"}`}
+                                            value={patient.fecha_nacimiento ?? ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPatient(prev => ({ ...(prev ?? {}), fecha_nacimiento: e.target.value }))} max={new Date().toISOString().split('T')[0]} lang="es" inputMode="numeric" pattern="\d{2}/\d{2}/\d{4}"/>
                                         </div>
                                                     
                                         <div className="flex flex-col flex-1 gap-1">

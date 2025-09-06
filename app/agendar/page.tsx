@@ -210,10 +210,10 @@ export default function Page() {
           <Header />
 
           <div>  
-            <div className={`${view === 0 ? "flex flex-col": "hidden"} w-full max-w-2xl bg-gray-100 rounded-2xl px-2 py-12 space-y-8 mx-auto my-24 text-center`}>
+            <div className={`${view === 0 ? "flex flex-col": "hidden"} w-full max-w-2xl md:bg-gray-100 rounded-2xl md:px-2 md:py-12 space-y-8 mx-auto my-10 md:my-24 text-center`}>
               <span className="block text-2xl text-center font-bold">Agendar</span>
                 
-              <p className="text-center text-sm px-14">
+              <p className="text-center text-sm px-8 md:px-14">
                     En la clínica odontológica <strong>Mavarez & Román</strong>, la experiencia de nuestros usuarios es nuestra prioridad. Para agendar su cita, complete el siguiente formulario. 
                     <br /><br />
                     Se le solicitarán sus datos personales. Una vez finalizado el proceso, se le enviará un correo electrónico con sus credenciales, a la dirección que usted proporcione. 
@@ -226,7 +226,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className={`${view === 1 ? "flex flex-col": "hidden"} w-full max-w-4xl bg-gray-100 rounded-2xl p-16 space-y-8 mx-auto my-16`}>
+            <div className={`${view === 1 ? "flex flex-col": "hidden"} w-full max-w-4xl md:bg-gray-100 rounded-2xl p-8 md:p-16 space-y-8 mx-auto my-2 md:my-16`}>
               <form onSubmit={ handleSubmit }>
                 <div className={`${page === 0 ? "flex flex-col gap-4 text-sm" : "hidden" }`}>
                   <fieldset className="block space-y-4">
@@ -350,7 +350,7 @@ export default function Page() {
                   <fieldset className="block space-y-4">
                     <legend className="text-lg font-bold text-gray-800 pb-4">Seleccione la fecha de la reservación</legend>
 
-                    <div className="block overflow-hidden">
+                    <div className="block overflow-hidden max-w-xs md:max-w-sm landscape:max-w-full">
                       <Calendar onHandleChange={ handleDatetimeSelect } confirmedDates={ confirmedDates } dentistID={ (dentist != null) ? dentists[dentist].id : null }/> 
                     </div>
 
@@ -395,7 +395,7 @@ export default function Page() {
                     <div className="flex flex-col w-full justify-center gap-6">
                       <div>
                         <h3 className="flex pb-2 text-base text-gray-800 font-bold">Datos personales</h3>
-                        <div className="grid grid-cols-2">
+                        <div className="grid md:grid-cols-2">
                           <p><b>Paciente:</b> {name} {lastName}</p>
                           <p><b>Cédula de identidad:</b> {id}</p>
                           <p><b>Fecha de nacimiento:</b> {birthDate?.split("-")[2]}-{birthDate?.split("-")[1]}-{birthDate?.split("-")[0]}</p>

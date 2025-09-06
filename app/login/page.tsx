@@ -73,9 +73,9 @@ export default function Page() {
     <section>
         <Header />
 
-        <div className="flex flex-col max-w-md bg-gray-100 rounded-2xl p-16 mx-auto my-16">
+        <div className="flex flex-col max-w-xs md:max-w-md md:bg-gray-100 rounded-2xl p-4 md:p-16 mx-auto my-8 md:my-16">
             <div className="block w-full justify-center space-y-8 text-gray-800">
-                <span className="block text-3xl text-center font-bold">Iniciar sesión</span>
+                <span className="block text-2xl md:text-3xl text-center font-bold">Iniciar sesión</span>
 
                 <form onSubmit={ handleLogin } className="flex flex-col mx-auto gap-5">
 

@@ -127,15 +127,15 @@ export default function Page() {
                         
                         {(patients && patients?.length > 0) && (<div className="w-fit border-2 border-gray-200 rounded-3xl shadow-sm mb-4">
                                 {patients?.map((p, index) => (
-                                    <button key={index} className={`text-sm px-4 py-2 border-gray-300  ${(selectedPatient === p.id) ? "bg-gray-200 rounded-3xl" : ""}`} onClick={ () => { setSelectedPatient(p.id) } }>{p.nombre} {p.apellido.split(" ")[0]}</button>
+                                    <button key={index} className={`text-sm px-4 py-2 border-gray-300  ${(selectedPatient === p.id) ? "bg-gray-200 rounded-3xl" : ""}`} onClick={ () => { setSelectedPatient(p.id) } }>{p.nombre.split(" ")[0]} {p.nombre.split(" ")[1] ? ` ${p.nombre.split(" ")[1][0]}.` : ''} {p.apellido.split(" ")[0]}</button>
                                 ))}
                             </div>
                         )}
 
                         <div className="bg-white py-1 space-y-2">
                             <Input className="border border-gray-300 text-sm font-medium shadow-none" placeholder="ej. Od. Ramón Mavarez | 01/01/2025" type="text" value={searchTerm} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}></Input>
-                            <div className={`overflow-x-auto duration-500 max-h-[60vh]`}>
-                                <table className="min-w-full divide-y divide-gray-200">
+                            <div className={`w-full overflow-x-auto duration-500 max-h-[60vh]`}>
+                                <table className="min-w-[1400px] md:min-w-full divide-y divide-gray-200">
                                     <thead className="sticky top-0 bg-gray-100">
                                         <tr>
                                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Fecha</th>

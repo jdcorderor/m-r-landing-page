@@ -125,11 +125,11 @@ export default function Page() {
                         </div>
 
                         <div className="flex w-full justify-center gap-2 mt-8">
-                          <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2 rounded-full gap-2" title="Editar" onClick={() => router.push(`paciente/${p.paciente_id}`)}>
-                            <Pencil className="w-4 h-4" /> Actualizar datos
+                          <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-medium px-5 py-2 rounded-full gap-1 md:gap-2" title="Editar" onClick={() => router.push(`paciente/${p.paciente_id}`)}>
+                            <Pencil className="w-3 md:w-4 h-3 md:w-4" /> Actualizar datos
                           </button>
-                          <button className="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium px-5 py-2 rounded-full gap-2" title="Agendar" onClick={() => router.push(`paciente/agendar/${p.paciente_id}`)}>
-                            <Clock className="w-5 h-5" /> Agendar cita
+                          <button className="flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 text-xs md:text-sm font-medium px-5 py-2 rounded-full gap-1 md:gap-2" title="Agendar" onClick={() => router.push(`paciente/agendar/${p.paciente_id}`)}>
+                            <Clock className="w-3 md:w-4 h-3 md:h-4" /> Agendar cita
                           </button>
                         </div>
                       </div>

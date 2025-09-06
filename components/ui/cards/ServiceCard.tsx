@@ -20,13 +20,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
                     <Image src={service.imagen_url} alt={service.nombre} className="w-full object-cover rounded-t-lg" width={320} height={160}/>
                 </div>
 
-                <div className="flex flex-col px-12 py-8 gap-4">
+                <div className="flex flex-col p-8 gap-4">
                     <span className="text-2xl font-semibold text-gray-700">{service.nombre}</span>
-                    <p className="text-gray-700 text-justify">{service.descripcion}</p>                
+                    <p className="text-gray-700 font-light">{service.descripcion}</p>                
                     
                     <div>
                         {service.caracteristicas && service.caracteristicas.length > 0 && (
-                            <ul className="list-none text-gray-600 text-[0.8rem] md:text-sm">
+                            <ul className="list-none text-gray-600 text-[0.8rem] md:text-sm font-light">
                                 {service.caracteristicas.map((caracteristica, idx) => (
                                 <li key={idx}>- {caracteristica}</li>
                                 ))}

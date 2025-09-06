@@ -16,7 +16,7 @@ export default function Header() {
     { href: "/#servicios", label: "Servicios" },
     { href: "/#consultorio", label: "Consultorio" },
     { href: "/#testimonios", label: "Testimonios" },
-    { href: "/Mavarez & Román - Manual de Usuario", label: "Documentación" },
+    { href: "/Mavarez & Román - Manual de Usuario.pdf", label: "Documentación" },
     { href: "/paciente", label: "Agenda tu cita" },
   ]
 
@@ -29,9 +29,13 @@ export default function Header() {
 
         <nav className="hidden md:flex gap-8 text-sm">
           {routes.map((route) => (
-            <Link key={route.href} href={route.href}>
-              {route.label}
-            </Link>
+            route.href.endsWith(".pdf") ? (
+              <a key={route.href} href={route.href} target="_blank" rel="noopener noreferrer">{route.label}</a>
+            ) : (
+              <Link key={route.href} href={route.href}>
+                {route.label}
+              </Link>
+            )
           ))}
         </nav>
         
@@ -43,9 +47,13 @@ export default function Header() {
           <SheetContent>
             <nav className="flex flex-col gap-4 my-8">
               {routes.map((route) => (
-                <Link key={route.href} href={route.href} className="text-lg text-white" onClick={() => setIsOpen(false)}>
-                  {route.label}
-                </Link>
+                route.href.endsWith(".pdf") ? (
+                  <a key={route.href} href={route.href} className="text-lg text-white" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">{route.label}</a>
+                ) : (
+                  <Link key={route.href} href={route.href} className="text-lg text-white" onClick={() => setIsOpen(false)}>
+                    {route.label}
+                  </Link>
+                )
               ))}
             </nav>
           </SheetContent>

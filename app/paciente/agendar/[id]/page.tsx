@@ -222,7 +222,7 @@ export default function Page() {
                 <div className="flex flex-col items-center justify-center w-full">
                     <Header />
 
-                    <div className="flex flex-col w-full max-w-4xl bg-gray-100 rounded-2xl p-16 mx-auto my-16"> 
+                    <div className="flex flex-col w-full max-w-4xl md:bg-gray-100 rounded-2xl p-8 md:p-16 mx-auto md:my-16"> 
                         <form onSubmit={ handleSubmit }>
                             <div className={`${page === 0 ? "block w-full max-w-4xl text-sm" : "hidden" }`}>
                                 <fieldset className="block space-y-4">
@@ -256,7 +256,7 @@ export default function Page() {
                                 <fieldset className="block space-y-4">
                                     <legend className="text-lg font-bold text-gray-800 pb-4">Seleccione la fecha de la reservación</legend>
 
-                                    <div className="block overflow-hidden">
+                                    <div className="block overflow-hidden max-w-xs md:max-w-sm landscape:max-w-full">
                                         <Calendar onHandleChange={ handleDatetimeSelect } confirmedDates={ confirmedDates } dentistID={ (dentist != null) ? dentists[dentist].id : null }/> 
                                     </div>
 

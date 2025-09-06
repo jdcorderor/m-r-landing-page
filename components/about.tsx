@@ -8,40 +8,38 @@ import { NextArrowDark, PrevArrowDark } from "./ui/arrows/carouselArrows";
 import { Dentist } from "@/app/types/dentist";
 import DentistCard from "./ui/cards/DentistCard";
 
+// Hook for calculating window width
+function useWindowWidth() {
+  const [width, setWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 1024);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+}
+
 export default function About({ onReady } : { onReady: () => void }) {
   // Carousel settings
+  const windowWidth = useWindowWidth();
+
+  const slidesToShow = windowWidth <= 768 ? 1 : 2;
+  const arrowsVisibility = windowWidth > 700;
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2, 
+    slidesToShow,
     slidesToScroll: 1,
-    nextArrow: <NextArrowDark />,
-    prevArrow: <PrevArrowDark />,
-    responsive: [
-      {
-        breakpoint: 1440,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 700,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      },
-    ]
+    adaptiveHeight: true,
+    nextArrow: arrowsVisibility ? <NextArrowDark /> : undefined,
+    prevArrow: arrowsVisibility ? <PrevArrowDark /> : undefined,
   };
+
+  // ---------------------------------------------------------------------
        
   // State variable for dentists list
   const [dentists, setDentists] = useState<Dentist[]>([]);
@@ -66,16 +64,19 @@ export default function About({ onReady } : { onReady: () => void }) {
   }, [onReady]);
 
   return (
-    <section className="flex flex-col py-6 md:py-12 gap-1" id="nosotros">
-      <h2 className="text-5xl font-bold px-5 md:px-24">Conócenos</h2>
-      <div className="w-full mt-8 px-5 md:px-20">
-        <Slider {...settings}>
-          {dentists.map((dentist, index) => (
-            <div key={index} className="md:px-4">
-              <DentistCard key={dentist.id} dentist={dentist}></DentistCard>
-            </div>
-          ))}
-        </Slider>
+    <section className="flex flex-col pt-24 md:pt-24 pb-12" id="nosotros">
+      <h2 className="text-4xl md:text-5xl text-center font-bold px-10 mb-8 md:mb-14">Conoce a nuestro equipo de especialistas.</h2>
+
+      <div className="w-full px-5 md:px-20">
+        {dentists.length > 0 && (
+          <Slider {...settings}>
+            {dentists.map((dentist) => (
+              <div key={dentist.id} className="w-full px-1 md:px-4">
+                <DentistCard dentist={dentist} />
+              </div>
+            ))}
+          </Slider>
+        )}
       </div>
     </section>
   );
