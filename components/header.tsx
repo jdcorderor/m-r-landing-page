@@ -16,6 +16,7 @@ export default function Header() {
     { href: "/#servicios", label: "Servicios" },
     { href: "/#consultorio", label: "Consultorio" },
     { href: "/#testimonios", label: "Testimonios" },
+    { href: "/Mavarez & Román - Manual de Usuario", label: "Documentación" },
     { href: "/paciente", label: "Agenda tu cita" },
   ]
 

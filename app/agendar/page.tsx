@@ -472,7 +472,7 @@ export default function Page() {
                             </svg>
                           </div>
                           <span className="text-xl font-semibold text-center">¡Su cita ha sido procesada!</span>
-                          <span className="text-center text-sm text-gray-600">Estimado paciente, su cita ha sido procesada exitosamente. <strong> Una vez que sea confirmada, le será enviado un correo electrónico. </strong> <br /><br /> Ante cualquier duda, comuníquese con atención al cliente: <strong> 04XX-XXXXXXX </strong></span>
+                          <span className="text-center text-sm text-gray-600">Estimado paciente, su cita ha sido procesada exitosamente. <strong> Una vez que sea confirmada, le será enviado un correo electrónico. </strong> <br /><br /> Ante cualquier duda, comuníquese con atención al cliente: <strong> 0414-4206322 </strong></span>
                           <Button className="w-full bg-green-300 hover:bg-green-400 rounded-full py-2 my-2" onClick={() => { setShowSentModal(false); router.push("/login") }}> 
                             Continuar 
                           </Button>
@@ -490,7 +490,7 @@ export default function Page() {
                             </svg>
                           </div>
                           <span className="text-xl font-semibold text-center">¡Ups, ha ocurrido un error!</span>
-                          <span className="text-center text-sm text-gray-600">{errorMessage || "Estimado usuario, ha ocurrido un error inesperado. Por favor, intente nuevamente."} <br /><br />Si el problema persiste, comuníquese con atención al cliente: <strong> 04XX-XXXXXXX </strong></span>
+                          <span className="text-center text-sm text-gray-600">{errorMessage || "Estimado usuario, ha ocurrido un error inesperado. Por favor, intente nuevamente."} <br /><br />Si el problema persiste, comuníquese con atención al cliente: <strong> 0414-4206322 </strong></span>
                           <Button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-full py-2 my-2 transition" onClick={() => { setShowFailModal(false); setView(0); setPage(0); }}> 
                             Continuar 
                           </Button>

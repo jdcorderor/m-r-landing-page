@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export default function Clinic() {
     return (
-      <section className="flex flex-col px-24 py-12 gap-1" id="consultorio">
-        <h2 className="text-5xl font-bold ">Consultorio</h2>
+      <section className="flex flex-col py-12 gap-1" id="consultorio">
+        <h2 className="text-5xl font-bold px-5 md:px-24">Consultorio</h2>
         
         <div className="w-full grid grid-cols-1 md:grid-cols-2 mt-8 gap-12">
           <div className="flex flex-col gap-6">
-            <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage//consultorio.jpg" alt="Consultorio" width={500} height={300} className="w-full h-90 object-cover rounded-lg"/>
+            <Image src="https://xhhlwhpqpjpkjvvekqbl.supabase.co/storage/v1/object/public/landingpage/consultorio.jpeg" alt="Consultorio" width={500} height={300} className="w-full h-90 object-cover rounded-lg"/>
             <div className="flex flex-col gap-2">
               <h4 className="text-lg font-bold">C.C. El Parral, Piso 1, Oficina 116</h4>
               <p className="">Horario: 8:00 AM a 2:00 PM</p>
