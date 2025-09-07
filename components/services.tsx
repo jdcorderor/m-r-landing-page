@@ -35,6 +35,9 @@ export default function Services({ onReady } : { onReady: () => void }) {
         slidesToShow,
         slidesToScroll: 1,
         adaptiveHeight: true,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        pauseOnHover: true,
         nextArrow: arrowsVisibility ? <NextArrow /> : undefined,
         prevArrow: arrowsVisibility ? <PrevArrow /> : undefined,
     };

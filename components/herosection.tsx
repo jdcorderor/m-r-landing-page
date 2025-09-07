@@ -16,6 +16,9 @@ export default function HeroSection() {
       speed: 500,
       slidesToShow: 1, 
       slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      pauseOnHover: true,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
     };
